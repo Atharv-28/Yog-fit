@@ -2,12 +2,14 @@ import React from "react";
 import { StyleSheet, View, Text, Image, ScrollView } from "react-native";
 // import CircularProgress from "react-native-circular-progress-indicator";
 import Card from "../components/card";
-import BottomNav from "../components/bottomNav";
+import Welcome from "../components/welcome";
+
 const Home = () => {
   return (
     <View style={styles.container}>
-      <View style={styles.div}></View>
-
+      <View style={styles.div}>
+        <Welcome style={styles.Welcome} />
+      </View>
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
@@ -32,6 +34,13 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%",
     borderWidth: 2,
+  },
+  Welcome: {
+    height: 80,
+    width: 300,
+    flex: 0.1,
+    borderColor: "blue",
+    borderWidth: 4,
   },
   image: {
     height: 50,
