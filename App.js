@@ -1,19 +1,34 @@
-import React from 'react';
-import {Text, View, SafeAreaView, StyleSheet } from 'react-native';
-import Profile from './components/profile';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import Home from './components/Home';
-const Stack = createStackNavigator();
+import React from "react";
+import {
+  Text,
+  View,
+  SafeAreaView,
+  StyleSheet,
+  Platform,
+  StatusBar,
+} from "react-native";
+import Profile from "./src/pages/profile";
+import Home from "./src/pages/home";
+import BottomNav from "./src/components/bottomNav";
 
 const App = () => {
   return (
-    <SafeAreaView>
-        
+    <SafeAreaView style={styles.home}>
+      <Home />
+      <BottomNav style={styles.nav} />
     </SafeAreaView>
-
   );
 };
 
+const styles = StyleSheet.create({
+  home: {
+    height: "92%",
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+  },
+  nav: {
+    position: "absolute",
+    bottom: 0,
+  },
+});
 
 export default App;
