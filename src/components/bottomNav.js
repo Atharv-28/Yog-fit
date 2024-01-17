@@ -11,10 +11,7 @@ const BottomNav = () => {
   return (
     <View style={styles.btm}>
       <View style={styles.btm1}>
-        <Pressable
-          style={styles.pr}
-          onPress={() => navigation.navigate("Profile")}
-        >
+        <Pressable style={styles.pr}>
           <Image
             source={{
               uri: "https://cdn-icons-png.flaticon.com/512/1946/1946436.png",
@@ -52,17 +49,18 @@ const BottomNav = () => {
 };
 const styles = StyleSheet.create({
   btm: {
-    borderColor: "green",
-    borderWidth: 2,
     height: "10%",
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
   },
   image2: {
     height: 40,
     width: 40,
   },
 });
+
 export default BottomNav;

@@ -33,14 +33,11 @@ const styles = StyleSheet.create({
   container: {
     height: "100%",
     width: "100%",
-    borderWidth: 2,
   },
   Welcome: {
     height: 80,
     width: 300,
     flex: 0.1,
-    borderColor: "blue",
-    borderWidth: 4,
   },
   image: {
     height: 50,

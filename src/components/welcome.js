@@ -4,7 +4,7 @@ import React from "react";
 const Welcome = () => {
   return (
     <View style={styles.welt}>
-      <Text>Welcome Back Shravan !!</Text>
+      <Text style={styles.Text}>Welcome Back Shravan !! </Text>
       <Image
         source={{
           uri: "https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w1200/2023/10/free-images.jpg",
@@ -17,16 +17,21 @@ const Welcome = () => {
 
 const styles = StyleSheet.create({
   image: {
-    height: 50,
-    width: 50,
+    height: 45,
+    width: 45,
+    borderRadius: 50,
+    marginRight: 10,
+  },
+  Text: {
+    fontSize: 20,
+    fontWeight: "bold",
   },
   welt: {
-    width: "100%",
-    height: 60,
-    borderWidth: 2,
     flexDirection: "row",
-    justifyContent: "space-evenly",
     alignItems: "center",
+    justifyContent: "space-evenly",
+    width: "100%",
+    height: 50,
   },
 });
 

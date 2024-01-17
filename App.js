@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
   nav: {
-    flex: 0.2,
-    borderColor: "blue",
+    position: "absolute",
+    bottom: 0,
   },
 });
 

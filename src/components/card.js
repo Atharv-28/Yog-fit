@@ -1,5 +1,6 @@
 import { Text, View, StyleSheet, Image } from "react-native";
 import React from "react";
+// import CircularProgress from "react-native-circular-progress-indicator";
 
 const card = () => {
   return (
