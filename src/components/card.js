@@ -2,31 +2,19 @@ import { Text, View, StyleSheet, Image } from "react-native";
 import React, { useState, useEffect } from "react";
 import CircularProgress from "react-native-circular-progress-indicator";
 import generateUniqueColors from "../utils/generateUniqueColors";
+import SmallTab from "./smallTab";
 
 const card = ({ color }) => {
   return (
     <>
       <View style={[styles.card, { backgroundColor: color }]}>
-        <View style={styles.et}>
+        <View style={styles.cardLeft}>
           <View style={styles.ex}>
             <Text style={styles.e2}>Excercise</Text>
           </View>
-
-          <View style={styles.tt}>
-            <Text style={styles.e1}>Beginer</Text>
-            <View style={styles.days}>
-              <Text style={styles.e11}>7 days</Text>
-              <Image
-                source={{
-                  uri: "https://cdn-icons-png.flaticon.com/512/599/599502.png",
-                }}
-                style={styles.fire}
-              />
-            </View>
-            <Text style={styles.e1}>23 days Left</Text>
-          </View>
+          <SmallTab />
         </View>
-        <View style={styles.pb}>
+        <View style={styles.accuracy}>
           <CircularProgress value={30} radius={45} width={10} />
         </View>
       </View>
@@ -55,6 +43,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     flexDirection: "row",
     justifyContent: "space-evenly",
+    alignItems: "center",
   },
   sdiv1: {
     borderWidth: 2,
@@ -65,57 +54,21 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
   },
-  et: {
+  cardLeft: {
     borderRadius: 30,
-    height: "100%",
-    width: "60%",
+    height: 120,
+    width: "55%",
     flexDirection: "column",
     justifyContent: "space-evenly",
     alignItems: "flex-start",
     marginLeft: 10,
   },
-
-  tt: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "flex-start",
-  },
-  e1: {
-    borderColor: "red",
-    borderWidth: 2,
-    height: 30,
-    fontSize: 10,
-    width: 60,
-    borderRadius: 50,
-    textAlignVertical: "center",
-    textAlign: "center",
-    marginLeft: 5,
-  },
   e2: {
-    fontSize: 30,
-  },
-  e11: {
-    fontSize: 10,
-  },
-  days: {
+    fontSize: 23,
     marginLeft: 5,
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    borderColor: "red",
-    borderWidth: 2,
-    height: 30,
-    fontSize: 10,
-    width: 70,
-    borderRadius: 50,
-    alignItems: "center",
-  },
-  fire: {
-    height: 15,
-    width: 15,
-    borderRadius: 50,
   },
 
-  pb: {
+  accuracy: {
     flexDirection: "row",
     height: 180,
     alignItems: "center",

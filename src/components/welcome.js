@@ -32,6 +32,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     width: "100%",
     height: 50,
+    backgroundColor: "#cccffd",
+    borderBottomEndRadius: 30,
+    borderBottomStartRadius: 30,
   },
 });
 

@@ -24,6 +24,7 @@ const Home = () => {
         contentContainerStyle={{
           flexGrow: 1,
           alignItems: "center",
+          backgroundColor: "#dffffe",
         }}
       >
         <Card color={getNextColor()} />
