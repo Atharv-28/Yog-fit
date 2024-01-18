@@ -1,6 +1,6 @@
 import { Text, View, StyleSheet, Image } from "react-native";
 import React from "react";
-// import CircularProgress from "react-native-circular-progress-indicator";
+import CircularProgress from "react-native-circular-progress-indicator";
 
 const card = () => {
   return (
@@ -26,7 +26,7 @@ const card = () => {
           </View>
         </View>
         <View style={styles.pb}>
-          {/* <CircularProgress value={30} radius={45} width={10} /> */}
+          <CircularProgress value={30} radius={45} width={10} />
         </View>
       </View>
     </>
@@ -53,6 +53,8 @@ const styles = StyleSheet.create({
     width: 350,
     flex: 0.1,
     marginTop: 15,
+    flexDirection: "row",
+    justifyContent: "center",
   },
   sdiv1: {
     borderWidth: 2,
@@ -71,13 +73,14 @@ const styles = StyleSheet.create({
     width: "70%",
     flexDirection: "column",
     justifyContent: "space-evenly",
-    alignItems: "center",
+    alignItems: "flex-start",
+    marginLeft: 10,
   },
 
   tt: {
     width: "100%",
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    justifyContent: "flex-start",
   },
   e1: {
     borderColor: "red",
@@ -88,6 +91,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     textAlignVertical: "center",
     textAlign: "center",
+    marginLeft: 5,
   },
   e2: {
     fontSize: 30,
@@ -96,6 +100,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
   },
   days: {
+    marginLeft: 5,
     flexDirection: "row",
     justifyContent: "space-evenly",
     borderColor: "red",
