@@ -1,18 +1,19 @@
 import { Text, View, StyleSheet, Image } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import CircularProgress from "react-native-circular-progress-indicator";
+import generateUniqueColors from "../utils/generateUniqueColors";
 
-const card = () => {
+const card = ({ color }) => {
   return (
     <>
-      <View style={styles.card}>
+      <View style={[styles.card, { backgroundColor: color }]}>
         <View style={styles.et}>
           <View style={styles.ex}>
             <Text style={styles.e2}>Excercise</Text>
           </View>
 
           <View style={styles.tt}>
-            <Text style={styles.e1}>Excercise</Text>
+            <Text style={styles.e1}>Beginer</Text>
             <View style={styles.days}>
               <Text style={styles.e11}>7 days</Text>
               <Image
@@ -22,7 +23,7 @@ const card = () => {
                 style={styles.fire}
               />
             </View>
-            <Text style={styles.e1}>Excercise</Text>
+            <Text style={styles.e1}>23 days Left</Text>
           </View>
         </View>
         <View style={styles.pb}>
@@ -47,14 +48,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   card: {
-    borderWidth: 2,
     borderRadius: 30,
     height: 180,
     width: 350,
     flex: 0.1,
     marginTop: 15,
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-evenly",
   },
   sdiv1: {
     borderWidth: 2,
@@ -66,11 +66,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
   },
   et: {
-    borderWidth: 2,
     borderRadius: 30,
-    borderColor: "yellow",
     height: "100%",
-    width: "70%",
+    width: "60%",
     flexDirection: "column",
     justifyContent: "space-evenly",
     alignItems: "flex-start",

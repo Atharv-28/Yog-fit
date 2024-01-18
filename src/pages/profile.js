@@ -15,7 +15,7 @@ const Profile = () => {
         <Text style={[styles.marg, styles.txt]}>User</Text>
       </View>
       <SquareComponents></SquareComponents>
-      <BottomNav></BottomNav>
+      {/* <BottomNav /> */}
     </View>
   );
 };

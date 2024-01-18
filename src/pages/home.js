@@ -1,38 +1,42 @@
 import React from "react";
-import { StyleSheet, View, Text, Image, ScrollView } from "react-native";
-// import CircularProgress from "react-native-circular-progress-indicator";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  ScrollView,
+  Platform,
+  StatusBar,
+  SafeAreaView,
+} from "react-native";
 import Card from "../components/card";
 import Welcome from "../components/welcome";
+import generateUniqueColors from "../utils/generateUniqueColors";
 
 const Home = () => {
+  const getNextColor = generateUniqueColors();
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.div}>
         <Welcome style={styles.Welcome} />
       </View>
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
-          padding: 10,
           alignItems: "center",
         }}
       >
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        <Card color={getNextColor()} />
+        <Card color={getNextColor()} />
+        <Card color={getNextColor()} />
+        <Card color={getNextColor()} />
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
   container: {
-    height: "100%",
-    width: "100%",
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
   Welcome: {
     height: 80,
