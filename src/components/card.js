@@ -15,7 +15,15 @@ const card = ({ color }) => {
           <SmallTab />
         </View>
         <View style={styles.accuracy}>
-          <CircularProgress value={30} radius={45} width={10} />
+          <CircularProgress
+            progressValueColor={"black"}
+            circleBackgroundColor={color}
+            activeStrokeColor="#ffb366"
+            activeStrokeWidth={15}
+            value={70}
+            radius={55}
+            width={10}
+          />
         </View>
       </View>
     </>
