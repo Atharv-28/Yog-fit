@@ -2,7 +2,6 @@ import React from "react";
 import { StyleSheet, View, Text, Image, ScrollView } from "react-native";
 import SquareComponents from "../components/button";
 import Acc from "../components/Acc";
-import { NavigationContainer } from "@react-navigation/native";
 import TabComponent from "../components/TabComponent";
 
 const Profile = () => {
@@ -20,6 +19,7 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "column",
     alignItems: "center",
+    gap: 20,
   },
 });
 

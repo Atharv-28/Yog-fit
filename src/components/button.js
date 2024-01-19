@@ -7,7 +7,7 @@ const SquareComponents = () => {
         <Text style={styles.text}>About Us</Text>
       </View>
       <View style={styles.spf1}>
-        <Text style={styles.text}>About Us</Text>
+        <Text style={styles.text}>FeedBack</Text>
       </View>
     </View>
   );
@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-evenly",
-    marginTop: 20,
   },
   spf1: {
     height: 60,

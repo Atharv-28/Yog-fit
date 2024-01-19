@@ -53,20 +53,34 @@ const TabsComponent = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+    width: 300,
+    borderColor: "red",
+    borderWidth: 2,
   },
   tabButtons: {
+    width: 200,
+    height: 50,
+    borderRadius: 40,
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
     alignItems: "center",
     backgroundColor: "#eee",
-    padding: 10,
   },
   tabButton: {
+    flex: 1,
+    textAlign: "center",
+    textAlignVertical: "center",
     fontSize: 16,
   },
   activeTab: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
     fontWeight: "bold",
     color: "blue",
+    borderRadius: 30,
   },
   tabContent: {
     flex: 1,

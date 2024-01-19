@@ -11,29 +11,30 @@ const SearchComponent = () => {
   );
 
   return (
-    <View>
+    <View style={styles.Searchresult}>
       <TextInput
-        style={{
-          height: 40,
-          borderColor: "gray",
-          borderWidth: 1,
-          margin: 10,
-          paddingLeft: 10,
-        }}
+        style={styles.searchBar}
         placeholder="Search..."
         value={searchText}
         onChangeText={(text) => setSearchText(text)}
       />
-      <FlatList
+      {/* <FlatList
+        style={styles.result}
         data={filteredFriends}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View>
             <Text>{item.name}</Text>
-            <Text>{item.username}</Text>
           </View>
         )}
-      />
+      /> */}
+      <View>
+        {filteredFriends.map((item) => (
+          <View style={styles.result} key={item.id}>
+            <Text>{item.name}</Text>
+          </View>
+        ))}
+      </View>
     </View>
   );
 };
@@ -43,6 +44,30 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  searchBar: {
+    height: 40,
+    width: 220,
+    borderRadius: 30,
+    borderColor: "gray",
+    borderWidth: 1,
+    margin: 10,
+    paddingLeft: 10,
+  },
+  Searchresult: {
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  result: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    borderColor: "green",
+    borderWidth: 2,
+    marginBottom: 10,
+    height: 35,
+    width: 200,
+    borderRadius: 30,
   },
 });
 
