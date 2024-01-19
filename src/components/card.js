@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
   e2: {
     fontSize: 23,
     marginLeft: 5,
+    fontWeight: "bold",
   },
 
   accuracy: {

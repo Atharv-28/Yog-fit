@@ -20,11 +20,11 @@ const styles = StyleSheet.create({
   },
   tabs: {
     marginRight: 10,
-    color: "white",
+    color: "black",
     height: 30,
     fontSize: 14,
     width: 80,
-    backgroundColor: "#ff4c32",
+    backgroundColor: "#ef9a59",
     borderRadius: 50,
     textAlignVertical: "center",
     textAlign: "center",

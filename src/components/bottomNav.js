@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    backgroundColor: "#cccffd",
   },
   image2: {
     height: 40,

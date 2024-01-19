@@ -24,9 +24,10 @@ const Home = () => {
         contentContainerStyle={{
           flexGrow: 1,
           alignItems: "center",
-          backgroundColor: "#dffffe",
+          paddingBottom: 20,
         }}
       >
+        <Card color={getNextColor()} />
         <Card color={getNextColor()} />
         <Card color={getNextColor()} />
         <Card color={getNextColor()} />
@@ -37,7 +38,9 @@ const Home = () => {
 };
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    backgroundColor: "#ffff",
   },
   Welcome: {
     height: 80,
