@@ -1,5 +1,5 @@
 // AppNavigator.js
-
+import Ranking from "../pages/rank";
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../pages/home";
@@ -19,6 +19,11 @@ const AppNavigator = () => {
           options={{ headerShown: false }}
           name="Home"
           component={Home}
+        />
+        <Tab.Screen
+          options={{ headerShown: false }}
+          name="Ranking"
+          component={Ranking}
         />
         <Tab.Screen
           options={{ headerShown: false }}
