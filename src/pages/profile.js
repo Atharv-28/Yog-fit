@@ -2,12 +2,15 @@ import React from "react";
 import { StyleSheet, View, Text, Image, ScrollView } from "react-native";
 import SquareComponents from "../components/button";
 import Acc from "../components/Acc";
+import { NavigationContainer } from "@react-navigation/native";
+import TabComponent from "../components/TabComponent";
 
 const Profile = () => {
   return (
     <View style={styles.profile}>
       <Acc />
-      <SquareComponents></SquareComponents>
+      <SquareComponents />
+      <TabComponent />
     </View>
   );
 };
