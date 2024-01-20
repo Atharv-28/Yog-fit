@@ -10,25 +10,27 @@ import {
   Platform,
   StatusBar,
 } from "react-native";
+import { friends as FriendsRankingData } from "../utils/friends";
+import { users as globalRankingData } from "../utils/users";
 import Podium from "../components/Podium";
 
-const globalRankingData = [
-  { id: 1, name: "User 1", score: 150 },
-  { id: 2, name: "User 2", score: 120 },
-  { id: 3, name: "User 3", score: 100 },
-  { id: 4, name: "User 4", score: 90 },
-  { id: 5, name: "User 5", score: 80 },
-  // Add more global ranking data as needed
-];
+// const globalRankingData = [
+//   { id: 1, name: "User 1", score: 150 },
+//   { id: 2, name: "User 2", score: 120 },
+//   { id: 3, name: "User 3", score: 100 },
+//   { id: 4, name: "User 4", score: 90 },
+//   { id: 5, name: "User 5", score: 80 },
+//   // Add more global ranking data as needed
+// ];
 
-const friendsRankingData = [
-  { id: 101, name: "Friend 1", score: 130 },
-  { id: 102, name: "Friend 2", score: 110 },
-  { id: 103, name: "Friend 3", score: 95 },
-  { id: 104, name: "Friend 4", score: 85 },
-  { id: 105, name: "Friend 5", score: 75 },
-  // Add more friends ranking data as needed
-];
+// const friendsRankingData = [
+//   { id: 101, name: "Friend 1", score: 130 },
+//   { id: 102, name: "Friend 2", score: 110 },
+//   { id: 103, name: "Friend 3", score: 95 },
+//   { id: 104, name: "Friend 4", score: 85 },
+//   { id: 105, name: "Friend 5", score: 75 },
+//   // Add more friends ranking data as needed
+// ];
 
 const PodiumItem = ({ position, name, score }) => {
   const isTopThree = position <= 3;
@@ -88,7 +90,7 @@ const Rank = () => {
           {activeTab === "global" ? (
             <Podium rankingData={globalRankingData} />
           ) : (
-            <Podium rankingData={friendsRankingData} />
+            <Podium rankingData={FriendsRankingData} />
           )}
         </View>
       </View>

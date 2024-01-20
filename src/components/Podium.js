@@ -1,6 +1,6 @@
 // Podium.js
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
 
 const Podium = ({ rankingData }) => {
   const renderPodium = () => {
@@ -17,7 +17,16 @@ const Podium = ({ rankingData }) => {
         ]}
       >
         <Text style={styles.podiumPosition}>{index + 1}</Text>
-        <Text>{item.name}</Text>
+        <Image style={styles.img} source={{ uri: item.img }} />
+        <Text
+          style={
+            ({ flexWrap: "wrap" },
+            { flexDirection: "column" },
+            { textAlign: "center" })
+          }
+        >
+          {item.username}
+        </Text>
         <Text>{item.score}</Text>
       </View>
     ));
@@ -28,7 +37,8 @@ const Podium = ({ rankingData }) => {
 
     return remainingItems.map((item) => (
       <View key={item.id} style={styles.remainingItem}>
-        <Text>{item.name}</Text>
+        <Image style={styles.img} source={{ uri: item.img }} />
+        <Text>{item.username}</Text>
         <Text>{item.score}</Text>
       </View>
     ));
@@ -37,7 +47,7 @@ const Podium = ({ rankingData }) => {
   return (
     <View style={styles.podiumContainer}>
       <View style={styles.podium}>{renderPodium()}</View>
-      <View style={styles.rest}>{renderRemainingList()}</View>
+      <ScrollView style={styles.rest}>{renderRemainingList()}</ScrollView>
     </View>
   );
 };
@@ -47,6 +57,12 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    gap: 20,
+  },
+  img: {
+    height: 45,
+    width: 45,
+    borderRadius: 50,
   },
   podiumItem: {
     alignItems: "center",
@@ -55,6 +71,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     borderColor: "#ccc",
+    gap: 5,
   },
   podiumPosition: {
     fontSize: 18,
@@ -62,15 +79,18 @@ const styles = StyleSheet.create({
   },
   firstPlace: {
     backgroundColor: "gold",
-    height: "80%",
+    height: "95%",
+    width: 100,
   },
   secondPlace: {
     backgroundColor: "silver",
-    height: "60%",
+    height: "80%",
+    width: 100,
   },
   thirdPlace: {
     backgroundColor: "#cd7f32",
-    height: "40%",
+    height: "65%",
+    width: 100,
   },
   separator: {
     height: 1,
@@ -78,10 +98,16 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   remainingItem: {
+    width: 250,
+    borderRadius: 30,
+    padding: 10,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    borderColor: "red",
+    borderWidth: 2,
     paddingVertical: 5,
+    marginBottom: 10,
   },
   podium: {
     flexDirection: "row",
@@ -89,7 +115,9 @@ const styles = StyleSheet.create({
     gap: 20,
     height: 240,
   },
-  rest: {},
+  rest: {
+    flexDirection: "column",
+  },
 });
 
 export default Podium;
