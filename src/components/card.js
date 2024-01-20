@@ -20,7 +20,7 @@ const card = ({ color }) => {
             circleBackgroundColor={color}
             activeStrokeColor="#ffb366"
             activeStrokeWidth={15}
-            value={70}
+            value={30}
             radius={55}
             width={10}
           />

@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     color: "blue",
   },
   tabContent: {
-    flex: 1,
+    flex:1,
     padding: 10,
     borderColor: "blue",
     borderWidth: 2,
