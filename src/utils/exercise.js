@@ -197,7 +197,7 @@
                 "3. Lower yourself back down with control."
             ],
             sets: "3 sets of 5 reps",
-            img: "https://global-uploads.webflow.com/5d1d0d3f53ced35a29dbe169/60a321ae26708b19d1ef3f7d_muscle-ups.png"
+            img: "https://i0.wp.com/workoutlabs.com/wp-content/uploads/watermarked/Muscle_Up.png?w=1360"
         },
         {
             id: "expert",
@@ -211,7 +211,7 @@
                 "3. Push back up to the starting position."
             ],
             sets: "3 sets of 8 reps per leg",
-            img: "https://global-uploads.webflow.com/5d1d0d3f53ced35a29dbe169/60a321bf4c09e80133218b79_pistol-squats.png"
+            img: "https://muscu-street-et-crossfit.fr/wp-content/uploads/2023/02/Muscles-pistols-squats.001-980x551.jpeg"
         },
         {
             id: "expert",
@@ -225,7 +225,7 @@
                 "3. Push back up to the starting position."
             ],
             sets: "3 sets of 8 reps",
-            img: "https://global-uploads.webflow.com/5d1d0d3f53ced35a29dbe169/60a321cf4c09e861c2218b9e_handstand-push-ups.png"
+            img: "https://www.inspireusafoundation.org/wp-content/uploads/2023/02/handstand-pushup.gif"
         },
         {
             id: "expert",
@@ -239,7 +239,7 @@
                 "3. Lower your legs back down without touching the ground."
             ],
             sets: "3 sets of 10 reps",
-            img: "https://global-uploads.webflow.com/5d1d0d3f53ced35a29dbe169/60a321de4c09e817fe218ba7_dragon-flags.png"
+            img: "https://fitnessprogramer.com/wp-content/uploads/2022/07/Leg-Raise-Dragon-Flag.gif"
         },
         {
             id: "expert",
@@ -253,6 +253,6 @@
                 "3. Lower yourself back down with control."
             ],
             sets: "3 sets of 5 reps",
-            img: "https://global-uploads.webflow.com/5d1d0d3f53ced35a29dbe169/60a321ed4c09e8bd9b218bbd_ring-muscle-ups.png"
+            img: "https://www.inspireusafoundation.org/wp-content/uploads/2023/04/ring-dip.gif"
         },  
 ];
