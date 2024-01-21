@@ -48,6 +48,7 @@ const Podium = ({ rankingData }) => {
     <View style={styles.podiumContainer}>
       <View style={styles.podium}>{renderPodium()}</View>
       <ScrollView
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           flexGrow: 1,
           alignItems: "center",
@@ -55,7 +56,7 @@ const Podium = ({ rankingData }) => {
         }}
       >
         {renderRemainingList()}
-        </ScrollView>
+      </ScrollView>
     </View>
   );
 };
@@ -115,14 +116,14 @@ const styles = StyleSheet.create({
     borderColor: "red",
     borderWidth: 2,
     paddingVertical: 5,
-  marginTop:10,
+    marginTop: 10,
   },
   podium: {
     flexDirection: "row",
     alignItems: "flex-end",
     gap: 20,
     height: 240,
-  }
+  },
 });
 
 export default Podium;

@@ -25,7 +25,7 @@ const SearchComponent = () => {
         value={searchText}
         onChangeText={(text) => setSearchText(text)}
       />
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         {filteredusers.map((item) => (
           <View style={styles.result} key={item.id}>
             <Image
