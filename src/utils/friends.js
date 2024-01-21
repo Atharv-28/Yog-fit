@@ -18,7 +18,7 @@ export const friends = [
     id: 3,
     img: "https://th.bing.com/th/id/OIP.4leD4KvydKIdqpIsLFb_rQHaHa?w=500&h=500&rs=1&pid=ImgDetMain",
     name: "Siddharth Vhatkar",
-    username: "sidd_z",
+    username: "sidd_z ",
     score: 92,
   },
   {
