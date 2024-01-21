@@ -11,7 +11,9 @@ import {
   StatusBar,
 } from "react-native";
 
-const allTemplates = [];
+import { exercises } from "../utils/exercise";
+
+const allTemplates = [exercises];
 const myTemplate = [];
 
 const TemplateSelector = () => {
@@ -35,7 +37,7 @@ const TemplateSelector = () => {
             <Text
               style={[
                 styles.tabButton,
-                activeTab === "globalTemplate" && styles.activeTab,
+                activeTab === "globalTemplates" && styles.activeTab,
               ]}
             >
               Friends
@@ -43,13 +45,13 @@ const TemplateSelector = () => {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.tabContent}>
+        {/* <View style={styles.tabContent}>
           {activeTab === "globalTemplates" ? (
             <Podium rankingData={allTemplates} />
           ) : (
             <Podium rankingData={myTemplate} />
           )}
-        </View>
+        </View> */}
       </View>
     </SafeAreaView>
   );

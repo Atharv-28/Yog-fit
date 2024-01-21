@@ -19,3 +19,5 @@ const TemplatePage = () => {
 };
 
 const styles = StyleSheet.create({});
+
+export default TemplatePage;

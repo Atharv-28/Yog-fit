@@ -20,7 +20,10 @@ const BottomNav = () => {
           style={styles.image2}
         />
       </Pressable>
-      <Pressable style={styles.btm1} onPress={() => navigateToScreen("Home")}>
+      <Pressable
+        style={styles.btm1}
+        onPress={() => navigateToScreen("TemplatesPage")}
+      >
         <Image
           source={{
             uri: "https://cdn-icons-png.flaticon.com/128/2906/2906496.png",

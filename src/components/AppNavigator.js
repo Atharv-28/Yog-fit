@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../pages/home";
 import Profile from "../pages/profile";
 import BottomNav from "./bottomNav";
+import TemplatePage from "../pages/templatesPage";
 
 const Tab = createBottomTabNavigator();
 
@@ -19,6 +20,11 @@ const AppNavigator = () => {
           options={{ headerShown: false }}
           name="Home"
           component={Home}
+        />
+        <Tab.Screen
+          options={{ headerShown: false }}
+          name="TemplatesPage"
+          component={TemplatePage}
         />
         <Tab.Screen
           options={{ headerShown: false }}
