@@ -12,12 +12,17 @@ import TemplateSelector from "../components/templateSelector";
 
 const TemplatePage = () => {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.page}>
       <TemplateSelector />
     </SafeAreaView>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  page: {
+    flex: 1,
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 10,
+  },
+});
 
 export default TemplatePage;

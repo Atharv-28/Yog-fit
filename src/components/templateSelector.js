@@ -30,7 +30,7 @@ const TemplateSelector = () => {
                 activeTab === "myTemplate" && styles.activeTab,
               ]}
             >
-              Global
+              My Templates
             </Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => setActiveTab("globalTemplates")}>
@@ -40,7 +40,7 @@ const TemplateSelector = () => {
                 activeTab === "globalTemplates" && styles.activeTab,
               ]}
             >
-              Friends
+              All Templates
             </Text>
           </TouchableOpacity>
         </View>
@@ -60,7 +60,6 @@ const TemplateSelector = () => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 10,
   },
   container: {
     flex: 1,
