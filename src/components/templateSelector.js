@@ -10,14 +10,19 @@ import {
   Platform,
   StatusBar,
 } from "react-native";
+import AllTemplate from "./allTemplate";
 
 import { exercises } from "../utils/exercise";
 
-const allTemplates = [exercises];
 const myTemplate = [];
 
 const TemplateSelector = () => {
   const [activeTab, setActiveTab] = useState("myTemplate");
+  const [expandedId, setExpandedId] = useState(null);
+
+  const handleToggleExpand = (itemId) => {
+    setExpandedId((prevId) => (prevId === itemId ? null : itemId));
+  };
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -45,13 +50,21 @@ const TemplateSelector = () => {
           </TouchableOpacity>
         </View>
 
-        {/* <View style={styles.tabContent}>
+        <View style={styles.tabContent}>
           {activeTab === "globalTemplates" ? (
-            <Podium rankingData={allTemplates} />
+            <AllTemplate
+              items={exercises}
+              expandedId={expandedId}
+              onToggleExpand={handleToggleExpand}
+            />
           ) : (
-            <Podium rankingData={myTemplate} />
+            <AllTemplate
+              items={myTemplate}
+              expandedId={expandedId}
+              onToggleExpand={handleToggleExpand}
+            />
           )}
-        </View> */}
+        </View>
       </View>
     </SafeAreaView>
   );
