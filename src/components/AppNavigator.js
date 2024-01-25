@@ -6,6 +6,7 @@ import Home from "../pages/home";
 import Profile from "../pages/profile";
 import BottomNav from "./bottomNav";
 import TemplatePage from "../pages/templatesPage";
+import LoginScreen from "../pages/login";
 
 const Tab = createBottomTabNavigator();
 
@@ -15,7 +16,13 @@ const AppNavigator = () => {
       <Tab.Navigator
         options={{ headerShown: false }}
         tabBar={() => <BottomNav />}
+        initialRouteName="Login"
       >
+        <Tab.Screen
+          options={{ headerShown: false }}
+          name="Login"
+          component={LoginScreen}
+        />
         <Tab.Screen
           options={{ headerShown: false }}
           name="Home"

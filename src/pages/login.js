@@ -1,18 +1,34 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  ImageBackground,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const LoginScreen = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const navigation = useNavigation();
+  const navigateToScreen = (screenName) => {
+    navigation.navigate(screenName);
+  };
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleLogin = () => {
+    navigateToScreen("Home");
     console.log(`Email: ${email}, Password: ${password}`);
   };
 
   return (
-    <ImageBackground source={{
+    <ImageBackground
+      source={{
         uri: "https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=600",
-      }} style={styles.background}>
+      }}
+      style={styles.background}
+    >
       <View style={styles.container}>
         <Text style={styles.title}>Welcome back</Text>
         <Text style={styles.subtitle}>Please enter your details</Text>
@@ -38,7 +54,6 @@ const LoginScreen = () => {
         <TouchableOpacity style={styles.googleButton}>
           <Text style={styles.googleButtonText}>Sign up</Text>
         </TouchableOpacity>
-        
       </View>
     </ImageBackground>
   );
@@ -47,19 +62,19 @@ const LoginScreen = () => {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'center',
+    resizeMode: "cover",
+    justifyContent: "center",
   },
   container: {
     flex: 1,
-    backgroundColor: 'rgba(255, 255, 255, 0.7)',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "rgba(255, 255, 255, 0.7)",
+    alignItems: "center",
+    justifyContent: "center",
     paddingHorizontal: 20,
   },
   title: {
     fontSize: 32,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 10,
   },
   subtitle: {
@@ -67,53 +82,53 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   input: {
-    width: '100%',
+    width: "100%",
     height: 50,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     borderRadius: 10,
     paddingHorizontal: 20,
     marginBottom: 20,
   },
   button: {
-    width: '100%',
+    width: "100%",
     height: 50,
-    backgroundColor: '#000000',
+    backgroundColor: "#000000",
     borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginBottom: 20,
   },
   buttonText: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   or: {
     fontSize: 18,
     marginVertical: 20,
   },
   googleButton: {
-    width: '100%',
+    width: "100%",
     height: 50,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderWidth: 1,
-    borderColor: '#000000',
+    borderColor: "#000000",
     marginBottom: 20,
   },
   googleButtonText: {
-    color: '#000000',
+    color: "#000000",
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   signup: {
     fontSize: 16,
   },
   signupLink: {
-    color: '#000000',
-    fontWeight: 'bold',
+    color: "#000000",
+    fontWeight: "bold",
   },
 });
 
