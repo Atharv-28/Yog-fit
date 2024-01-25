@@ -21,6 +21,10 @@ const LoginScreen = () => {
     navigateToScreen("Home");
     console.log(`Email: ${email}, Password: ${password}`);
   };
+  const handleLogin2 = () => {
+    navigateToScreen("SignUp");
+    console.log(`Email: ${email}, Password: ${password}`);
+  };
 
   return (
     <ImageBackground
@@ -51,7 +55,7 @@ const LoginScreen = () => {
           <Text style={styles.buttonText}>SIGN IN</Text>
         </TouchableOpacity>
         <Text style={styles.or}>or</Text>
-        <TouchableOpacity style={styles.googleButton}>
+        <TouchableOpacity style={styles.googleButton} onPress={handleLogin2}>
           <Text style={styles.googleButtonText}>Sign up</Text>
         </TouchableOpacity>
       </View>

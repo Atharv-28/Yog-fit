@@ -7,6 +7,7 @@ import Profile from "../pages/profile";
 import BottomNav from "./bottomNav";
 import TemplatePage from "../pages/templatesPage";
 import LoginScreen from "../pages/login";
+import CreateAccount from "../pages/createAccount";
 
 const Tab = createBottomTabNavigator();
 
@@ -22,6 +23,11 @@ const AppNavigator = () => {
           options={{ headerShown: false }}
           name="Login"
           component={LoginScreen}
+        />
+        <Tab.Screen
+          options={{ headerShown: false }}
+          name="SignUp"
+          component={CreateAccount}
         />
         <Tab.Screen
           options={{ headerShown: false }}
