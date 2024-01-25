@@ -1,7 +1,20 @@
 import React from "react";
-import { StyleSheet, View, Text, Image, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const Acc = () => {
+  const navigation = useNavigation();
+
+  const navigateToScreen = (screenName) => {
+    navigation.navigate(screenName);
+  };
   return (
     <View style={styles.user}>
       <Image
@@ -11,6 +24,17 @@ const Acc = () => {
         style={[styles.image, styles.marg]}
       />
       <Text style={[styles.marg, styles.txt]}>User</Text>
+      <TouchableOpacity
+        style={styles.marg}
+        onPress={() => navigateToScreen("Login")}
+      >
+        <Image
+          style={styles.image2}
+          source={{
+            uri: "https://cdn-icons-png.flaticon.com/128/8568/8568977.png",
+          }}
+        />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -25,14 +49,16 @@ const styles = StyleSheet.create({
     height: 120,
     width: 350,
     borderRadius: 30,
+    justifyContent: "space-around",
   },
   image: {
     height: 80,
     width: 80,
     borderRadius: 50,
   },
-  marg: {
-    marginLeft: 30,
+  image2: {
+    height: 50,
+    width: 50,
   },
   txt: {
     fontSize: 25,
