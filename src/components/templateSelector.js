@@ -11,7 +11,7 @@ import {
   StatusBar,
 } from "react-native";
 import AllTemplate from "./allTemplate";
-
+import { Myey } from "../utils/myey";
 import { exercises } from "../utils/exercise";
 
 const myTemplate = [];
@@ -59,7 +59,7 @@ const TemplateSelector = () => {
             />
           ) : (
             <AllTemplate
-              items={myTemplate}
+              items={Myey}
               expandedId={expandedId}
               onToggleExpand={handleToggleExpand}
             />
