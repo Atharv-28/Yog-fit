@@ -7,11 +7,12 @@ import { useNavigation } from "@react-navigation/native";
 const ExerciseCard = ({ item }) => {
     const navigation = useNavigation();
 
-  const navigateToScreen = (screenName) => {
-    navigation.navigate(screenName);
-  };
+    const navigateToScreen = (screenName, item) => {
+        navigation.navigate(screenName, { exercise: item });
+      };
+      
   return (
-    <TouchableOpacity onPress={() => navigateToScreen("EYPage")}>
+    <TouchableOpacity onPress={() => navigateToScreen("EYPage", item)}>
       <View
         style={{ padding: 10, borderBottomWidth: 1, borderBottomColor: "#ddd" }}
       >
