@@ -7,6 +7,7 @@ import Profile from "../pages/profile";
 import BottomNav from "./bottomNav";
 import TemplatePage from "../pages/templatesPage";
 import LoginScreen from "../pages/login";
+import EYPage from "../pages/eyPage";
 import CreateAccount from "../pages/createAccount";
 
 const Tab = createBottomTabNavigator();
@@ -46,6 +47,11 @@ const AppNavigator = () => {
           options={{ headerShown: false }}
           name="Ranking"
           component={Ranking}
+        />
+        <Tab.Screen
+          options={{ headerShown: false }}
+          name="EYPage"
+          component={EYPage}
         />
         <Tab.Screen
           options={{ headerShown: false }}

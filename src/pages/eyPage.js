@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, ScrollView, Button, Image, StyleSheet } from 'react-native';
+import { Myey } from '../utils/myey';
 
 const ExerciseCard = ({ exercise }) => {
   const {
