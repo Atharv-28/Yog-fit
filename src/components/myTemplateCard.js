@@ -1,15 +1,13 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { useNavigation } from "@react-navigation/native";
+
 
 const ExerciseCard = ({ exercise, onPress }) => {
   const {
     name,
-    need,
-    suitable,
     benefits,
-    procedure,
     sets,
-    img,
   } = exercise;
 
   return (

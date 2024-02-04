@@ -10,6 +10,7 @@ import {
   Platform,
   StatusBar,
 } from "react-native";
+import BottomNav from "../components/bottomNav";
 import { friends as FriendsRankingData } from "../utils/friends";
 import { users as globalRankingData } from "../utils/users";
 import Podium from "../components/Podium";
@@ -63,6 +64,7 @@ const Rank = () => {
           )}
         </View>
       </View>
+      <BottomNav />
     </SafeAreaView>
   );
 };
@@ -94,10 +96,8 @@ const styles = StyleSheet.create({
     color: "blue",
   },
   tabContent: {
-    flex:1,
+    flex:0.8,
     padding: 10,
-    borderColor: "blue",
-    borderWidth: 2,
   },
   rankingContainer: {
     flexDirection: "row",

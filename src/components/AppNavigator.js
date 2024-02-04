@@ -16,8 +16,11 @@ const AppNavigator = () => {
     <>
       <Tab.Navigator
         options={{ headerShown: false }}
-        tabBar={() => <BottomNav />}
+       // tabBar={() => <BottomNav />}
+        tabBar={() => null}
+        tabBarOptions={{showLabel:false}}
         initialRouteName="Login"
+        
       >
         <Tab.Screen
           options={{ headerShown: false }}

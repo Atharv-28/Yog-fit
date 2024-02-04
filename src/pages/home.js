@@ -9,6 +9,7 @@ import {
   StatusBar,
   SafeAreaView,
 } from "react-native";
+import BottomNav from "../components/bottomNav";
 import Card from "../components/card";
 import Welcome from "../components/welcome";
 import generateUniqueColors from "../utils/generateUniqueColors";
@@ -33,6 +34,7 @@ const Home = () => {
         <Card score={60} color={getNextColor()} />
         <Card score={90} color={getNextColor()} />
       </ScrollView>
+      <BottomNav />
     </SafeAreaView>
   );
 };

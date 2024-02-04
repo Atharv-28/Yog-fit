@@ -8,12 +8,14 @@ import {
   StatusBar,
   StyleSheet,
 } from "react-native";
+import BottomNav from "../components/bottomNav";
 import TemplateSelector from "../components/templateSelector";
 
 const TemplatePage = () => {
   return (
     <SafeAreaView style={styles.page}>
       <TemplateSelector />
+      <BottomNav />
     </SafeAreaView>
   );
 };
