@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, ScrollView, Image, StyleSheet } from "react-native";
 import TemplateCard from "./myTemplateCard";
 
-const AllTemplate = ({ items = [] }) => {
+const MyTemplate = ({ items = [] }) => {
   const [expandedId, setExpandedId] = useState(null);
 
   const handleToggleExpand = (itemId) => {
@@ -46,4 +46,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AllTemplate;
+export default MyTemplate;
