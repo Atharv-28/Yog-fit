@@ -28,10 +28,6 @@ const ExerciseCard = ({ exercise = [] }) => {
 
 const EYPage = ({ route }) => {
     const { exercise } = route.params;
-    const handleStartPress = () => {
-        // Handle the "Start" button press event
-        console.log('Start Button Pressed!');
-    };
     const navigation = useNavigation();
 
     const navigateToScreen = (screenName) => {
@@ -48,7 +44,7 @@ const EYPage = ({ route }) => {
             <ScrollView>
                 <ExerciseCard exercise={exercise} />
                 <View style={styles.startButtonContainer}>
-                    <Button title="Start" onPress={handleStartPress} />
+                    <Button title="Start" onPress={() => navigateToScreen("Tracker")} />
                 </View>
             </ScrollView>
         </SafeAreaView>

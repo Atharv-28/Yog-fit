@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../pages/home";
 import Profile from "../pages/profile";
 import BottomNav from "./bottomNav";
+import Tracker from "../pages/tracker";
 import TemplatePage from "../pages/templatesPage";
 import LoginScreen from "../pages/login";
 import EYPage from "../pages/eyPage";
@@ -19,7 +20,8 @@ const AppNavigator = () => {
         options={{ headerShown: false }}
        // tabBar={() => <BottomNav />}
         tabBar={() => null}
-        tabBarOptions={{showLabel:false}}
+        screenOptions={{tabBarStyle: {showLabel:false}}}
+        // tabBarOptions={{showLabel:false}}
         initialRouteName="Login"
         
       >
@@ -42,6 +44,11 @@ const AppNavigator = () => {
           options={{ headerShown: false }}
           name="TemplatesPage"
           component={TemplatePage}
+        />
+        <Tab.Screen
+          options={{ headerShown: false }}
+          name="Tracker"
+          component={Tracker}
         />
         <Tab.Screen
           options={{ headerShown: false }}
