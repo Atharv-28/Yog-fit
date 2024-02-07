@@ -148,7 +148,7 @@ const Tracker = () => {
       >
         <ImageBackground
           style={{ flex: 0.8, resizeMode: 'cover', justifyContent: 'center' }}
-          source={{ uri: 'https://i.imgur.com/YOUR_BACKGROUND_IMAGE_URL.jpg' }}
+          source={{ uri: 'https://cdn.yogajournal.com/wp-content/uploads/2007/08/Cobra-Pose_Andrew-Clark.gif?width=730' }}
         >
           {detectedPose && (
             <View
@@ -181,13 +181,11 @@ const Tracker = () => {
             source={{uri:"https://cdn-icons-png.flaticon.com/128/1829/1829373.png"}}
             style={styles.butImage}
           />
-          {/* <Text style={styles.buttonText}>Flip Camera</Text> */}
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.button, { backgroundColor: isPlaying ? '#ff0000' : '#00ff00' }]}
           onPress={isPlaying ? stopTimer : startTimer}
         >
-          {/* <Text style={styles.buttonText}>{isPlaying ? 'Stop' : 'Start'}</Text> */}
           <Image 
             style={styles.butImage}
             source={isPlaying? {uri:"https://cdn-icons-png.flaticon.com/128/4340/4340168.png"}:{uri:"https://cdn-icons-png.flaticon.com/128/10109/10109952.png"}}

@@ -15,6 +15,27 @@ export const users = [
     score: 93,
   },
   {
+    id: 8,
+    img: "https://randomuser.me/api/portraits/women/8.jpg",
+    name: "Sophia Johnson",
+    username: "sophia_j",
+    score: 84,
+  },
+  {
+    id: 9,
+    img: "https://randomuser.me/api/portraits/men/9.jpg",
+    name: "Isaac Wilson",
+    username: "isaac_w",
+    score: 79,
+  },
+  {
+    id: 10,
+    img: "https://randomuser.me/api/portraits/women/10.jpg",
+    name: "Chloe Davis",
+    username: "chloe_d",
+    score: 78,
+  },
+  {
     id: 3,
     img: "https://randomuser.me/api/portraits/men/3.jpg",
     name: "Christopher Davis",
@@ -49,26 +70,6 @@ export const users = [
     username: "daniel_s",
     score: 85,
   },
-  {
-    id: 8,
-    img: "https://randomuser.me/api/portraits/women/8.jpg",
-    name: "Sophia Johnson",
-    username: "sophia_j",
-    score: 84,
-  },
-  {
-    id: 9,
-    img: "https://randomuser.me/api/portraits/men/9.jpg",
-    name: "Isaac Wilson",
-    username: "isaac_w",
-    score: 79,
-  },
-  {
-    id: 10,
-    img: "https://randomuser.me/api/portraits/women/10.jpg",
-    name: "Chloe Davis",
-    username: "chloe_d",
-    score: 78,
-  },
+  
   // Add more friends as needed
 ];
