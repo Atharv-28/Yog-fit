@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, ImageBackground, TouchableOpacity } from 'react
 import { Camera } from 'expo-camera';
 import * as posenet from '@tensorflow-models/posenet';
 
+
 const Tracker = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [net, setNet] = useState(null);
@@ -11,6 +12,7 @@ const Tracker = () => {
   const [poseCorrect, setPoseCorrect] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [timer, setTimer] = useState(0);
+  const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
 
   const timerRef = useRef(null);
 
@@ -113,6 +115,14 @@ const Tracker = () => {
     clearInterval(timerRef.current);
   };
 
+  const flipCamera = () => {
+    setCameraType(
+      cameraType === Camera.Constants.Type.back
+        ? Camera.Constants.Type.front
+        : Camera.Constants.Type.back
+    );
+  };
+
   useEffect(() => {
     if (isPlaying && poseCorrect) {
       // You can add your logic here when the pose is correct
@@ -131,7 +141,7 @@ const Tracker = () => {
     <View style={styles.container}>
       <Camera
         style={styles.camera}
-        type={Camera.Constants.Type.back}
+        type={cameraType}
         onCameraReady={() => console.log('Camera is ready')}
         onMountError={(error) => console.log('Camera Error: ', error)}
         ratio={'16:9'}
@@ -169,11 +179,18 @@ const Tracker = () => {
         >
           <Text style={styles.buttonText}>{isPlaying ? 'Stop' : 'Start'}</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={flipCamera}
+        >
+          <Text style={styles.buttonText}>Flip Camera</Text>
+        </TouchableOpacity>
         <Text style={styles.timerText}>{`Timer: ${timer}s`}</Text>
       </View>
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
@@ -210,6 +227,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
+    backgroundColor: "green",
   },
   buttonText: {
     color: '#fff',
