@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Text, View, ImageBackground, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, Image, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as posenet from '@tensorflow-models/posenet';
 
@@ -173,18 +173,27 @@ const Tracker = () => {
         </ImageBackground>
       </Camera>
       <View style={styles.bottomContainer}>
+      <TouchableOpacity
+          style={styles.button}
+          onPress={flipCamera}
+        >
+          <Image
+            source={{uri:"https://cdn-icons-png.flaticon.com/128/1829/1829373.png"}}
+            style={styles.butImage}
+          />
+          {/* <Text style={styles.buttonText}>Flip Camera</Text> */}
+        </TouchableOpacity>
         <TouchableOpacity
           style={[styles.button, { backgroundColor: isPlaying ? '#ff0000' : '#00ff00' }]}
           onPress={isPlaying ? stopTimer : startTimer}
         >
-          <Text style={styles.buttonText}>{isPlaying ? 'Stop' : 'Start'}</Text>
+          {/* <Text style={styles.buttonText}>{isPlaying ? 'Stop' : 'Start'}</Text> */}
+          <Image 
+            style={styles.butImage}
+            source={isPlaying? {uri:"https://cdn-icons-png.flaticon.com/128/4340/4340168.png"}:{uri:"https://cdn-icons-png.flaticon.com/128/10109/10109952.png"}}
+          />
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={flipCamera}
-        >
-          <Text style={styles.buttonText}>Flip Camera</Text>
-        </TouchableOpacity>
+        
         <Text style={styles.timerText}>{`Timer: ${timer}s`}</Text>
       </View>
     </View>
@@ -223,11 +232,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
   },
+  butImage:{
+    height:40,
+    width:40,
+  },
   button: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    backgroundColor: "green",
+    borderRadius: 50,
   },
   buttonText: {
     color: '#fff',
