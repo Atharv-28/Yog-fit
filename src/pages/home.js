@@ -9,6 +9,7 @@ import {
   StatusBar,
   SafeAreaView,
 } from "react-native";
+import BottomNav from "../components/bottomNav";
 import Card from "../components/card";
 import Welcome from "../components/welcome";
 import generateUniqueColors from "../utils/generateUniqueColors";
@@ -27,12 +28,13 @@ const Home = () => {
           paddingBottom: 20,
         }}
       >
-        <Card color={getNextColor()} />
-        <Card color={getNextColor()} />
-        <Card color={getNextColor()} />
-        <Card color={getNextColor()} />
-        <Card color={getNextColor()} />
+        <Card score={30} color={getNextColor()} />
+        <Card score={80} color={getNextColor()} />
+        <Card score={75} color={getNextColor()} />
+        <Card score={60} color={getNextColor()} />
+        <Card score={90} color={getNextColor()} />
       </ScrollView>
+      <BottomNav />
     </SafeAreaView>
   );
 };

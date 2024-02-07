@@ -4,7 +4,7 @@ import CircularProgress from "react-native-circular-progress-indicator";
 import generateUniqueColors from "../utils/generateUniqueColors";
 import SmallTab from "./smallTab";
 
-const card = ({ color }) => {
+const card = ({ color, score }) => {
   return (
     <>
       <View style={[styles.card, { backgroundColor: color }]}>
@@ -20,7 +20,7 @@ const card = ({ color }) => {
             circleBackgroundColor={color}
             activeStrokeColor="#ffb366"
             activeStrokeWidth={15}
-            value={70}
+            value={score}
             radius={55}
             width={10}
           />

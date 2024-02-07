@@ -1,13 +1,20 @@
 import { React, useState } from "react";
-import { View, Text, StyleSheet, TextInput, FlatList } from "react-native";
-import { friends } from "../utils/friends";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Image,
+  ScrollView,
+} from "react-native";
+import { users } from "../utils/users";
 
 const SearchComponent = () => {
   const [searchText, setSearchText] = useState("");
-  const filteredFriends = friends.filter(
-    (friend) =>
-      friend.name.toLowerCase().includes(searchText.toLowerCase()) ||
-      friend.username.toLowerCase().includes(searchText.toLowerCase())
+  const filteredusers = users.filter(
+    (users) =>
+      users.name.toLowerCase().includes(searchText.toLowerCase()) ||
+      users.username.toLowerCase().includes(searchText.toLowerCase())
   );
 
   return (
@@ -18,23 +25,19 @@ const SearchComponent = () => {
         value={searchText}
         onChangeText={(text) => setSearchText(text)}
       />
-      {/* <FlatList
-        style={styles.result}
-        data={filteredFriends}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <View>
-            <Text>{item.name}</Text>
-          </View>
-        )}
-      /> */}
-      <View>
-        {filteredFriends.map((item) => (
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {filteredusers.map((item) => (
           <View style={styles.result} key={item.id}>
+            <Image
+              style={styles.img}
+              source={{
+                uri: item.img,
+              }}
+            />
             <Text>{item.name}</Text>
           </View>
         ))}
-      </View>
+      </ScrollView>
     </View>
   );
 };
@@ -44,6 +47,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  img: {
+    height: 45,
+    width: 45,
+    borderRadius: 50,
   },
   searchBar: {
     height: 40,
@@ -57,15 +65,18 @@ const styles = StyleSheet.create({
   Searchresult: {
     flexDirection: "column",
     alignItems: "center",
+    gap: 15,
   },
   result: {
-    flexDirection: "column",
-    justifyContent: "center",
+    padding: 10,
+    gap: 15,
+    flexDirection: "row",
+    justifyContent: "flex-start",
     alignItems: "center",
     borderColor: "green",
     borderWidth: 2,
     marginBottom: 10,
-    height: 35,
+    height: 55,
     width: 200,
     borderRadius: 30,
   },

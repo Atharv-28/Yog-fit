@@ -1,5 +1,4 @@
 // BottomNav.js
-
 import React from "react";
 import { StyleSheet, View, Image, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -16,7 +15,29 @@ const BottomNav = () => {
       <Pressable style={styles.btm1} onPress={() => navigateToScreen("Home")}>
         <Image
           source={{
-            uri: "https://cdn-icons-png.flaticon.com/512/1946/1946436.png",
+            uri: "https://cdn-icons-png.flaticon.com/128/553/553416.png",
+          }}
+          style={styles.image2}
+        />
+      </Pressable>
+      <Pressable
+        style={styles.btm1}
+        onPress={() => navigateToScreen("TemplatesPage")}
+      >
+        <Image
+          source={{
+            uri: "https://cdn-icons-png.flaticon.com/128/2906/2906496.png",
+          }}
+          style={styles.image2}
+        />
+      </Pressable>
+      <Pressable
+        style={styles.btm1}
+        onPress={() => navigateToScreen("Ranking")}
+      >
+        <Image
+          source={{
+            uri: "https://cdn-icons-png.flaticon.com/128/2817/2817958.png",
           }}
           style={styles.image2}
         />
@@ -27,7 +48,7 @@ const BottomNav = () => {
       >
         <Image
           source={{
-            uri: "https://cdn-icons-png.flaticon.com/512/3564/3564995.png",
+            uri: "https://cdn-icons-png.flaticon.com/128/1144/1144709.png",
           }}
           style={styles.image2}
         />

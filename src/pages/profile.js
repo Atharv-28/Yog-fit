@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, View, Text, Image, ScrollView } from "react-native";
 import SquareComponents from "../components/button";
 import Acc from "../components/Acc";
+import BottomNav from "../components/bottomNav";
 import TabComponent from "../components/TabComponent";
 
 const Profile = () => {
@@ -10,6 +11,7 @@ const Profile = () => {
       <Acc />
       <SquareComponents />
       <TabComponent />
+      <BottomNav />
     </View>
   );
 };

@@ -1,9 +1,8 @@
-// TabsComponent.js
+// TabsComponent.js on profile page
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import FriendsComponent from "./FriendsComponent";
 import SearchComponent from "./SearchComponent";
-import { friends } from "../utils/friends";
 
 const TabsComponent = () => {
   const [activeTab, setActiveTab] = useState("search"); // 'search' or 'friends'
@@ -14,8 +13,6 @@ const TabsComponent = () => {
     } else if (activeTab === "friends") {
       return <FriendsComponent />;
     }
-    // Add more cases for additional tabs
-
     return null;
   };
 

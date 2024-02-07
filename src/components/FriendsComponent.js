@@ -1,18 +1,21 @@
 // TabsComponent.js
 import React, { useState } from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
 import { friends } from "../utils/friends";
 
 const FriendsComponent = () => {
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       {friends.map((friend) => (
         <View key={friend.id} style={styles.friendContainer}>
-          <Text>{friend.name}</Text>
-          {/* <Text>{friend.username}</Text> */}
+          <Image style={styles.img} source={{ uri: friend.img }} />
+          <View>
+            <Text>{friend.name}</Text>
+            <Text>{friend.username}</Text>
+          </View>
         </View>
       ))}
-    </View>
+    </ScrollView>
   );
 };
 
@@ -21,14 +24,21 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
   },
+  img: {
+    height: 45,
+    width: 45,
+    borderRadius: 50,
+  },
   friendContainer: {
-    marginBottom: 10,
+    marginBottom: 20,
     borderWidth: 1,
     borderColor: "#ddd",
-    width: 200,
-    height: 35,
+    padding: 10,
+    width: 250,
+    height: 55,
     flexDirection: "row",
-    justifyContent: "center",
+    gap: 15,
+    justifyContent: "flex-start",
     alignItems: "center",
     borderRadius: 20,
   },
