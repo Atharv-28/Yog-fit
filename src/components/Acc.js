@@ -17,6 +17,7 @@ const Acc = () => {
   };
   return (
     <View style={styles.user}>
+      <TouchableOpacity style={styles.goProfile} onPress={() => navigateToScreen("PersonalProfile")}>
       <Image
         source={{
           uri: "https://th.bing.com/th/id/OIP.ag77IUhQeW_A-FQGcASMLAHaFj?w=220&h=180&c=7&r=0&o=5&pid=1.7",
@@ -24,6 +25,7 @@ const Acc = () => {
         style={[styles.image, styles.marg]}
       />
       <Text style={[styles.marg, styles.txt]}>User</Text>
+      </TouchableOpacity>
       <TouchableOpacity
         style={styles.marg}
         onPress={() => navigateToScreen("Login")}
@@ -50,6 +52,11 @@ const styles = StyleSheet.create({
     width: 350,
     borderRadius: 30,
     justifyContent: "space-around",
+  },
+  goProfile:{
+    flexDirection:"row",
+    alignItems:"center",
+    gap: 20,
   },
   image: {
     height: 80,
