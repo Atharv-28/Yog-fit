@@ -12,20 +12,27 @@ import {
   TouchableOpacity,
   Platform,
 } from "react-native";
-
+import { useNavigation } from "@react-navigation/native";
 
 const PersonalProfile = () => {
-    const [gender, setGender] = useState("");
+  const [gender, setGender] = useState("");
+  const navigation = useNavigation();
+
+  const navigateToScreen = (screenName) => {
+    navigation.navigate(screenName);
+  };
   return (
     <ScrollView style={styles.sv}>
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.topnv}>
-          <Image
-            source={{
-              uri: "https://cdn-icons-png.flaticon.com/128/189/189254.png",
-            }}
-            style={styles.img}
-          />
+          <TouchableOpacity onPress={() => navigateToScreen("Profile")}>
+            <Image
+              source={{
+                uri: "https://cdn-icons-png.flaticon.com/128/189/189254.png",
+              }}
+              style={styles.img}
+            />
+          </TouchableOpacity>
           <Image
             source={{
               uri: "https://cdn-icons-png.flaticon.com/128/5972/5972963.png",
@@ -52,10 +59,7 @@ const PersonalProfile = () => {
           <View style={styles.container}>
             <Text style={styles.txt}>Birthdate :</Text>
             <TouchableOpacity>
-              <TextInput
-                style={styles.txt1}
-                placeholder="Select Date"
-              />
+              <TextInput style={styles.txt1} placeholder="Select Date" />
             </TouchableOpacity>
           </View>
           <View style={styles.container1}>
@@ -80,14 +84,15 @@ const PersonalProfile = () => {
                 <View
                   style={[
                     styles.radioButtonDot,
-                    { backgroundColor: gender === "Female" ? "orange" : "white" },
+                    {
+                      backgroundColor: gender === "Female" ? "orange" : "white",
+                    },
                   ]}
                 />
                 <Text>Female</Text>
               </TouchableOpacity>
             </View>
           </View>
-          
 
           <Text style={styles.cp}>Change Password ?</Text>
         </View>
@@ -109,10 +114,10 @@ const styles = StyleSheet.create({
     // flexDirection:"row"
     gap: 5,
   },
-  container1:{
-    flexDirection:"row",
-    gap:5,
-    marginLeft:-15,
+  container1: {
+    flexDirection: "row",
+    gap: 5,
+    marginLeft: -15,
   },
   img: {
     height: 40,
@@ -160,7 +165,7 @@ const styles = StyleSheet.create({
   radioButton: {
     flexDirection: "row",
     alignItems: "center",
-    gap:5,
+    gap: 5,
     marginRight: 20,
   },
   radioButtonDot: {
