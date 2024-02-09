@@ -16,15 +16,18 @@ const Acc = () => {
     navigation.navigate(screenName);
   };
   return (
-    <View style={styles.user}>
-      <TouchableOpacity style={styles.goProfile} onPress={() => navigateToScreen("PersonalProfile")}>
-      <Image
-        source={{
-          uri: "https://th.bing.com/th/id/OIP.ag77IUhQeW_A-FQGcASMLAHaFj?w=220&h=180&c=7&r=0&o=5&pid=1.7",
-        }}
-        style={[styles.image, styles.marg]}
-      />
-      <Text style={[styles.marg, styles.txt]}>User</Text>
+    <View style={[styles.user,styles.shadowProp]}>
+      <TouchableOpacity
+        style={styles.goProfile}
+        onPress={() => navigateToScreen("PersonalProfile")}
+      >
+        <Image
+          source={{
+            uri: "https://th.bing.com/th/id/OIP.ag77IUhQeW_A-FQGcASMLAHaFj?w=220&h=180&c=7&r=0&o=5&pid=1.7",
+          }}
+          style={[styles.image, styles.marg]}
+        />
+        <Text style={[styles.marg, styles.txt]}>User</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.marg}
@@ -43,8 +46,8 @@ const Acc = () => {
 
 const styles = StyleSheet.create({
   user: {
-    borderColor: "red",
-    borderWidth: 2,
+    borderColor:"red",
+    borderWidth:1,
     flexDirection: "row",
     alignItems: "center",
     marginTop: 50,
@@ -53,9 +56,9 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     justifyContent: "space-around",
   },
-  goProfile:{
-    flexDirection:"row",
-    alignItems:"center",
+  goProfile: {
+    flexDirection: "row",
+    alignItems: "center",
     gap: 20,
   },
   image: {

@@ -28,7 +28,7 @@ const Home = () => {
           paddingBottom: 20,
         }}
       >
-        <Card score={30} color={getNextColor()} />
+        <Card style={styles.card} score={30} color={getNextColor()} />
         <Card score={80} color={getNextColor()} />
         <Card score={75} color={getNextColor()} />
         <Card score={60} color={getNextColor()} />
@@ -39,6 +39,9 @@ const Home = () => {
   );
 };
 const styles = StyleSheet.create({
+  card:{
+    boxShadow: "0px 7px 29px 0px grey",
+  },
   container: {
     flex: 1,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
