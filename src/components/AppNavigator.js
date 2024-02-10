@@ -11,6 +11,7 @@ import LoginScreen from "../pages/login";
 import EYPage from "../pages/eyPage";
 import CreateAccount from "../pages/createAccount";
 import PersonalProfile from "../pages/personalProfile";
+import PublicProfile from "../pages/publicProfile";
 
 const Tab = createBottomTabNavigator();
 
@@ -70,6 +71,11 @@ const AppNavigator = () => {
           options={{ headerShown: false }}
           name="PersonalProfile"
           component={PersonalProfile}
+        />
+        <Tab.Screen
+          options={{ headerShown: false }}
+          name="PublicProfile"
+          component={PublicProfile}
         />
       </Tab.Navigator>
     </>

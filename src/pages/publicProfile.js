@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Text,
   SafeAreaView,
@@ -6,16 +6,16 @@ import {
   StatusBar,
   View,
   ScrollView,
-  Button,
   Image,
-  TextInput,
   TouchableOpacity,
   Platform,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import {user} from "../utils/user"
 
 const PublicProfile = () => {
-  const [gender, setGender] = useState("");
+
+  const user1 = user[0];  
   const navigation = useNavigation();
 
   const navigateToScreen = (screenName) => {
@@ -30,41 +30,38 @@ const PublicProfile = () => {
               source={{
                 uri: "https://cdn-icons-png.flaticon.com/128/189/189254.png",
               }}
-              style={styles.img}
+              style={styles.imgs}
             />
           </TouchableOpacity>
           <Image
             source={{
-              uri: "https://cdn-icons-png.flaticon.com/128/5972/5972963.png",
+              uri: "https://cdn-icons-png.flaticon.com/128/10423/10423381.png",
             }}
-            style={styles.img}
+            style={styles.imgs}
           />
         </View>
 
         <View style={styles.udtls}>
           <Image
-            source={{
-              uri: "https://cdn-icons-png.flaticon.com/128/1144/1144709.png",
-            }}
+            source={{ uri: user1.img }}
             style={styles.pf}
           />
           <View style={styles.container}>
             <Text style={styles.txt}>Username :</Text>
-            <Text style={styles.txt1}>JohnDoe</Text>
+            <Text style={styles.txt1}>{user1.username}</Text>
           </View>
           <View style={styles.container}>
-            <Text style={styles.txt}>Email-id :</Text>
-            <Text style={styles.txt1}>johndoe@example.com</Text>
+            <Text style={styles.txt}>Score :</Text>
+            <Text style={styles.txt1}>{user1.score}</Text>
           </View>
           <View style={styles.container}>
             <Text style={styles.txt}>Birthdate :</Text>
-              <Text style={styles.datePicker}>Select Date</Text>
+            <Text style={styles.txt1}>{user1.birthDate}</Text>
           </View>
-          <View style={styles.container1}>
+          <View style={styles.container}>
             <Text style={styles.txt}>Gender :</Text>
-                <Text>Female</Text>
+            <Text style={styles.txt1}>{user1.gender}</Text>
           </View>
-
         </View>
       </SafeAreaView>
     </ScrollView>
@@ -89,7 +86,7 @@ const styles = StyleSheet.create({
     gap: 5,
     marginLeft: -15,
   },
-  img: {
+  imgs: {
     height: 40,
     width: 40,
   },
@@ -97,7 +94,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  img: {
+  imgs: {
     height: 40,
     width: 40,
   },
@@ -123,38 +120,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 20,
     marginBottom: 20,
-    textAlignVertical: 'center',
-  },
-  cp: {
-    fontSize: 20,
-    color: "orange",
-  },
-  genderContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  radioButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 5,
-    marginRight: 20,
-  },
-  radioButtonDot: {
-    height: 12,
-    width: 12,
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: "orange",
-    backgroundColor: "white",
-    marginLeft: 5,
-  },
-  datePicker: {
-    width: 250,
-    height: 50,
-    borderColor: "black",
-    borderWidth: 1,
-    borderRadius: 10,
-    marginBottom: 20,
-  },
+    textAlignVertical: "center",
+  },  
 });
-export default PersonalProfile;
+export default PublicProfile;

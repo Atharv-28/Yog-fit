@@ -6,10 +6,20 @@ import {
   TextInput,
   Image,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import { users } from "../utils/users";
+import { useNavigation } from "@react-navigation/native";
+
 
 const SearchComponent = () => {
+
+  const navigation = useNavigation();
+
+  const navigateToScreen = (screenName) => {
+    navigation.navigate(screenName);
+  };
+
   const [searchText, setSearchText] = useState("");
   const filteredusers = users.filter(
     (users) =>
@@ -27,7 +37,7 @@ const SearchComponent = () => {
       />
       <ScrollView showsVerticalScrollIndicator={false}>
         {filteredusers.map((item) => (
-          <View style={styles.result} key={item.id}>
+          <TouchableOpacity style={styles.result} key={item.id} onPress={() => navigateToScreen("PublicProfile")}>
             <Image
               style={styles.img}
               source={{
@@ -35,7 +45,7 @@ const SearchComponent = () => {
               }}
             />
             <Text>{item.name}</Text>
-          </View>
+          </TouchableOpacity>
         ))}
       </ScrollView>
     </View>
