@@ -6,6 +6,8 @@ export const users = [
     name: "Michael Johnson",
     username: "michael_j",
     score: 95,
+    gender: "male",
+    birthDate: "15-05-1990",
   },
   {
     id: 2,
@@ -13,6 +15,8 @@ export const users = [
     name: "Jessica Miller",
     username: "jessica_m",
     score: 93,
+    gender: "female",
+    birthDate: "28-12-1988",
   },
   {
     id: 8,
@@ -20,6 +24,8 @@ export const users = [
     name: "Sophia Johnson",
     username: "sophia_j",
     score: 84,
+    gender: "female",
+    birthDate: "02-08-1995",
   },
   {
     id: 9,
@@ -27,6 +33,8 @@ export const users = [
     name: "Isaac Wilson",
     username: "isaac_w",
     score: 79,
+    gender: "male",
+    birthDate: "18-04-1993",
   },
   {
     id: 10,
@@ -34,6 +42,8 @@ export const users = [
     name: "Chloe Davis",
     username: "chloe_d",
     score: 78,
+    gender: "female",
+    birthDate: "05-09-1991",
   },
   {
     id: 3,
@@ -41,6 +51,8 @@ export const users = [
     name: "Christopher Davis",
     username: "chris_d",
     score: 92,
+    gender: "male",
+    birthDate: "20-06-1989",
   },
   {
     id: 4,
@@ -48,6 +60,8 @@ export const users = [
     name: "Emily White",
     username: "emily_white",
     score: 91,
+    gender: "female",
+    birthDate: "12-02-1994",
   },
   {
     id: 5,
@@ -55,6 +69,8 @@ export const users = [
     name: "Matthew Taylor",
     username: "matthew_t",
     score: 88,
+    gender: "male",
+    birthDate: "08-11-1992",
   },
   {
     id: 6,
@@ -62,6 +78,8 @@ export const users = [
     name: "Olivia Brown",
     username: "olivia_b",
     score: 87,
+    gender: "female",
+    birthDate: "14-07-1996",
   },
   {
     id: 7,
@@ -69,7 +87,8 @@ export const users = [
     name: "Daniel Smith",
     username: "daniel_s",
     score: 85,
+    gender: "male",
+    birthDate: "25-03-1997",
   },
-  
   // Add more friends as needed
 ];
