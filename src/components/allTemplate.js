@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { View, Text, ScrollView, Image, StyleSheet } from "react-native";
 import TemplateCard from "./templateCard";
+import { exercises } from "../utils/exercise";
+import {yoga} from "../utils/yoga";
 
-const AllTemplate = ({ items = [] }) => {
+const items = exercises.concat(yoga);
+
+const AllTemplate = () => {
   const [expandedId, setExpandedId] = useState(null);
 
   const handleToggleExpand = (itemId) => {
@@ -33,6 +37,7 @@ const AllTemplate = ({ items = [] }) => {
     </ScrollView>
   );
 };
+
 
 const styles = StyleSheet.create({
   img: {
