@@ -11,11 +11,11 @@ import {
   Platform,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import {user} from "../utils/user"
 
-const PublicProfile = () => {
+const PublicProfile = ({ route }) => {
+  const { item } = route.params;
 
-  const user1 = user[0];  
+  const user1 = item;
   const navigation = useNavigation();
 
   const navigateToScreen = (screenName) => {
@@ -42,10 +42,7 @@ const PublicProfile = () => {
         </View>
 
         <View style={styles.udtls}>
-          <Image
-            source={{ uri: user1.img }}
-            style={styles.pf}
-          />
+          <Image source={{ uri: user1.img }} style={styles.pf} />
           <View style={styles.container}>
             <Text style={styles.txt}>Username :</Text>
             <Text style={styles.txt1}>{user1.username}</Text>
@@ -121,6 +118,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginBottom: 20,
     textAlignVertical: "center",
-  },  
+  },
 });
 export default PublicProfile;

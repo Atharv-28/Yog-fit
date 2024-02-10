@@ -9,15 +9,13 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { users } from "../utils/users";
-import { useNavigation } from "@react-navigation/native";
-
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 const SearchComponent = () => {
-
   const navigation = useNavigation();
 
-  const navigateToScreen = (screenName) => {
-    navigation.navigate(screenName);
+  const navigateToScreen = (screenName, params) => {
+    navigation.navigate(screenName, params);
   };
 
   const [searchText, setSearchText] = useState("");
@@ -37,7 +35,11 @@ const SearchComponent = () => {
       />
       <ScrollView showsVerticalScrollIndicator={false}>
         {filteredusers.map((item) => (
-          <TouchableOpacity style={styles.result} key={item.id} onPress={() => navigateToScreen("PublicProfile")}>
+          <TouchableOpacity
+            style={styles.result}
+            key={item.id}
+            onPress={() => navigateToScreen("PublicProfile", { item: item })}
+          >
             <Image
               style={styles.img}
               source={{
