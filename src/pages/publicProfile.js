@@ -44,20 +44,24 @@ const PublicProfile = ({ route }) => {
         <View style={styles.udtls}>
           <Image source={{ uri: user1.img }} style={styles.pf} />
           <View style={styles.container}>
-            <Text style={styles.txt}>Username :</Text>
-            <Text style={styles.txt1}>{user1.username}</Text>
+            <Text style={styles.txt}>Name :</Text>
+            <Text style={styles.txt}>{user1.name}</Text>
           </View>
           <View style={styles.container}>
-            <Text style={styles.txt}>Score :</Text>
-            <Text style={styles.txt1}>{user1.score}</Text>
+            <Text style={styles.txt}>Username :</Text>
+            <Text style={styles.txt}>{user1.username}</Text>
+          </View>
+          <View style={styles.container}>
+            <Text style={styles.txt}>Yog-fit Score :</Text>
+            <Text style={styles.txt}>{user1.score}</Text>
           </View>
           <View style={styles.container}>
             <Text style={styles.txt}>Birthdate :</Text>
-            <Text style={styles.txt1}>{user1.birthDate}</Text>
+            <Text style={styles.txt}>{user1.birthDate}</Text>
           </View>
           <View style={styles.container}>
             <Text style={styles.txt}>Gender :</Text>
-            <Text style={styles.txt1}>{user1.gender}</Text>
+            <Text style={styles.txt}>{user1.gender}</Text>
           </View>
         </View>
       </SafeAreaView>
@@ -67,15 +71,17 @@ const PublicProfile = ({ route }) => {
 
 const styles = StyleSheet.create({
   safeArea: {
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 10,
-    marginLeft: 10,
-    marginRight: 10,
+    flex:1,
+    marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 40,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   sv: {
     flexGrow: 1,
   },
   container: {
-    // flexDirection:"row"
+    flexDirection:"row",
+    alignItems:"center",
     gap: 5,
   },
   container1: {
@@ -90,6 +96,7 @@ const styles = StyleSheet.create({
   topnv: {
     flexDirection: "row",
     justifyContent: "space-between",
+    marginTop:15,
   },
   imgs: {
     height: 40,
@@ -97,27 +104,26 @@ const styles = StyleSheet.create({
   },
   udtls: {
     alignItems: "center",
+    height: 500,
     gap: 20,
+    marginTop: 20,
+    padding:20,
+    borderRadius:30,
+    // borderColor: "black",
+    // borderWidth: 2,
+    backgroundColor:"#a7d8e3",
   },
   pf: {
-    height: 100,
-    width: 100,
+    height: 150,
+    width: 150,
+    borderRadius:50,
     marginTop: 10,
+    marginBottom: 35,
   },
   txt: {
-    fontSize: 15,
+    fontSize: 20,
     marginLeft: 5,
     // fontWeight:"bold",
-  },
-  txt1: {
-    width: 250,
-    height: 50,
-    borderColor: "black",
-    borderWidth: 1,
-    borderRadius: 10,
-    paddingHorizontal: 20,
-    marginBottom: 20,
-    textAlignVertical: "center",
   },
 });
 export default PublicProfile;
