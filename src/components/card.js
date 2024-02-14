@@ -4,7 +4,7 @@ import CircularProgress from "react-native-circular-progress-indicator";
 import generateUniqueColors from "../utils/generateUniqueColors";
 import SmallTab from "./smallTab";
 
-const card = ({ color, score, title }) => {
+const card = ({ color, score, title, streak, diff }) => {
   return (
     <>
       <View style={[styles.card, { backgroundColor: color }]}>
@@ -12,7 +12,7 @@ const card = ({ color, score, title }) => {
           <View style={styles.ex}>
             <Text style={styles.e2}>{title}</Text>
           </View>
-          <SmallTab />
+          <SmallTab streak={streak} diff={diff} />
         </View>
         <View style={styles.accuracy}>
           <CircularProgress
