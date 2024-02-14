@@ -28,11 +28,11 @@ const Home = () => {
           paddingBottom: 20,
         }}
       >
-        <Card style={styles.card} score={30} color={getNextColor()} />
-        <Card score={80} color={getNextColor()} />
-        <Card score={75} color={getNextColor()} />
-        <Card score={60} color={getNextColor()} />
-        <Card score={90} color={getNextColor()} />
+        <Card style={styles.card} title={"Push-up"} score={92} color={getNextColor()} />
+        <Card title={"Box Jumps"} score={81} color={getNextColor()} />
+        <Card title={"Bhujangasana"} score={88} color={getNextColor()} />
+        <Card title={"Marjaryasana"} score={65} color={getNextColor()} />
+        <Card title={"Pistol Squats"} score={94} color={getNextColor()} />
       </ScrollView>
       <BottomNav />
     </SafeAreaView>
