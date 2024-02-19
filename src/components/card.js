@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Image } from "react-native";
+import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import React, { useState, useEffect } from "react";
 import CircularProgress from "react-native-circular-progress-indicator";
 import generateUniqueColors from "../utils/generateUniqueColors";
@@ -6,8 +6,7 @@ import SmallTab from "./smallTab";
 
 const card = ({ color, score, title, streak, diff }) => {
   return (
-    <>
-      <View style={[styles.card, { backgroundColor: color }]}>
+      <TouchableOpacity style={[styles.card, { backgroundColor: color }]}>
         <View style={styles.cardLeft}>
           <View style={styles.ex}>
             <Text style={styles.e2}>{title}</Text>
@@ -25,8 +24,7 @@ const card = ({ color, score, title, streak, diff }) => {
             width={10}
           />
         </View>
-      </View>
-    </>
+      </TouchableOpacity>
   );
 };
 
