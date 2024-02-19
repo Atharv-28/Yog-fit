@@ -99,4 +99,23 @@ export const Myey = [
         sets: "3 sets of 8 reps",
         img: "https://www.inspireusafoundation.org/wp-content/uploads/2023/02/handstand-pushup.gif"
     },
+    {
+        id:"expert",
+        name:"The Firefly Pose ",
+        need:"to improve flexibility and focus",
+        suitable:"the person who is facing problems like stress,and blood flow",
+        benefits:["1.Improves hip flexibility.",
+        "2.Opens the chest ",
+        "3.Helps you find new strength and perspective.",
+        "4.Tones the belly",
+        ],
+        procedure:["1.Start in a Standing Forward Bend, with your toes pointing slightly out and your knees slightly bent.",
+        "2.Thread your right hand through your legs to clasp your right calf, positioning your right shoulder behind your right knee. ",
+         "3.Repeat this process on the left side.",
+        "4.Place your hands flat on the mat behind your feet. Arrange your hands shoulder-distance apart, the tips of the middle fingers grazing your heels",
+        "5.Bend your knees deeply, and grab hold of your calves to snuggle one shoulder, and then the other, behind your knees. Your shoulders will round forward, but keep pushing them back against the thighs.",
+    ],
+        time:"minimum 60 sec (1 min)-maximum 300 sec (5 min)",
+        img:"https://cdn.yogajournal.com/wp-content/uploads/2021/11/Titibasana-Firefly-Sequence-Featured-Renee-Choi-scaled.jpg",
+    },
 ];

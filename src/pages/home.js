@@ -28,17 +28,20 @@ const Home = () => {
           paddingBottom: 20,
         }}
       >
-        <Card score={30} color={getNextColor()} />
-        <Card score={80} color={getNextColor()} />
-        <Card score={75} color={getNextColor()} />
-        <Card score={60} color={getNextColor()} />
-        <Card score={90} color={getNextColor()} />
+        <Card style={styles.card} title={"Push-up"} score={92} streak={9} diff={"Beginners"} color={getNextColor()} />
+        <Card title={"Box Jumps"} score={81} streak={7} diff={"Beginners"} color={getNextColor()} />
+        <Card title={"Bhujangasana"} score={88} streak={7} diff={"Beginners"} color={getNextColor()} />
+        <Card title={"Marjaryasana"} score={65} streak={5} diff={"Intermediate"} color={getNextColor()} />
+        <Card title={"Pistol Squats"} score={94} streak={7} diff={"Expert"} color={getNextColor()} />
       </ScrollView>
       <BottomNav />
     </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
+  card:{
+    boxShadow: "0px 7px 29px 0px grey",
+  },
   container: {
     flex: 1,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,

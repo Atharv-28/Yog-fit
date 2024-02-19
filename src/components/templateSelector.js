@@ -1,4 +1,4 @@
-// Rank.js
+// Template Selector and object passer.js
 import React, { useState } from "react";
 import {
   View,
@@ -13,9 +13,7 @@ import {
 import MyTemplate from "./myTemplate";
 import AllTemplate from "./allTemplate";
 import { Myey } from "../utils/myey";
-import { exercises } from "../utils/exercise";
 
-const myTemplate = [];
 
 const TemplateSelector = () => {
   const [activeTab, setActiveTab] = useState("myTemplate");
@@ -53,11 +51,7 @@ const TemplateSelector = () => {
 
         <View style={styles.tabContent}>
           {activeTab === "globalTemplates" ? (
-            <AllTemplate
-              items={exercises}
-              expandedId={expandedId}
-              onToggleExpand={handleToggleExpand}
-            />
+            <AllTemplate />
           ) : (
             <MyTemplate
               items={Myey}

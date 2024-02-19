@@ -3,8 +3,9 @@ import React from "react";
 import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
 
 const Podium = ({ rankingData }) => {
+  const sortedData = rankingData.slice().sort((a, b) => b.score - a.score);
   const renderPodium = () => {
-    const topThree = rankingData.slice(0, 3);
+    const topThree = sortedData.slice(0, 3);
 
     return topThree.map((item, index) => (
       <View
@@ -33,7 +34,7 @@ const Podium = ({ rankingData }) => {
   };
 
   const renderRemainingList = () => {
-    const remainingItems = rankingData.slice(3);
+    const remainingItems = sortedData.slice(3);
 
     return remainingItems.map((item) => (
       <View key={item.id} style={styles.remainingItem}>

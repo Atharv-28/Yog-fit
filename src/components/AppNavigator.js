@@ -10,6 +10,9 @@ import TemplatePage from "../pages/templatesPage";
 import LoginScreen from "../pages/login";
 import EYPage from "../pages/eyPage";
 import CreateAccount from "../pages/createAccount";
+import PersonalProfile from "../pages/personalProfile";
+import PublicProfile from "../pages/publicProfile";
+import Analytic from "../pages/analytic";
 
 const Tab = createBottomTabNavigator();
 
@@ -62,8 +65,23 @@ const AppNavigator = () => {
         />
         <Tab.Screen
           options={{ headerShown: false }}
+          name="Analytic"
+          component={Analytic}
+        />
+        <Tab.Screen
+          options={{ headerShown: false }}
           name="Profile"
           component={Profile}
+        />
+        <Tab.Screen
+          options={{ headerShown: false }}
+          name="PersonalProfile"
+          component={PersonalProfile}
+        />
+        <Tab.Screen
+          options={{ headerShown: false }}
+          name="PublicProfile"
+          component={PublicProfile}
         />
       </Tab.Navigator>
     </>
