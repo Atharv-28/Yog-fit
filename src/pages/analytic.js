@@ -13,7 +13,9 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-const Analytic = ({ info = [] }) => {
+const Analytic = ({ route }) => {
+    const { stat } = route.params;
+
   const navigation = useNavigation();
 
   const navigateToScreen = (screenName) => {
@@ -32,27 +34,27 @@ const Analytic = ({ info = [] }) => {
         </TouchableOpacity>
         <View style={styles.anlys}>
           <View style={styles.tl}>
-            <Text style={styles.txt}>TITLE</Text>
+            <Text style={styles.txt}>{stat[0].title1}</Text>
           </View>
           <View style={styles.data}>
             <Text style={styles.d1}>Accuray :</Text>
-            <Text style={styles.d1}>100%</Text>
+            <Text style={styles.d1}>{stat[0].score1}</Text>
           </View>
           <View style={styles.data}>
-            <Text style={styles.d1}>MYTimeSpent :</Text>
-            <Text style={styles.d1}>34min/day</Text>
+            <Text style={styles.d1}>TimeSpent :</Text>
+            <Text style={styles.d1}>4 min/day</Text>
           </View>
           <View style={styles.data}>
             <Text style={styles.d1}>Excepted Time :</Text>
-            <Text style={styles.d1}>100%</Text>
+            <Text style={styles.d1}>5 min/day</Text>
           </View>
           <View style={styles.data}>
             <Text style={styles.d1}>Streak :</Text>
-            <Text style={styles.d1}>100%</Text>
+            <Text style={styles.d1}>{stat[0].streak1} days🔥</Text>
           </View>
           <View style={styles.data}>
-            <Text style={styles.d1}>YogFitScore :</Text>
-            <Text style={styles.d1}>100%</Text>
+            <Text style={styles.d1}>Yog-Fit Score :</Text>
+            <Text style={styles.d1}>100</Text>
           </View>
         </View>
       </View>

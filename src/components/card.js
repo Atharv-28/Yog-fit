@@ -7,18 +7,18 @@ import { useNavigation } from "@react-navigation/native";
 
 
 const card = ({ color, score, title, streak, diff}) => {
-  const info =[
+  const info = [
     {
-      score: score,
-      title: title,
-      streak: streak,
-      diff: diff,
-    }
-  ]
+      score1: score,
+      title1: title,
+      streak1: streak,
+      diff1: diff,
+    },
+  ];
   const navigation = useNavigation();
 
     const navigateToScreen = (screenName, info) => {
-        navigation.navigate(screenName, { exercise: info });
+        navigation.navigate(screenName, { stat : info });
       };
   return (
       <TouchableOpacity onPress={() => navigateToScreen("Analytic", info)} style={[styles.card, { backgroundColor: color }]}>
