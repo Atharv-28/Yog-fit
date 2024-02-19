@@ -147,7 +147,7 @@ const Tracker = () => {
         ratio={'16:9'}
       >
         <ImageBackground
-          style={{ flex: 0.8, resizeMode: 'cover', justifyContent: 'center' }}
+          style={{ flex: 0.8, resizeMode: 'cover', justifyContent: 'center',alignContent:"center", opacity: 0.3 }}
           source={{ uri: 'https://cdn.yogajournal.com/wp-content/uploads/2007/08/Cobra-Pose_Andrew-Clark.gif?width=730' }}
         >
           {detectedPose && (
