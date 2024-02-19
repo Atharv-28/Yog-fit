@@ -12,15 +12,25 @@ import {
   Image,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+// import calculateYogFitScore from "../utils/score";
+
 
 const Analytic = ({ route }) => {
-    const { stat } = route.params;
+  const { stat } = route.params;
 
   const navigation = useNavigation();
 
   const navigateToScreen = (screenName) => {
     navigation.navigate(screenName);
   };
+
+  const timexp = 5;
+  const timesp = 4;
+  const timeper = (timesp / timexp) * 100;
+  const accuracy = parseInt(stat[0].score1) ;
+  const streak = parseInt(stat[0].streak1) ;
+  const yogfitScore = ((accuracy+timeper)/200)*100+streak
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View>
@@ -49,18 +59,23 @@ const Analytic = ({ route }) => {
             <Text style={styles.d1}>5 min/day</Text>
           </View>
           <View style={styles.data}>
+            <Text style={styles.d1}>Time Percentage :</Text>
+            <Text style={styles.d1}>{timeper}%</Text>
+          </View>
+          <View style={styles.data}>
             <Text style={styles.d1}>Streak :</Text>
             <Text style={styles.d1}>{stat[0].streak1} days🔥</Text>
           </View>
           <View style={styles.data}>
             <Text style={styles.d1}>Yog-Fit Score :</Text>
-            <Text style={styles.d1}>100</Text>
+            <Text style={styles.d1}>{yogfitScore}</Text>
           </View>
         </View>
       </View>
     </SafeAreaView>
   );
 };
+
 const styles = StyleSheet.create({
   safeArea: {
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 10,
@@ -68,7 +83,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   img: {
-    marginTop:10,
+    marginTop: 10,
     height: 50,
     width: 50,
   },
