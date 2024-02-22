@@ -1,10 +1,15 @@
 // TemplateCard.js
-import React from "react";
+import {React, useState} from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 
-const TemplateCard = ({ item, isExpanded, onToggleExpand }) => {
+const TemplateCard = ({ item }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const handleToggleExpand = () => {
+    setIsExpanded((prevIsExpanded) => !prevIsExpanded);
+  };
   return (
-    <TouchableOpacity onPress={onToggleExpand}>
+    <TouchableOpacity onPress={handleToggleExpand}>
       <View
         style={{ padding: 10, borderBottomWidth: 1, borderBottomColor: "#ddd" }}
       >

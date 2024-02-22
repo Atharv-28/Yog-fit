@@ -20,8 +20,6 @@ const AllTemplate = () => {
           <TemplateCard
             key={index}
             item={item}
-            isExpanded={item.id === expandedId}
-            onToggleExpand={() => handleToggleExpand(item.id)}
           />
         ))
       ) : (
