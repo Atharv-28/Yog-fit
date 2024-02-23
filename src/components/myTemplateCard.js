@@ -1,10 +1,9 @@
 // TemplateCard.js
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-
-const ExerciseCard = ({ item }) => {
+const ExerciseCard = ({ item, color }) => {
     const navigation = useNavigation();
 
     const navigateToScreen = (screenName, item) => {
@@ -12,16 +11,32 @@ const ExerciseCard = ({ item }) => {
       };
       
   return (
-    <TouchableOpacity onPress={() => navigateToScreen("EYPage", item)}>
-      <View
-        style={{ padding: 10, borderBottomWidth: 1, borderBottomColor: "#ddd" }}
-      >
+    <TouchableOpacity style={[styles.container,{backgroundColor: color}]} onPress={() => navigateToScreen("EYPage", item)}>
+      <View style={styles.box}>
         <Text style={{ fontSize: 18, fontWeight: "bold" }}>{item.name}</Text>
-        <Text style={{ fontSize: 14, color: "#555" }}>{item.benefits}</Text>
-        <Text style={{ fontSize: 14, color: "#555" }}>{item.sets}</Text>
+        <Text style={[styles.txt,{ fontSize: 14}]}>{item.benefits}</Text>
+        <Text style={[ styles.txt,{ fontSize: 14 }]}>{item.sets}</Text>
       </View>
     </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  container:{
+    borderRadius: 40,
+    marginBottom: 10,
+  },
+  box:
+  {
+    flex:1,
+    padding: 20,
+    flexDirection: "column",
+    gap: 5,
+  },
+  txt:{
+    color: "black",
+
+  }
+})
 
 export default ExerciseCard;

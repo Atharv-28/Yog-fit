@@ -14,38 +14,30 @@ import MyTemplate from "./myTemplate";
 import AllTemplate from "./allTemplate";
 import { Myey } from "../utils/myey";
 
-
 const TemplateSelector = () => {
   const [activeTab, setActiveTab] = useState("myTemplate");
-  const [expandedId, setExpandedId] = useState(null);
-
-  const handleToggleExpand = (itemId) => {
-    setExpandedId((prevId) => (prevId === itemId ? null : itemId));
-  };
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <View style={styles.tabButtons}>
-          <TouchableOpacity onPress={() => setActiveTab("myTemplate")}>
-            <Text
-              style={[
-                styles.tabButton,
-                activeTab === "myTemplate" && styles.activeTab,
-              ]}
-            >
-              My Templates
-            </Text>
+          <TouchableOpacity
+            style={[
+              styles.tabs,
+              activeTab === "myTemplate" && styles.activeTab,
+            ]}
+            onPress={() => setActiveTab("myTemplate")}
+          >
+            <Text style={styles.tabButton}>My Templates</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setActiveTab("globalTemplates")}>
-            <Text
-              style={[
-                styles.tabButton,
-                activeTab === "globalTemplates" && styles.activeTab,
-              ]}
-            >
-              All Templates
-            </Text>
+          <TouchableOpacity
+            style={[
+              styles.tabs,
+              activeTab === "globalTemplates" && styles.activeTab,
+            ]}
+            onPress={() => setActiveTab("globalTemplates")}
+          >
+            <Text style={styles.tabButton}>All Templates</Text>
           </TouchableOpacity>
         </View>
 
@@ -53,9 +45,7 @@ const TemplateSelector = () => {
           {activeTab === "globalTemplates" ? (
             <AllTemplate />
           ) : (
-            <MyTemplate
-              items={Myey}
-            />
+            <MyTemplate items={Myey} />
           )}
         </View>
       </View>
@@ -73,26 +63,31 @@ const styles = StyleSheet.create({
   },
   tabButtons: {
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#eee",
-    padding: 10,
-    borderColor: "red",
-    borderWidth: 2,
+    backgroundColor: "#d9d9d9",
+    gap: 3,
+    borderRadius: 30,
+  },
+  tabs: {
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 0.5,
+    height: 50,
     borderRadius: 30,
   },
   tabButton: {
     fontSize: 16,
+    fontWeight: "bold",
   },
   activeTab: {
     fontWeight: "bold",
     color: "blue",
+    backgroundColor: "orange",
   },
   tabContent: {
     flex: 1,
     padding: 10,
-    borderColor: "blue",
-    borderWidth: 2,
   },
   rankingContainer: {
     flexDirection: "row",
