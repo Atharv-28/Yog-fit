@@ -3,22 +3,19 @@ import { View, Text, ScrollView, Image, StyleSheet } from "react-native";
 import TemplateCard from "./templateCard";
 import { exercises } from "../utils/exercise";
 import {yoga} from "../utils/yoga";
+import generateUniqueColors from "../utils/generateUniqueColors";
 
 const items = exercises.concat(yoga);
 
 const AllTemplate = () => {
-  const [expandedId, setExpandedId] = useState(null);
-
-  const handleToggleExpand = (itemId) => {
-    setExpandedId((prevId) => (prevId === itemId ? null : itemId));
-  };
+  const getNextColor = generateUniqueColors();
 
   return (
     <ScrollView>
       {items && items.length > 0 ? (
         items.map((item, index) => (
           <TemplateCard
-            key={index}
+          color={getNextColor()}
             item={item}
           />
         ))
