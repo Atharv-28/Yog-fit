@@ -34,25 +34,23 @@ const Rank = () => {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <View style={styles.tabButtons}>
-          <TouchableOpacity onPress={() => setActiveTab("global")}>
-            <Text
-              style={[
-                styles.tabButton,
-                activeTab === "global" && styles.activeTab,
-              ]}
-            >
-              Global
-            </Text>
+        <TouchableOpacity
+            style={[
+              styles.tabs,
+              activeTab === "global" && styles.activeTab,
+            ]}
+            onPress={() => setActiveTab("global")}
+          >
+            <Text style={styles.tabButton}>Global</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setActiveTab("friends")}>
-            <Text
-              style={[
-                styles.tabButton,
-                activeTab === "friends" && styles.activeTab,
-              ]}
-            >
-              Friends
-            </Text>
+          <TouchableOpacity
+            style={[
+              styles.tabs,
+              activeTab === "friends" && styles.activeTab,
+            ]}
+            onPress={() => setActiveTab("friends")}
+          >
+            <Text style={styles.tabButton}>Friends</Text>
           </TouchableOpacity>
         </View>
 
@@ -74,6 +72,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 10,
   },
+  
   container: {
     flex: 1,
     padding: 10,
