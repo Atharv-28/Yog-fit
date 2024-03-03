@@ -8,8 +8,11 @@ import {
   ImageBackground,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { firebaseApp } from "../../firebaseConfig";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const LoginScreen = () => {
+  const auth = getAuth(firebaseApp);
   const navigation = useNavigation();
   const navigateToScreen = (screenName) => {
     navigation.navigate(screenName);
@@ -17,10 +20,26 @@ const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-    navigateToScreen("Home");
-    console.log(`Email: ${email}, Password: ${password}`);
+  const handleLogin = async () => {
+    try {
+      console.log(auth);
+      signInWithEmailAndPassword(auth, email, password).then(
+        (userCredential) => {
+          const user = userCredential.user;
+          if (user) {
+            navigateToScreen("Home");
+          } 
+          else {
+            console.error("Login failed. User not found.");
+          }
+        }
+      );
+    } catch (error) {
+      // Handle authentication errors
+      console.error("Authentication error:", error.message);
+    }
   };
+
   const handleLogin2 = () => {
     navigateToScreen("SignUp");
     console.log(`Email: ${email}, Password: ${password}`);
