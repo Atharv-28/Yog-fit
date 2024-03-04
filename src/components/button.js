@@ -14,9 +14,8 @@ const SquareComponents = () => {
 };
 const styles = StyleSheet.create({
   pf1: {
-    borderColor: "purple",
-    borderWidth: 2,
     height: 80,
+    backgroundColor: "#d2e4f2",
     width: "90%",
     borderRadius: 20,
     flexDirection: "row",
@@ -26,8 +25,7 @@ const styles = StyleSheet.create({
   spf1: {
     height: 60,
     width: "40%",
-    borderColor: "yellow",
-    borderWidth: 2,
+    backgroundColor:"white",
     borderRadius: 20,
     justifyContent: "center",
     alignItems: "center",

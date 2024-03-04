@@ -46,8 +46,7 @@ const Acc = () => {
 
 const styles = StyleSheet.create({
   user: {
-    borderColor:"red",
-    borderWidth:1,
+    backgroundColor:"#b9c5ff",
     flexDirection: "row",
     alignItems: "center",
     marginTop: 50,

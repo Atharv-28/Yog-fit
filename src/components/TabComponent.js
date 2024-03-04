@@ -19,7 +19,7 @@ const TabsComponent = () => {
   return (
     <View style={styles.container}>
       <View style={styles.tabButtons}>
-        <TouchableOpacity onPress={() => setActiveTab("search")}>
+        <TouchableOpacity style={styles.tabsEach} onPress={() => setActiveTab("search")}>
           <Text
             style={[
               styles.tabButton,
@@ -29,7 +29,7 @@ const TabsComponent = () => {
             Search
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setActiveTab("friends")}>
+        <TouchableOpacity style={styles.tabsEach} onPress={() => setActiveTab("friends")}>
           <Text
             style={[
               styles.tabButton,
@@ -52,9 +52,10 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     alignItems: "center",
-    width: 300,
-    borderColor: "red",
-    borderWidth: 2,
+    width: 350,
+    padding:10,
+    backgroundColor:"#CAE0ED",
+    borderRadius:30,
   },
   tabButtons: {
     width: 200,
@@ -71,12 +72,15 @@ const styles = StyleSheet.create({
     textAlignVertical: "center",
     fontSize: 16,
   },
+  tabsEach:{
+    width: 100,
+  },
   activeTab: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     fontWeight: "bold",
-    color: "blue",
+    backgroundColor:"orange",
     borderRadius: 30,
   },
   tabContent: {
