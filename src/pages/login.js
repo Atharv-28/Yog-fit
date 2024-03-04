@@ -8,7 +8,7 @@ import {
   ImageBackground,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { firebaseApp } from "../../firebaseConfig";
+import { firebaseApp } from "../../database/firebaseConfig";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const LoginScreen = () => {

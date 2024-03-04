@@ -9,15 +9,51 @@ import {
   ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { firebaseApp } from "../../database/firebaseConfig";
+import { getDatabase, ref, set } from "firebase/database"; // Import database module
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
 
 const CreateAccount = () => {
+  const auth = getAuth(firebaseApp);
+  const [name, setName] = useState("");
+  const [dob, setDob] = useState("");
+  const [weight, setWeight] = useState("");
+  const [height, setHeight] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigation = useNavigation();
+  
   const navigateToScreen = (screenName) => {
     navigation.navigate(screenName);
   };
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
+  const database = getDatabase(firebaseApp); // Initialize the database
+
+  const handleCreateAccount = async () => {
+    try {
+      const response = await createUserWithEmailAndPassword(auth, email, password);
+
+      // Access the user object
+      const user = response.user;
+
+      // Save additional user details to the Realtime Database
+      const userRef = ref(database, `users/${user.uid}`);
+      set(userRef, {
+        name,
+        dob,
+        weight,
+        height,
+        email: user.email,
+      });
+      console.log(userRef+ user);
+      // Navigate to Home or another screen
+      navigateToScreen("Login");
+    } catch (error) {
+      // Handle account creation errors
+      console.error("Account creation failed:", error.message);
+    }
+  };
   return (
     <ImageBackground
       source={{
@@ -35,13 +71,14 @@ const CreateAccount = () => {
         <View style={styles.container}>
           <Text style={styles.title}>Welcome back</Text>
           <Text style={styles.subtitle}>Please enter your details</Text>
-          <TextInput style={styles.input} placeholder="Enter your Name" />
+          <TextInput style={styles.input} placeholder="Enter your Name" onChangeText={setName} />
           <TextInput
             style={styles.input}
             placeholder="Enter your Date Of Birth"
+            onChangeText={setDob}
           />
-          <TextInput style={styles.input} placeholder="Enter your Weight" />
-          <TextInput style={styles.input} placeholder="Enter your Height" />
+          <TextInput style={styles.input} placeholder="Enter your Weight(in Kg)" onChangeText={setWeight} />
+          <TextInput style={styles.input} placeholder="Enter your Height(in Cm)" onChangeText={setHeight} />
 
           <TextInput
             style={styles.input}
@@ -61,7 +98,7 @@ const CreateAccount = () => {
 
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigateToScreen("Login")}
+            onPress={handleCreateAccount}
           >
             <Text style={styles.buttonText}>SIGN IN</Text>
           </TouchableOpacity>

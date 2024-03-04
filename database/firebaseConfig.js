@@ -1,6 +1,4 @@
-import * as firebase from "firebase/app";
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 const firebaseConfig = {
     apiKey: "AIzaSyBBR1Vff9EflJraTU1UfpcSRzXyEFtACTo",
@@ -9,14 +7,11 @@ const firebaseConfig = {
     storageBucket: "yog-fit-78ad0.appspot.com",
     messagingSenderId: "605289664985",
     appId: "1:605289664985:web:cc5c0d264bdb22d30d89c8",
-    measurementId: "G-71S8R4DTS1"
+    measurementId: "G-71S8R4DTS1",
+    databaseURL: "https://yog-fit-78ad0-default-rtdb.asia-southeast1.firebasedatabase.app",
+
   };
-
-//   if (!firebase.apps || !firebase.apps.length) {
-//     firebase.initializeApp(firebaseConfig);
-//   }
-
-// export default firebase;
 const firebaseApp = initializeApp(firebaseConfig);
 
 export default {firebaseApp};
+//https://yog-fit-78ad0-default-rtdb.asia-southeast1.firebasedatabase.app
