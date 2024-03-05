@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { firebaseApp } from "../../database/firebaseConfig";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 
 const LoginScreen = () => {
   const auth = getAuth(firebaseApp);
@@ -19,6 +19,16 @@ const LoginScreen = () => {
   };
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [user, setUser] = useState(null);
+
+  const handleAuthStateChange = (user) => {
+    if (user) {
+      console.log("User is signed in:", user.uid);
+      navigateToScreen("Home");
+    } else {
+      console.log("User is signed out");
+    }
+  };
 
   const handleLogin = async () => {
     try {
@@ -27,9 +37,8 @@ const LoginScreen = () => {
         (userCredential) => {
           const user = userCredential.user;
           if (user) {
-            navigateToScreen("Home");
-          } 
-          else {
+            handleAuthStateChange(user);
+          } else {
             console.error("Login failed. User not found.");
           }
         }
@@ -39,6 +48,7 @@ const LoginScreen = () => {
       console.error("Authentication error:", error.message);
     }
   };
+
 
   const handleLogin2 = () => {
     navigateToScreen("SignUp");
