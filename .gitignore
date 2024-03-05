@@ -3,6 +3,11 @@
 # dependencies
 node_modules/
 
+
+# database info (Private Key)
+database/yog-fit-78ad0-firebase-adminsdk-b054w-dfa214b8f0.json
+
+
 # Expo
 .expo/
 dist/

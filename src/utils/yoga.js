@@ -1,4 +1,4 @@
-export const yoga =[
+module.exports =[
     {
         id: "beginner",
         name:"Bhujangasana (Cobra Pose)",

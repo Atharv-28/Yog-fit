@@ -1,6 +1,6 @@
 
 // exercises.js
-    export const exercises = [
+    module.exports = [
         {
             id: "beginners",
             name: "Biceps Curl",
@@ -57,6 +57,8 @@
             sets: "3 sets of 30 seconds",
             img: "https://www.mdpi.com/sensors/sensors-22-04510/article_deploy/html/images/sensors-22-04510-g001-550.jpg",
         },
+
+        //TODO: left to feed data
         {
             id: "beginners",
             name: "Deadlifts",
