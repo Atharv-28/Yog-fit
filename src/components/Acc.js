@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     width: 50,
   },
   txt: {
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: "bold",
   },
 });

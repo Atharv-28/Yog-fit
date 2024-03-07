@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   SafeAreaView,
@@ -13,10 +13,36 @@ import {
   Platform,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getDatabase, ref, onValue } from "firebase/database";
+import { firebaseApp } from "../../database/firebaseConfig";
 
 const PersonalProfile = () => {
   const [gender, setGender] = useState("");
   const navigation = useNavigation();
+  const auth = getAuth(firebaseApp);
+  const database = getDatabase();
+
+  const [user, setUser] = useState(null);
+
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (authUser) => {
+      if (authUser) {
+        const userRef = ref(database, `users/${authUser.uid}`);
+        onValue(userRef, (snapshot) => {
+          const userData = snapshot.val();
+          console.log(userData);
+          setUser(userData);
+        });
+      } else {
+        // Handle the case when the user is not authenticated
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [auth, database]);
 
   const navigateToScreen = (screenName) => {
     navigation.navigate(screenName);
@@ -50,16 +76,16 @@ const PersonalProfile = () => {
           />
           <View style={styles.container}>
             <Text style={styles.txt}>Username :</Text>
-            <TextInput style={styles.txt1} placeholder="Username" />
+            <TextInput style={styles.txt1} placeholder={user ? user.name : "User Name"} />
           </View>
           <View style={styles.container}>
             <Text style={styles.txt}>Email-id :</Text>
-            <TextInput style={styles.txt1} placeholder="Email-id" />
+            <TextInput style={styles.txt1} placeholder={user ? user.email : "Email-id"} />
           </View>
           <View style={styles.container}>
             <Text style={styles.txt}>Birthdate :</Text>
             <TouchableOpacity>
-              <TextInput style={styles.txt1} placeholder="Select Date" />
+              <TextInput style={styles.txt1} placeholder={user ? user.dob : "DOB"} />
             </TouchableOpacity>
           </View>
           <View style={styles.container1}>
