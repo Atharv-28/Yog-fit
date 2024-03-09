@@ -75,22 +75,22 @@ const PersonalProfile = () => {
           />
           <View style={styles.container}>
             <Text style={styles.txt}>Username :</Text>
-            <TextInput style={styles.txt1} placeholder={user ? user.name : "User Name"} />
+            <TextInput style={styles.txt1} editable={false} placeholder={user ? user.name : "User Name"} />
           </View>
           <View style={styles.container}>
             <Text style={styles.txt}>Email-id :</Text>
-            <TextInput style={styles.txt1} placeholder={user ? user.email : "Email-id"} />
+            <TextInput style={styles.txt1} editable={false} placeholder={user ? user.email : "Email-id"} />
           </View>
           <View style={styles.container}>
             <Text style={styles.txt}>Birthdate :</Text>
             <TouchableOpacity>
-              <TextInput style={styles.txt1} placeholder={user ? user.dob : "DOB"} />
+              <TextInput style={styles.txt1} editable={false} placeholder={user ? user.dob : "DOB"} />
             </TouchableOpacity>
           </View>
           <View style={styles.container}>
             <Text style={styles.txt}>Gender :</Text>
             <TouchableOpacity>
-              <TextInput style={styles.txt1} placeholder={user ? user.gender : "Gender"} />
+              <TextInput style={styles.txt1} editable={false} placeholder={user ? user.gender : "Gender"} />
             </TouchableOpacity>
           </View>
 
@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
   },
   sv: {
     flexGrow: 1,
+    marginTop: 15,
   },
   container: {
     // flexDirection:"row"
