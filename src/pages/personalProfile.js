@@ -18,7 +18,6 @@ import { getDatabase, ref, onValue } from "firebase/database";
 import { firebaseApp } from "../../database/firebaseConfig";
 
 const PersonalProfile = () => {
-  const [gender, setGender] = useState("");
   const navigation = useNavigation();
   const auth = getAuth(firebaseApp);
   const database = getDatabase();
@@ -88,36 +87,11 @@ const PersonalProfile = () => {
               <TextInput style={styles.txt1} placeholder={user ? user.dob : "DOB"} />
             </TouchableOpacity>
           </View>
-          <View style={styles.container1}>
+          <View style={styles.container}>
             <Text style={styles.txt}>Gender :</Text>
-            <View style={styles.genderContainer}>
-              <TouchableOpacity
-                style={styles.radioButton}
-                onPress={() => setGender("Male")}
-              >
-                <View
-                  style={[
-                    styles.radioButtonDot,
-                    { backgroundColor: gender === "Male" ? "orange" : "white" },
-                  ]}
-                />
-                <Text>Male</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.radioButton}
-                onPress={() => setGender("Female")}
-              >
-                <View
-                  style={[
-                    styles.radioButtonDot,
-                    {
-                      backgroundColor: gender === "Female" ? "orange" : "white",
-                    },
-                  ]}
-                />
-                <Text>Female</Text>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity>
+              <TextInput style={styles.txt1} placeholder={user ? user.gender : "Gender"} />
+            </TouchableOpacity>
           </View>
 
           <Text style={styles.cp}>Change Password ?</Text>
@@ -140,11 +114,7 @@ const styles = StyleSheet.create({
     // flexDirection:"row"
     gap: 5,
   },
-  container1: {
-    flexDirection: "row",
-    gap: 5,
-    marginLeft: -15,
-  },
+  
   img: {
     height: 40,
     width: 40,
@@ -183,25 +153,6 @@ const styles = StyleSheet.create({
   cp: {
     fontSize: 20,
     color: "orange",
-  },
-  genderContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  radioButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 5,
-    marginRight: 20,
-  },
-  radioButtonDot: {
-    height: 12,
-    width: 12,
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: "orange",
-    backgroundColor: "white",
-    marginLeft: 5,
   },
   datePicker: {
     width: 250,
