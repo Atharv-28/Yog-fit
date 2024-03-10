@@ -57,7 +57,7 @@ const PersonalProfile = () => {
               style={styles.img}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigateToScreen("Profile")}>
+          <TouchableOpacity onPress={() => navigateToScreen("EditProfile")}>
             <Image
               source={{
                 uri: "https://cdn-icons-png.flaticon.com/128/5972/5972963.png",

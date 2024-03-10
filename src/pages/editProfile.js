@@ -75,7 +75,7 @@ const EditProfile = () => {
     <ScrollView style={styles.scrollView}>
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.topNav}>
-          <TouchableOpacity onPress={() => navigateToScreen("Profile")}>
+          <TouchableOpacity onPress={() => navigateToScreen("PersonalProfile")}>
             <Image
               source={{
                 uri: "https://cdn-icons-png.flaticon.com/128/189/189254.png",
@@ -83,60 +83,51 @@ const EditProfile = () => {
               style={styles.icon}
             />
           </TouchableOpacity>
-          <Image
-            source={{
-              uri: "https://cdn-icons-png.flaticon.com/128/5972/5972963.png",
-            }}
-            style={styles.icon}
-          />
         </View>
 
-        <View style={styles.userDetails}>
+        <View style={styles.udtls}>
           <Image
             source={{
               uri: "https://cdn-icons-png.flaticon.com/128/1144/1144709.png",
             }}
-            style={styles.profileImage}
+            style={styles.pf}
           />
           <View style={styles.container}>
-            <Text style={styles.label}>Username :</Text>
-            {isEditing ? (
-              <TextInput
-                style={styles.input}
-                value={editedName}
-                onChangeText={setEditedName}
-              />
-            ) : (
-              <Text style={styles.info}>{user ? user.name : "User Name"}</Text>
-            )}
+            <Text style={styles.txt}>Username :</Text>
+            <TextInput
+              style={styles.txt1}
+              placeholder={user ? user.name : "User Name"}
+            />
           </View>
           <View style={styles.container}>
-            <Text style={styles.label}>Birthdate :</Text>
-            {isEditing ? (
-              <TextInput
-                style={styles.input}
-                value={editedDob}
-                onChangeText={setEditedDob}
-              />
-            ) : (
-              <Text style={styles.info}>{user ? user.dob : "DOB"}</Text>
-            )}
+            <Text style={styles.txt}>Email-id :</Text>
+            <TextInput
+              style={styles.txt1}
+              placeholder={user ? user.email : "Email-id"}
+            />
           </View>
-          {/* Repeat the above pattern for other attributes */}
-          <Text style={styles.changePassword} onPress={() => console.log("Change Password")}>
-            Change Password ?
-          </Text>
+          <View style={styles.container}>
+            <Text style={styles.txt}>Birthdate :</Text>
+            <TouchableOpacity>
+              <TextInput
+                style={styles.txt1}
+                placeholder={user ? user.dob : "DOB"}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.container}>
+            <Text style={styles.txt}>Gender :</Text>
+            <TouchableOpacity>
+              <TextInput
+                style={styles.txt1}
+                placeholder={user ? user.gender : "Gender"}
+              />
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity style={styles.butSC}>
+            <Text>Save Changes</Text>
+          </TouchableOpacity>
         </View>
-
-        {isEditing ? (
-          <TouchableOpacity style={styles.button} onPress={handleSaveChanges}>
-            <Text style={styles.buttonText}>Save</Text>
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity style={styles.button} onPress={() => setIsEditing(true)}>
-            <Text style={styles.buttonText}>Edit</Text>
-          </TouchableOpacity>
-        )}
       </SafeAreaView>
     </ScrollView>
   );
@@ -151,32 +142,43 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 10,
     marginLeft: 10,
     marginRight: 10,
+  },safeArea: {
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 10,
+    marginLeft: 10,
+    marginRight: 10,
   },
-  topNav: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+  sv: {
+    flexGrow: 1,
+    marginTop: 15,
   },
+  container: {
+    // flexDirection:"row"
+    gap: 5,
+  },
+
   icon: {
     height: 40,
     width: 40,
   },
-  userDetails: {
+  topnv: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  udtls: {
     alignItems: "center",
     gap: 20,
   },
-  profileImage: {
+  pf: {
     height: 100,
     width: 100,
     marginTop: 10,
   },
-  container: {
-    gap: 5,
-  },
-  label: {
+  txt: {
     fontSize: 15,
     marginLeft: 5,
+    // fontWeight:"bold",
   },
-  info: {
+  txt1: {
     width: 250,
     height: 50,
     borderColor: "black",
@@ -185,32 +187,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginBottom: 20,
   },
-  input: {
-    width: 250,
-    height: 50,
-    borderColor: "black",
-    borderWidth: 1,
-    borderRadius: 10,
-    paddingHorizontal: 20,
-    marginBottom: 20,
-  },
-  changePassword: {
-    fontSize: 20,
-    color: "orange",
-  },
-  button: {
-    width: 250,
-    height: 50,
-    backgroundColor: "#000000",
-    borderRadius: 10,
-    alignItems: "center",
+  butSC:{
+    borderRadius: 30,
+    backgroundColor: "Orange",
+    height: 45,
+    borderWidth: 2,
+    width: 150,
+    flexDirection: "row",
     justifyContent: "center",
-    marginBottom: 20,
+    alignItems: "center",
   },
-  buttonText: {
-    color: "#FFFFFF",
-    fontSize: 18,
-    fontWeight: "bold",
+  datePicker: {
+    width: 250,
+    height: 50,
+    borderColor: "black",
+    borderWidth: 1,
+    borderRadius: 10,
+    marginBottom: 20,
   },
 });
 
