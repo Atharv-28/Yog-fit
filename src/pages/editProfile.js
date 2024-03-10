@@ -36,6 +36,11 @@ const EditProfile = () => {
           const userData = snapshot.val();
           console.log(userData);
           setUser(userData);
+          // Set edited values initially from user data
+          setEditedName(userData?.name || "");
+          setEditedDob(userData?.dob || "");
+          setEditedWei(userData?.weight || "");
+          setEditedHei(userData?.height || "");
         });
       } else {
         setUser(null);
@@ -44,6 +49,7 @@ const EditProfile = () => {
 
     return () => unsubscribe();
   }, [auth, database]);
+
 
   const navigateToScreen = (screenName) => {
     navigation.navigate(screenName);
@@ -57,6 +63,8 @@ const EditProfile = () => {
         weight: editedWei,
         height: editedHei,
     });
+    console.log("Changes Saved!!");
+    navigateToScreen("PersonalProfile");
     } catch (error) {
       console.error("Error saving changes:", error.message);
     }
@@ -97,15 +105,15 @@ const EditProfile = () => {
             <TextInput
               style={styles.txt1}
               onChangeText={setEditedName}
-              placeholder={user ? user.name : "User Name"}
+              value={editedName}
             />
           </View>
           <View style={styles.container}>
             <Text style={styles.txt}>Weight :</Text>
             <TextInput
               style={styles.txt1}
+              value={editedWei}
               onChangeText={setEditedWei}
-              placeholder={user ? user.weight+"kg" : "Weight"}
             />
           </View>
           <View style={styles.container}>
@@ -114,7 +122,7 @@ const EditProfile = () => {
               <TextInput
                 style={styles.txt1}
                 onChangeText={setEditedHei}
-                placeholder={user ? user.height+"cm" : "Height"}
+                value={editedHei}
               />
             </TouchableOpacity>
           </View>
@@ -124,7 +132,7 @@ const EditProfile = () => {
               <TextInput
                 style={styles.txt1}
                 onChangeText={setEditedDob}
-                placeholder={user ? user.dob : "DOB"}
+                value={editedDob}
               />
             </TouchableOpacity>
           </View>

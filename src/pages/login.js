@@ -32,7 +32,6 @@ const LoginScreen = () => {
 
   const handleLogin = async () => {
     try {
-      console.log(auth);
       signInWithEmailAndPassword(auth, email, password).then(
         (userCredential) => {
           const user = userCredential.user;
@@ -45,14 +44,13 @@ const LoginScreen = () => {
       );
     } catch (error) {
       // Handle authentication errors
-      console.error("Authentication error:", error.message);
+      console.error("Login failed. User not found.");
     }
   };
 
 
   const handleLogin2 = () => {
     navigateToScreen("SignUp");
-    console.log(`Email: ${email}, Password: ${password}`);
   };
 
   return (

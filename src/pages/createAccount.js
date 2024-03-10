@@ -51,7 +51,6 @@ const CreateAccount = () => {
         gender,
         email: user.email,
       });
-      console.log(userRef + user);
       // Navigate to Home or another screen
       navigateToScreen("Login");
     } catch (error) {
