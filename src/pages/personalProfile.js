@@ -24,7 +24,6 @@ const PersonalProfile = () => {
 
   const [user, setUser] = useState(null);
 
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (authUser) => {
       if (authUser) {
@@ -58,12 +57,14 @@ const PersonalProfile = () => {
               style={styles.img}
             />
           </TouchableOpacity>
-          <Image
-            source={{
-              uri: "https://cdn-icons-png.flaticon.com/128/5972/5972963.png",
-            }}
-            style={styles.img}
-          />
+          <TouchableOpacity onPress={() => navigateToScreen("Profile")}>
+            <Image
+              source={{
+                uri: "https://cdn-icons-png.flaticon.com/128/5972/5972963.png",
+              }}
+              style={styles.img}
+            />
+          </TouchableOpacity>
         </View>
 
         <View style={styles.udtls}>
@@ -75,22 +76,38 @@ const PersonalProfile = () => {
           />
           <View style={styles.container}>
             <Text style={styles.txt}>Username :</Text>
-            <TextInput style={styles.txt1} editable={false} placeholder={user ? user.name : "User Name"} />
+            <TextInput
+              style={styles.txt1}
+              editable={false}
+              placeholder={user ? user.name : "User Name"}
+            />
           </View>
           <View style={styles.container}>
             <Text style={styles.txt}>Email-id :</Text>
-            <TextInput style={styles.txt1} editable={false} placeholder={user ? user.email : "Email-id"} />
+            <TextInput
+              style={styles.txt1}
+              editable={false}
+              placeholder={user ? user.email : "Email-id"}
+            />
           </View>
           <View style={styles.container}>
             <Text style={styles.txt}>Birthdate :</Text>
             <TouchableOpacity>
-              <TextInput style={styles.txt1} editable={false} placeholder={user ? user.dob : "DOB"} />
+              <TextInput
+                style={styles.txt1}
+                editable={false}
+                placeholder={user ? user.dob : "DOB"}
+              />
             </TouchableOpacity>
           </View>
           <View style={styles.container}>
             <Text style={styles.txt}>Gender :</Text>
             <TouchableOpacity>
-              <TextInput style={styles.txt1} editable={false} placeholder={user ? user.gender : "Gender"} />
+              <TextInput
+                style={styles.txt1}
+                editable={false}
+                placeholder={user ? user.gender : "Gender"}
+              />
             </TouchableOpacity>
           </View>
 
@@ -115,7 +132,7 @@ const styles = StyleSheet.create({
     // flexDirection:"row"
     gap: 5,
   },
-  
+
   img: {
     height: 40,
     width: 40,

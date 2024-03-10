@@ -13,6 +13,7 @@ import CreateAccount from "../pages/createAccount";
 import PersonalProfile from "../pages/personalProfile";
 import PublicProfile from "../pages/publicProfile";
 import Analytic from "../pages/analytic";
+import EditProfile from "../pages/editProfile";
 
 const Tab = createBottomTabNavigator();
 
@@ -77,6 +78,11 @@ const AppNavigator = () => {
           options={{ headerShown: false }}
           name="PersonalProfile"
           component={PersonalProfile}
+        />
+        <Tab.Screen
+          options={{ headerShown: false }}
+          name="EditProfile"
+          component={EditProfile}
         />
         <Tab.Screen
           options={{ headerShown: false }}
