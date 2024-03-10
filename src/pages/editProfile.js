@@ -100,11 +100,20 @@ const EditProfile = () => {
             />
           </View>
           <View style={styles.container}>
-            <Text style={styles.txt}>Email-id :</Text>
+            <Text style={styles.txt}>Weight :</Text>
             <TextInput
               style={styles.txt1}
-              placeholder={user ? user.email : "Email-id"}
+              placeholder={user ? user.weight+"kg" : "Weight"}
             />
+          </View>
+          <View style={styles.container}>
+            <Text style={styles.txt}>Height :</Text>
+            <TouchableOpacity>
+              <TextInput
+                style={styles.txt1}
+                placeholder={user ? user.height+"cm" : "Height"}
+              />
+            </TouchableOpacity>
           </View>
           <View style={styles.container}>
             <Text style={styles.txt}>Birthdate :</Text>
@@ -115,17 +124,8 @@ const EditProfile = () => {
               />
             </TouchableOpacity>
           </View>
-          <View style={styles.container}>
-            <Text style={styles.txt}>Gender :</Text>
-            <TouchableOpacity>
-              <TextInput
-                style={styles.txt1}
-                placeholder={user ? user.gender : "Gender"}
-              />
-            </TouchableOpacity>
-          </View>
           <TouchableOpacity style={styles.butSC}>
-            <Text>Save Changes</Text>
+            <Text style={styles.butText}>Save Changes</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
@@ -189,13 +189,17 @@ const styles = StyleSheet.create({
   },
   butSC:{
     borderRadius: 30,
-    backgroundColor: "Orange",
+    backgroundColor: "orange",
     height: 45,
-    borderWidth: 2,
     width: 150,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+  },
+  butText:{
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 17,
   },
   datePicker: {
     width: 250,

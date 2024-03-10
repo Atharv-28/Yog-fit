@@ -101,6 +101,22 @@ const PersonalProfile = () => {
             </TouchableOpacity>
           </View>
           <View style={styles.container}>
+            <Text style={styles.txt}>Weight :</Text>
+            <TextInput
+              style={styles.txt1}
+              placeholder={user ? user.weight+"kg" : "Weight"}
+            />
+          </View>
+          <View style={styles.container}>
+            <Text style={styles.txt}>Height :</Text>
+            <TouchableOpacity>
+              <TextInput
+                style={styles.txt1}
+                placeholder={user ? user.height+"cm" : "Height"}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.container}>
             <Text style={styles.txt}>Gender :</Text>
             <TouchableOpacity>
               <TextInput
@@ -147,7 +163,7 @@ const styles = StyleSheet.create({
   },
   udtls: {
     alignItems: "center",
-    gap: 20,
+    gap: 10,
   },
   pf: {
     height: 100,
