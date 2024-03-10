@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState, useEffect} from "react";
 import {
   StyleSheet,
   View,
@@ -8,9 +8,37 @@ import {
   ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getDatabase, ref, onValue } from "firebase/database";
+import { firebaseApp } from "../../database/firebaseConfig";
 
 const Acc = () => {
   const navigation = useNavigation();
+
+  const auth = getAuth(firebaseApp);
+  const database = getDatabase();
+
+  const [user, setUser] = useState(null);
+
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (authUser) => {
+      if (authUser) {
+        const userRef = ref(database, `users/${authUser.uid}`);
+        onValue(userRef, (snapshot) => {
+          const userData = snapshot.val();
+          console.log(userData);
+          setUser(userData);
+        });
+      } else {
+        // Handle the case when the user is not authenticated
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [auth, database]);
+
 
   const navigateToScreen = (screenName) => {
     navigation.navigate(screenName);
@@ -27,7 +55,7 @@ const Acc = () => {
           }}
           style={[styles.image, styles.marg]}
         />
-        <Text style={[styles.marg, styles.txt]}>User</Text>
+        <Text style={[styles.marg, styles.txt]}>{user ? user.name : "User"}</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.marg}
@@ -46,8 +74,7 @@ const Acc = () => {
 
 const styles = StyleSheet.create({
   user: {
-    borderColor:"red",
-    borderWidth:1,
+    backgroundColor:"#CAE0ED",
     flexDirection: "row",
     alignItems: "center",
     marginTop: 50,
@@ -71,7 +98,7 @@ const styles = StyleSheet.create({
     width: 50,
   },
   txt: {
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: "bold",
   },
 });

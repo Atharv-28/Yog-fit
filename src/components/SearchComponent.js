@@ -29,7 +29,7 @@ const SearchComponent = () => {
     <View style={styles.Searchresult}>
       <TextInput
         style={styles.searchBar}
-        placeholder="Search..."
+        placeholder="🔍Search..."
         value={searchText}
         onChangeText={(text) => setSearchText(text)}
       />
@@ -67,12 +67,13 @@ const styles = StyleSheet.create({
   },
   searchBar: {
     height: 40,
-    width: 220,
+    width: 250,
     borderRadius: 30,
     borderColor: "gray",
     borderWidth: 1,
     margin: 10,
     paddingLeft: 10,
+    backgroundColor: "white",
   },
   Searchresult: {
     flexDirection: "column",
@@ -85,12 +86,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",
-    borderColor: "green",
-    borderWidth: 2,
+    backgroundColor: "white",
     marginBottom: 10,
     height: 55,
-    width: 200,
-    borderRadius: 30,
+    width: 250,
+    borderRadius: 20,
   },
 });
 

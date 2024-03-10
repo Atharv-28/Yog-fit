@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     borderTopLeftRadius: 30,
+    backgroundColor: "#D6E3F8",
     borderTopRightRadius: 30,
   },
   image2: {

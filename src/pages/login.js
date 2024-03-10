@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,22 +8,49 @@ import {
   ImageBackground,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { firebaseApp } from "../../database/firebaseConfig";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 
 const LoginScreen = () => {
+  const auth = getAuth(firebaseApp);
   const navigation = useNavigation();
   const navigateToScreen = (screenName) => {
     navigation.navigate(screenName);
   };
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [user, setUser] = useState(null);
 
-  const handleLogin = () => {
-    navigateToScreen("Home");
-    console.log(`Email: ${email}, Password: ${password}`);
+  const handleAuthStateChange = (user) => {
+    if (user) {
+      console.log("User is signed in:", user.uid);
+      navigateToScreen("Home");
+    } else {
+      console.log("User is signed out");
+    }
   };
+
+  const handleLogin = async () => {
+    try {
+      signInWithEmailAndPassword(auth, email, password).then(
+        (userCredential) => {
+          const user = userCredential.user;
+          if (user) {
+            handleAuthStateChange(user);
+          } else {
+            console.error("Login failed. User not found.");
+          }
+        }
+      );
+    } catch (error) {
+      // Handle authentication errors
+      console.error("Login failed. User not found.");
+    }
+  };
+
+
   const handleLogin2 = () => {
     navigateToScreen("SignUp");
-    console.log(`Email: ${email}, Password: ${password}`);
   };
 
   return (

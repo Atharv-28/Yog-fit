@@ -34,25 +34,23 @@ const Rank = () => {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <View style={styles.tabButtons}>
-          <TouchableOpacity onPress={() => setActiveTab("global")}>
-            <Text
-              style={[
-                styles.tabButton,
-                activeTab === "global" && styles.activeTab,
-              ]}
-            >
-              Global
-            </Text>
+        <TouchableOpacity
+            style={[
+              styles.tabs,
+              activeTab === "global" && styles.activeTab,
+            ]}
+            onPress={() => setActiveTab("global")}
+          >
+            <Text style={styles.tabButton}>Global</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setActiveTab("friends")}>
-            <Text
-              style={[
-                styles.tabButton,
-                activeTab === "friends" && styles.activeTab,
-              ]}
-            >
-              Friends
-            </Text>
+          <TouchableOpacity
+            style={[
+              styles.tabs,
+              activeTab === "friends" && styles.activeTab,
+            ]}
+            onPress={() => setActiveTab("friends")}
+          >
+            <Text style={styles.tabButton}>Friends</Text>
           </TouchableOpacity>
         </View>
 
@@ -74,26 +72,34 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 10,
   },
+  
   container: {
     flex: 1,
     padding: 10,
   },
+  tabs: {
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 0.5,
+    height: 50,
+    borderRadius: 30,
+  },
   tabButtons: {
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#eee",
-    padding: 10,
-    borderColor: "red",
-    borderWidth: 2,
+    backgroundColor: "#d9d9d9",
+    gap: 3,
     borderRadius: 30,
   },
   tabButton: {
     fontSize: 16,
+    fontWeight: "bold",
   },
   activeTab: {
     fontWeight: "bold",
     color: "blue",
+    backgroundColor: "orange",
   },
   tabContent: {
     flex:0.8,

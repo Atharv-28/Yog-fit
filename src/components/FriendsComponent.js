@@ -30,9 +30,8 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   friendContainer: {
-    marginBottom: 20,
-    borderWidth: 1,
-    borderColor: "#ddd",
+    marginBottom: 15,
+    backgroundColor: "white",
     padding: 10,
     width: 250,
     height: 55,

@@ -1,28 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, ScrollView, Image, StyleSheet } from "react-native";
 import TemplateCard from "./templateCard";
-import { exercises } from "../utils/exercise";
-import {yoga} from "../utils/yoga";
-
-const items = exercises.concat(yoga);
+import { firebaseApp } from "../../database/firebaseConfig";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
+import generateUniqueColors from "../utils/generateUniqueColors";
 
 const AllTemplate = () => {
-  const [expandedId, setExpandedId] = useState(null);
+  const firestore = getFirestore(firebaseApp);
 
-  const handleToggleExpand = (itemId) => {
-    setExpandedId((prevId) => (prevId === itemId ? null : itemId));
-  };
+  const [items, setItems] = useState([]);
+  const getNextColor = generateUniqueColors();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(firestore, "yogaExercises"));
+
+        // Extract data from snapshot
+        const data = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+
+        setItems(data);
+      } catch (error) {
+        console.error("Error fetching data from Firestore:", error);
+      }
+    };
+
+    // Call the fetchData function
+    fetchData();
+  }, []);
 
   return (
     <ScrollView>
       {items && items.length > 0 ? (
         items.map((item, index) => (
-          <TemplateCard
-            key={index}
-            item={item}
-            isExpanded={item.id === expandedId}
-            onToggleExpand={() => handleToggleExpand(item.id)}
-          />
+          <TemplateCard color={getNextColor()} item={item} key={item.id} />
         ))
       ) : (
         <View style={styles.container}>
@@ -37,7 +48,6 @@ const AllTemplate = () => {
     </ScrollView>
   );
 };
-
 
 const styles = StyleSheet.create({
   img: {

@@ -14,15 +14,19 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { getDatabase, ref, onValue } from "firebase/database";
+import { getDatabase, ref, onValue, update } from "firebase/database";
 import { firebaseApp } from "../../database/firebaseConfig";
 
-const PersonalProfile = () => {
+const EditProfile = () => {
   const navigation = useNavigation();
   const auth = getAuth(firebaseApp);
   const database = getDatabase();
 
   const [user, setUser] = useState(null);
+  const [editedName, setEditedName] = useState("");
+  const [editedDob, setEditedDob] = useState("");
+  const [editedWei, setEditedWei] = useState("");
+  const [editedHei, setEditedHei] = useState("");
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (authUser) => {
@@ -32,9 +36,13 @@ const PersonalProfile = () => {
           const userData = snapshot.val();
           console.log(userData);
           setUser(userData);
+          // Set edited values initially from user data
+          setEditedName(userData?.name || "");
+          setEditedDob(userData?.dob || "");
+          setEditedWei(userData?.weight || "");
+          setEditedHei(userData?.height || "");
         });
       } else {
-        // Handle the case when the user is not authenticated
         setUser(null);
       }
     });
@@ -42,27 +50,45 @@ const PersonalProfile = () => {
     return () => unsubscribe();
   }, [auth, database]);
 
+
   const navigateToScreen = (screenName) => {
     navigation.navigate(screenName);
   };
+
+  const handleSaveChanges = async () => {
+    try {
+      await updateUserData({
+        name: editedName,
+        dob: editedDob,
+        weight: editedWei,
+        height: editedHei,
+    });
+    console.log("Changes Saved!!");
+    navigateToScreen("PersonalProfile");
+    } catch (error) {
+      console.error("Error saving changes:", error.message);
+    }
+  };
+
+  const updateUserData = async (updatedData) => {
+    try {
+      const userRef = ref(database, `users/${auth.currentUser.uid}`);
+      await update(userRef, updatedData);
+    } catch (error) {
+      console.error("Error updating user data:", error.message);
+    }
+  };
+
   return (
-    <ScrollView style={styles.sv}>
+    <ScrollView style={styles.scrollView}>
       <SafeAreaView style={styles.safeArea}>
-        <View style={styles.topnv}>
-          <TouchableOpacity onPress={() => navigateToScreen("Profile")}>
+        <View style={styles.topNav}>
+          <TouchableOpacity onPress={() => navigateToScreen("PersonalProfile")}>
             <Image
               source={{
                 uri: "https://cdn-icons-png.flaticon.com/128/189/189254.png",
               }}
-              style={styles.img}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigateToScreen("EditProfile")}>
-            <Image
-              source={{
-                uri: "https://cdn-icons-png.flaticon.com/128/5972/5972963.png",
-              }}
-              style={styles.img}
+              style={styles.icon}
             />
           </TouchableOpacity>
         </View>
@@ -78,33 +104,16 @@ const PersonalProfile = () => {
             <Text style={styles.txt}>Username :</Text>
             <TextInput
               style={styles.txt1}
-              editable={false}
-              placeholder={user ? user.name : "User Name"}
+              onChangeText={setEditedName}
+              value={editedName}
             />
-          </View>
-          <View style={styles.container}>
-            <Text style={styles.txt}>Email-id :</Text>
-            <TextInput
-              style={styles.txt1}
-              editable={false}
-              placeholder={user ? user.email : "Email-id"}
-            />
-          </View>
-          <View style={styles.container}>
-            <Text style={styles.txt}>Birthdate :</Text>
-            <TouchableOpacity>
-              <TextInput
-                style={styles.txt1}
-                editable={false}
-                placeholder={user ? user.dob : "DOB"}
-              />
-            </TouchableOpacity>
           </View>
           <View style={styles.container}>
             <Text style={styles.txt}>Weight :</Text>
             <TextInput
               style={styles.txt1}
-              placeholder={user ? user.weight+"kg" : "Weight"}
+              value={editedWei}
+              onChangeText={setEditedWei}
             />
           </View>
           <View style={styles.container}>
@@ -112,22 +121,27 @@ const PersonalProfile = () => {
             <TouchableOpacity>
               <TextInput
                 style={styles.txt1}
-                placeholder={user ? user.height+"cm" : "Height"}
+                onChangeText={setEditedHei}
+                value={editedHei}
               />
             </TouchableOpacity>
           </View>
           <View style={styles.container}>
-            <Text style={styles.txt}>Gender :</Text>
+            <Text style={styles.txt}>Birthdate :</Text>
             <TouchableOpacity>
               <TextInput
                 style={styles.txt1}
-                editable={false}
-                placeholder={user ? user.gender : "Gender"}
+                onChangeText={setEditedDob}
+                value={editedDob}
               />
             </TouchableOpacity>
           </View>
-
-          <Text style={styles.cp}>Change Password ?</Text>
+          <TouchableOpacity 
+            style={styles.butSC}
+            onPress={handleSaveChanges}
+          >
+                <Text style={styles.butText}>Save Changes</Text>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     </ScrollView>
@@ -135,7 +149,15 @@ const PersonalProfile = () => {
 };
 
 const styles = StyleSheet.create({
+  scrollView: {
+    flexGrow: 1,
+    marginTop: 15,
+  },
   safeArea: {
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 10,
+    marginLeft: 10,
+    marginRight: 10,
+  },safeArea: {
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 10,
     marginLeft: 10,
     marginRight: 10,
@@ -149,7 +171,7 @@ const styles = StyleSheet.create({
     gap: 5,
   },
 
-  img: {
+  icon: {
     height: 40,
     width: 40,
   },
@@ -157,13 +179,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  img: {
-    height: 40,
-    width: 40,
-  },
   udtls: {
     alignItems: "center",
-    gap: 10,
+    gap: 20,
   },
   pf: {
     height: 100,
@@ -184,9 +202,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginBottom: 20,
   },
-  cp: {
-    fontSize: 20,
-    color: "orange",
+  butSC:{
+    borderRadius: 20,
+    backgroundColor: "orange",
+    height: 45,
+    width: 150,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  butText:{
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 17,
   },
   datePicker: {
     width: 250,
@@ -197,4 +225,5 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 });
-export default PersonalProfile;
+
+export default EditProfile;

@@ -1,6 +1,14 @@
 // Podium.js
 import React from "react";
-import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Image,
+  ImageBackground,
+} from "react-native";
+import bg from "../../assets/backgoundImages/rankbg.jpg";
 
 const Podium = ({ rankingData }) => {
   const sortedData = rankingData.slice().sort((a, b) => b.score - a.score);
@@ -28,7 +36,7 @@ const Podium = ({ rankingData }) => {
         >
           {item.username}
         </Text>
-        <Text>{item.score}</Text>
+        <Text style={{fontSize:16}}>{item.score}🍾</Text>
       </View>
     ));
   };
@@ -36,11 +44,14 @@ const Podium = ({ rankingData }) => {
   const renderRemainingList = () => {
     const remainingItems = sortedData.slice(3);
 
-    return remainingItems.map((item) => (
+    return remainingItems.map((item, index) => (
       <View key={item.id} style={styles.remainingItem}>
-        <Image style={styles.img} source={{ uri: item.img }} />
-        <Text>{item.username}</Text>
-        <Text>{item.score}</Text>
+        <View style={styles.ril}>
+          <Text style={styles.rankIndex}>{index + 4}</Text>
+          <Image style={styles.img} source={{ uri: item.img }} />
+          <Text style={{fontSize:17}}>{item.username}</Text>
+        </View>
+        <Text style={{fontSize:17}}>{item.score}🏅</Text>
       </View>
     ));
   };
@@ -55,6 +66,7 @@ const Podium = ({ rankingData }) => {
           alignItems: "center",
           paddingBottom: 20,
         }}
+        style={styles.riC}
       >
         {renderRemainingList()}
       </ScrollView>
@@ -70,8 +82,8 @@ const styles = StyleSheet.create({
     gap: 20,
   },
   img: {
-    height: 45,
-    width: 45,
+    height: 50,
+    width: 50,
     borderRadius: 50,
   },
   podiumItem: {
@@ -84,23 +96,44 @@ const styles = StyleSheet.create({
     gap: 5,
   },
   podiumPosition: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "bold",
   },
   firstPlace: {
     backgroundColor: "gold",
     height: "95%",
     width: 100,
+    borderRadius: 20,
   },
   secondPlace: {
     backgroundColor: "silver",
     height: "80%",
     width: 100,
+    borderRadius: 20,
   },
   thirdPlace: {
     backgroundColor: "#cd7f32",
     height: "65%",
     width: 100,
+    borderRadius: 20,
+  },
+  rankIndex:{
+    fontSize: 18,
+    fontWeight:"bold",
+  },
+  ril:{
+    flexDirection: "row",
+    justifyContent:"center",
+    alignItems:"center",
+    gap: 20,
+  },
+  riC:{
+    // borderColor: "blue",
+    // borderWidth: 2,
+    width: 380,
+    borderRadius: 25,
+    // backgroundColor: "#7bd5f5",
+
   },
   separator: {
     height: 1,
@@ -108,14 +141,16 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   remainingItem: {
-    width: 250,
-    borderRadius: 30,
-    padding: 10,
+    width: 340,
+    height: 80,
+    borderRadius: 15,
+    padding: 30,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    borderColor: "red",
-    borderWidth: 2,
+    backgroundColor: "white",
+    // borderColor: "red",
+    // borderWidth: 2,
     paddingVertical: 5,
     marginTop: 10,
   },
