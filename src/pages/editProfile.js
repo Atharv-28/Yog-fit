@@ -23,9 +23,10 @@ const EditProfile = () => {
   const database = getDatabase();
 
   const [user, setUser] = useState(null);
-  const [isEditing, setIsEditing] = useState(false);
   const [editedName, setEditedName] = useState("");
   const [editedDob, setEditedDob] = useState("");
+  const [editedWei, setEditedWei] = useState("");
+  const [editedHei, setEditedHei] = useState("");
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (authUser) => {
@@ -53,10 +54,9 @@ const EditProfile = () => {
       await updateUserData({
         name: editedName,
         dob: editedDob,
-        // Add more attributes as needed
-      });
-
-      setIsEditing(false);
+        weight: editedWei,
+        height: editedHei,
+    });
     } catch (error) {
       console.error("Error saving changes:", error.message);
     }
@@ -96,6 +96,7 @@ const EditProfile = () => {
             <Text style={styles.txt}>Username :</Text>
             <TextInput
               style={styles.txt1}
+              onChangeText={setEditedName}
               placeholder={user ? user.name : "User Name"}
             />
           </View>
@@ -103,6 +104,7 @@ const EditProfile = () => {
             <Text style={styles.txt}>Weight :</Text>
             <TextInput
               style={styles.txt1}
+              onChangeText={setEditedWei}
               placeholder={user ? user.weight+"kg" : "Weight"}
             />
           </View>
@@ -111,6 +113,7 @@ const EditProfile = () => {
             <TouchableOpacity>
               <TextInput
                 style={styles.txt1}
+                onChangeText={setEditedHei}
                 placeholder={user ? user.height+"cm" : "Height"}
               />
             </TouchableOpacity>
@@ -120,12 +123,16 @@ const EditProfile = () => {
             <TouchableOpacity>
               <TextInput
                 style={styles.txt1}
+                onChangeText={setEditedDob}
                 placeholder={user ? user.dob : "DOB"}
               />
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.butSC}>
-            <Text style={styles.butText}>Save Changes</Text>
+          <TouchableOpacity 
+            style={styles.butSC}
+            onPress={handleSaveChanges}
+          >
+                <Text style={styles.butText}>Save Changes</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
@@ -188,7 +195,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   butSC:{
-    borderRadius: 30,
+    borderRadius: 20,
     backgroundColor: "orange",
     height: 45,
     width: 150,
