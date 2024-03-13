@@ -22,7 +22,7 @@ const TemplateCard = ({ item, color }) => {
       const userSnapshot = await get(userRef);
 
       const myTemplates = userSnapshot.val().myTemplates || [];
-      const updatedTemplates = [...myTemplates, { id: item.id, name: item.name }];
+      const updatedTemplates = [...myTemplates, { id: item.id, name: item.name, need: item.need, suitable: item.suitable, benefits: item.benefits, procedure: item.procedure, time: item.time, img: item.img }];
 
       await update(ref(database, `users/${auth.currentUser.uid}`), { myTemplates: updatedTemplates });
 
