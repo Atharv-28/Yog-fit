@@ -45,7 +45,7 @@ const TemplateSelector = () => {
           {activeTab === "globalTemplates" ? (
             <AllTemplate />
           ) : (
-            <MyTemplate items={Myey} />
+            <MyTemplate />
           )}
         </View>
       </View>
