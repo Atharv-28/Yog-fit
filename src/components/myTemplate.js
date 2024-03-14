@@ -51,7 +51,7 @@ const MyTemplate = () => {
           <Image
             style={styles.img}
             source={{
-              uri: "https://www.pngkey.com/png/full/862-8620381_work-in-progress-sign.png",
+              uri: "https://cdn-icons-png.flaticon.com/128/11329/11329060.png",
             }}
           />
         </View>
