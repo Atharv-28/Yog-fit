@@ -2,9 +2,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View, ImageBackground, Image, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as posenet from '@tensorflow-models/posenet';
+import { useNavigation } from "@react-navigation/native";
+
 
 
 const Tracker = () => {
+  const navigation = useNavigation();
+
   const [hasPermission, setHasPermission] = useState(null);
   const [net, setNet] = useState(null);
   const [detectedPose, setDetectedPose] = useState(null);
@@ -33,6 +37,10 @@ const Tracker = () => {
   useEffect(() => {
     handleCameraPermission();
   }, []);
+
+  const navigateToScreen = (screenName) => {
+    navigation.navigate(screenName);
+  };
 
   const loadReferencePoses = async () => {
     const posesWithImages = await Promise.all(
@@ -139,6 +147,14 @@ const Tracker = () => {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity onPress={() => navigateToScreen("Templatesnpm Page")}>
+          <Image
+            source={{
+              uri: "https://cdn-icons-png.flaticon.com/128/189/189254.png",
+            }}
+            style={styles.img}
+          />
+        </TouchableOpacity>
       <Camera
         style={styles.camera}
         type={cameraType}
@@ -205,6 +221,12 @@ const styles = StyleSheet.create({
   },
   camera: {
     flex: 0.9,
+  },
+  img: {
+    marginTop: 40,
+    marginLeft:10,
+    height: 50,
+    width: 50,
   },
   poseContainer: {
     position: 'absolute',

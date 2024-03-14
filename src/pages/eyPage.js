@@ -13,7 +13,7 @@ const ExerciseCard = ({ exercise = [] }) => {
                 <Text style={styles.title}>{exercise.name}</Text>
                 <Text style={styles.details}>{exercise.need}</Text>
                 <Text style={styles.details}>{exercise.suitable}</Text>
-                <Text style={styles.details}>Benefits: {exercise.benefits.join(', ')}</Text>
+                <Text style={styles.details}>Benefits: {exercise.benefits}</Text>
                 <Text style={styles.details}>Procedure:</Text>
                 {/* <View style={styles.procedureContainer}>
           {procedure.map((step, index) => (
