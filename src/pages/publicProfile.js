@@ -48,16 +48,23 @@ const PublicProfile = ({ route }) => {
             <Text style={styles.txt}>{user1.name}</Text>
           </View>
           <View style={styles.container}>
-            <Text style={styles.txt}>Username :</Text>
-            <Text style={styles.txt}>{user1.username}</Text>
+            <Text style={styles.txt}>Height :</Text>
+            <Text style={styles.txt}>{user1.height}</Text>
+          </View>
+          <View style={styles.container}>
+            <Text style={styles.txt}>Weight :</Text>
+            <Text style={styles.txt}>{user1.weight}</Text>
           </View>
           <View style={styles.container}>
             <Text style={styles.txt}>Yog-fit Score :</Text>
-            <Text style={styles.txt}>{user1.score}</Text>
+            <Text style={styles.txt}>
+              {user1.score > 0 ? user1.score : "0"}
+            </Text>
           </View>
+
           <View style={styles.container}>
             <Text style={styles.txt}>Birthdate :</Text>
-            <Text style={styles.txt}>{user1.birthDate}</Text>
+            <Text style={styles.txt}>{user1.dob}</Text>
           </View>
           <View style={styles.container}>
             <Text style={styles.txt}>Gender :</Text>
@@ -71,7 +78,7 @@ const PublicProfile = ({ route }) => {
 
 const styles = StyleSheet.create({
   safeArea: {
-    flex:1,
+    flex: 1,
     marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 40,
     paddingLeft: 10,
     paddingRight: 10,
@@ -80,8 +87,8 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   container: {
-    flexDirection:"row",
-    alignItems:"center",
+    flexDirection: "row",
+    alignItems: "center",
     gap: 5,
   },
   container1: {
@@ -96,7 +103,7 @@ const styles = StyleSheet.create({
   topnv: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop:15,
+    marginTop: 15,
   },
   imgs: {
     height: 40,
@@ -104,19 +111,19 @@ const styles = StyleSheet.create({
   },
   udtls: {
     alignItems: "center",
-    height: 500,
+    height: 550,
     gap: 20,
     marginTop: 20,
-    padding:20,
-    borderRadius:30,
+    padding: 20,
+    borderRadius: 30,
     // borderColor: "black",
     // borderWidth: 2,
-    backgroundColor:"#a7d8e3",
+    backgroundColor: "#a7d8e3",
   },
   pf: {
     height: 150,
     width: 150,
-    borderRadius:50,
+    borderRadius: 50,
     marginTop: 10,
     marginBottom: 35,
   },

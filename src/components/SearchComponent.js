@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -8,8 +8,10 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import { users } from "../utils/users";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
+import { getDatabase, ref, onValue } from "firebase/database";
+import { firebaseApp } from "../../database/firebaseConfig";
+
 
 const SearchComponent = () => {
   const navigation = useNavigation();
@@ -18,12 +20,32 @@ const SearchComponent = () => {
     navigation.navigate(screenName, params);
   };
 
+
+  const database = getDatabase(firebaseApp);
+  const [usersData, setUsersData] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const filteredusers = users.filter(
-    (users) =>
-      users.name.toLowerCase().includes(searchText.toLowerCase()) ||
-      users.username.toLowerCase().includes(searchText.toLowerCase())
+
+  useEffect(() => {
+    const usersRef = ref(database, 'users');
+    onValue(usersRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const usersArray = Object.values(data);
+        setUsersData(usersArray);
+      } else {
+        setUsersData([]);
+      }
+    });
+  }, [database]);
+
+
+
+  const filteredUsers = usersData.filter(
+    (user) =>
+      (user.name?.toLowerCase()?.includes(searchText.toLowerCase()) || "") ||
+      (user.username?.toLowerCase()?.includes(searchText.toLowerCase()) || "")
   );
+  
 
   return (
     <View style={styles.Searchresult}>
@@ -34,7 +56,7 @@ const SearchComponent = () => {
         onChangeText={(text) => setSearchText(text)}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
-        {filteredusers.map((item) => (
+        {filteredUsers.map((item) => (
           <TouchableOpacity
             style={styles.result}
             key={item.id}
