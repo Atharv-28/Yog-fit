@@ -147,7 +147,7 @@ const Tracker = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigateToScreen("Templatesnpm Page")}>
+      <TouchableOpacity onPress={() => navigateToScreen("TemplatesPage")}>
           <Image
             source={{
               uri: "https://cdn-icons-png.flaticon.com/128/189/189254.png",
