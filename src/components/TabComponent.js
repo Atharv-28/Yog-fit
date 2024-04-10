@@ -13,7 +13,7 @@ const TabsComponent = () => {
       return <SearchComponent />;
     } else if (activeTab === "friends") {
       return <FriendsComponent />;
-    } else if (activeTab === "third") {
+    } else if (activeTab === "request") {
       return <RequestComponent />;
     }
     return null;
@@ -42,12 +42,11 @@ const TabsComponent = () => {
             Friends
           </Text>
         </TouchableOpacity>
-        {/* Add TouchableOpacity button for the third tab */}
-        <TouchableOpacity style={styles.tabsEach} onPress={() => setActiveTab("third")}>
+        <TouchableOpacity style={styles.tabsEach} onPress={() => setActiveTab("request")}>
           <Text
             style={[
               styles.tabButton,
-              activeTab === "third" && styles.activeTab,
+              activeTab === "request" && styles.activeTab,
             ]}
           >
             Third Tab
