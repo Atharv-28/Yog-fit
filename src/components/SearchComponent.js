@@ -69,7 +69,7 @@ const UserItem = ({ item, onPress }) => (
     <Image
       style={styles.img}
       source={{
-        uri: item.img,
+        uri: "https://cdn-icons-png.flaticon.com/128/1144/1144709.png",
       }}
     />
     <Text>{item.name}</Text>
@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
     height: 45,
     width: 45,
     borderRadius: 50,
+    marginRight: 15,
   },
   searchBar: {
     height: 40,

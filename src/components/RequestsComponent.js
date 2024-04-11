@@ -103,7 +103,7 @@ const RequestComponent = () => {
           <View key={index} style={styles.requestContainer}>
             <Image
               source={{
-                uri: " ",
+                uri: "https://cdn-icons-png.flaticon.com/128/1144/1144709.png",
               }}
               style={styles.imgs}
             />
