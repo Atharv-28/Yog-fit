@@ -6,7 +6,7 @@ import SmallTab from "./smallTab";
 import { useNavigation } from "@react-navigation/native";
 
 
-const card = ({ color, score, title, streak, diff}) => {
+const card = ({ color, score, title, streak, diff, analyticStat}) => {
   const info = [
     {
       score1: score,
@@ -15,13 +15,19 @@ const card = ({ color, score, title, streak, diff}) => {
       diff1: diff,
     },
   ];
+  const nameEY = analyticStat[0].nameEY;
+  const ETI = analyticStat[0].ETI;
+  const AT = analyticStat[0].AT;
+  const dEY = analyticStat[0].dEY;
+
+  console.log(dEY);
   const navigation = useNavigation();
 
-    const navigateToScreen = (screenName, info) => {
-        navigation.navigate(screenName, { stat : info });
-      };
+  const navigateToScreen = (screenName, nameEY, ETI, AT, dEY) => {
+    navigation.navigate(screenName, {nameEY: nameEY, ETI: ETI, AT: AT, dEY: dEY});
+  };
   return (
-      <TouchableOpacity onPress={() => navigateToScreen("Analytic", info)} style={[styles.card, { backgroundColor: color }]}>
+      <TouchableOpacity onPress={() => navigateToScreen("Analytic",nameEY,ETI,AT,dEY)} style={[styles.card, { backgroundColor: color }]}>
         <View style={styles.cardLeft}>
           <View style={styles.ex}>
             <Text style={styles.e2}>{title}</Text>

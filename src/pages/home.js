@@ -63,6 +63,7 @@ const Home = () => {
             streak={analytics.streak}
             diff={analytics.dEY}
             color={getNextColor()}
+            analyticStat={analyticsData}
           />
         ))}
       </ScrollView>
