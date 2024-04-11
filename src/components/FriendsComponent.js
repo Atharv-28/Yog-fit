@@ -13,7 +13,7 @@ import { getDatabase, ref, get, update } from "firebase/database";
 import { firebaseApp } from "../../database/firebaseConfig";
 
 const FriendsComponent = () => {
-  const [friendRequests, setFriendRequests] = useState([]);
+  const [friends, setfriends] = useState([]);
   const [userData, setUserData] = useState({});
   const auth = getAuth(firebaseApp);
   const database = getDatabase();
@@ -26,7 +26,7 @@ const FriendsComponent = () => {
           .then((snapshot) => {
             if (snapshot.exists()) {
               setUserData(snapshot.val());
-              setFriendRequests(snapshot.val().Friends || []);
+              setfriends(snapshot.val().Friends || []);
             } else {
               console.error("User data does not exist");
             }
@@ -47,7 +47,7 @@ const FriendsComponent = () => {
     const fetchData = async () => {
       try {
         const userRequests = await Promise.all(
-          friendRequests.map(async (userId) => {
+          friends.map(async (userId) => {
             const userRef = ref(database, `users/${userId}`);
             const snapshot = await get(userRef);
             if (snapshot.exists()) {
@@ -69,11 +69,11 @@ const FriendsComponent = () => {
     };
 
     fetchData();
-  }, [database, friendRequests]);
+  }, [database, friends]);
 
   return (
     <View style={styles.container}>
-      {friendRequests.map((item, index) => {
+      {friends.map((item, index) => {
         const user = userData[item];
         if (!user) {
           return (
