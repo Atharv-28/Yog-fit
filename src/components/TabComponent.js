@@ -49,7 +49,7 @@ const TabsComponent = () => {
               activeTab === "request" && styles.activeTab,
             ]}
           >
-            Third Tab
+            Requests
           </Text>
         </TouchableOpacity>
       </View>

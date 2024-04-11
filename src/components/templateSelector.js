@@ -12,7 +12,6 @@ import {
 } from "react-native";
 import MyTemplate from "./myTemplate";
 import AllTemplate from "./allTemplate";
-import { Myey } from "../utils/myey";
 
 const TemplateSelector = () => {
   const [activeTab, setActiveTab] = useState("myTemplate");

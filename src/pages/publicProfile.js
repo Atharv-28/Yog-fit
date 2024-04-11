@@ -38,38 +38,36 @@ const PublicProfile = ({ route }) => {
           const userData = snapshot.val();
           if (userData) {
             setUser(userData);
-            //console.log(userData);
           } else {
             console.error("User data is null");
           }
         });
       } else {
         // Handle the case when the user is not authenticated
-        setUser(null);
+        // setUser(null);
+        Alert.alert("Not Logged in")
       }
     });
 
     return () => unsubscribe();
   }, [auth, database]);
 
-
   const addAsFriend = () => {
     try {
-      if (!user) {
+      if (!user1) {
         throw new Error("User is null");
       }
-      const userRef = ref(database, `users/${auth.currentUser.uid}`);
-      console.log(user);
-      console.log(user1);
-      const friendRequests = user.friendRequests || []; // Initialize as empty array if undefined
-      const updatedFriendRequests = [...friendRequests, user1];
+      // console.log(user1.uid);
+      const userRef = ref(database, `users/${user1.uid}`);
+      const friendRequests = user1.friendRequests || []; // Initialize as empty array if undefined
+      const updatedFriendRequests = [...friendRequests, auth.currentUser.uid];
       update(userRef, { friendRequests: updatedFriendRequests });
       Alert.alert("Friend request sent successfully!");
     } catch (error) {
-      console.error("Error sending friend request:", error.message);
+      Alert.alert("Error sending friend request:", error.message);
     }
   };
-
+  
 
   return (
     <ScrollView style={styles.sv}>

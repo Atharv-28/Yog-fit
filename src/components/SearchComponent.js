@@ -20,7 +20,6 @@ const SearchComponent = () => {
     navigation.navigate(screenName, params);
   };
 
-
   const database = getDatabase(firebaseApp);
   const [usersData, setUsersData] = useState([]);
   const [searchText, setSearchText] = useState("");
@@ -38,17 +37,14 @@ const SearchComponent = () => {
     });
   }, [database]);
 
-
-
   const filteredUsers = usersData.filter(
     (user) =>
       (user.name?.toLowerCase()?.includes(searchText.toLowerCase()) || "") ||
       (user.username?.toLowerCase()?.includes(searchText.toLowerCase()) || "")
   );
-  
 
   return (
-    <View style={styles.Searchresult}>
+    <View style={styles.container}>
       <TextInput
         style={styles.searchBar}
         placeholder="🔍Search..."
@@ -57,24 +53,28 @@ const SearchComponent = () => {
       />
       <ScrollView showsVerticalScrollIndicator={false}>
         {filteredUsers.map((item) => (
-          <TouchableOpacity
-            style={styles.result}
+          <UserItem
             key={item.id}
+            item={item}
             onPress={() => navigateToScreen("PublicProfile", { item: item })}
-          >
-            <Image
-              style={styles.img}
-              source={{
-                uri: item.img,
-              }}
-            />
-            <Text>{item.name}</Text>
-          </TouchableOpacity>
+          />
         ))}
       </ScrollView>
     </View>
   );
 };
+
+const UserItem = ({ item, onPress }) => (
+  <TouchableOpacity style={styles.result} onPress={onPress}>
+    <Image
+      style={styles.img}
+      source={{
+        uri: item.img,
+      }}
+    />
+    <Text>{item.name}</Text>
+  </TouchableOpacity>
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -97,14 +97,8 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     backgroundColor: "white",
   },
-  Searchresult: {
-    flexDirection: "column",
-    alignItems: "center",
-    gap: 15,
-  },
   result: {
     padding: 10,
-    gap: 15,
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",

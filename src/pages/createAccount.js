@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   ScrollView,
+  Alert
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { firebaseApp } from "../../database/firebaseConfig";
@@ -44,6 +45,7 @@ const CreateAccount = () => {
       // Save additional user details to the Realtime Database
       const userRef = ref(database, `users/${user.uid}`);
       set(userRef, {
+        uid: user.uid,
         name,
         dob,
         weight,
@@ -55,7 +57,7 @@ const CreateAccount = () => {
       navigateToScreen("Login");
     } catch (error) {
       // Handle account creation errors
-      console.error("Account creation failed:", error.message);
+      Alert.alert("Account creation failed:", error.message);
     }
   };
   return (
