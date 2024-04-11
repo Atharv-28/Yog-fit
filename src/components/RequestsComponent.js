@@ -12,8 +12,8 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDatabase, ref, get, update } from "firebase/database";
 import { firebaseApp } from "../../database/firebaseConfig";
 
-const FriendsComponent = () => {
-  const [friends, setfriends] = useState([]);
+const RequestComponent = () => {
+  const [friendRequests, setFriendRequests] = useState([]);
   const [userData, setUserData] = useState({});
   const auth = getAuth(firebaseApp);
   const database = getDatabase();
@@ -26,7 +26,7 @@ const FriendsComponent = () => {
           .then((snapshot) => {
             if (snapshot.exists()) {
               setUserData(snapshot.val());
-              setfriends(snapshot.val().Friends || []);
+              setFriendRequests(snapshot.val().friendRequests || []);
             } else {
               console.error("User data does not exist");
             }
@@ -43,11 +43,30 @@ const FriendsComponent = () => {
     return () => unsubscribe();
   }, [auth, database]);
 
+  const acceptRequest = (requestUserId) => {
+    // Move user from friendRequests to Friends
+    const userRef = ref(database, `users/${auth.currentUser.uid}`);
+    update(userRef, {
+      friendRequests: friendRequests.filter((id) => id !== requestUserId),
+      Friends: [...friendRequests, requestUserId],
+    });
+    Alert.alert("Friend request accepted successfully!");
+  };
+
+  const rejectRequest = (requestUserId) => {
+    // Remove user from friendRequests
+    const userRef = ref(database, `users/${auth.currentUser.uid}`);
+    update(userRef, {
+      friendRequests: friendRequests.filter((id) => id !== requestUserId),
+    });
+    Alert.alert("Friend request rejected successfully!");
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const userRequests = await Promise.all(
-          friends.map(async (userId) => {
+          friendRequests.map(async (userId) => {
             const userRef = ref(database, `users/${userId}`);
             const snapshot = await get(userRef);
             if (snapshot.exists()) {
@@ -69,11 +88,11 @@ const FriendsComponent = () => {
     };
 
     fetchData();
-  }, [database, friends]);
+  }, [database, friendRequests]);
 
   return (
     <View style={styles.container}>
-      {friends.map((item, index) => {
+      {friendRequests.map((item, index) => {
         const user = userData[item];
         if (!user) {
           return (
@@ -81,7 +100,7 @@ const FriendsComponent = () => {
           );
         }
         return (
-          <View key={index} style={styles.friendContainer}>
+          <View key={index} style={styles.requestContainer}>
             <Image
               source={{
                 uri: "https://cdn-icons-png.flaticon.com/128/1144/1144709.png",
@@ -89,6 +108,22 @@ const FriendsComponent = () => {
               style={styles.imgs}
             />
             <Text style={styles.txt}>{user.name}</Text>
+            <TouchableOpacity onPress={() => acceptRequest(item)}>
+              <Image
+                source={{
+                  uri: "https://cdn-icons-png.flaticon.com/128/190/190411.png",
+                }}
+                style={styles.imgs}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => rejectRequest(item)}>
+              <Image
+                source={{
+                  uri: "https://cdn-icons-png.flaticon.com/128/11695/11695444.png",
+                }}
+                style={styles.imgs}
+              />
+            </TouchableOpacity>
           </View>
         );
       })}
@@ -106,17 +141,17 @@ const styles = StyleSheet.create({
     marginRight: 10,
     fontSize: 18,
   },
-  friendContainer: {
-    marginBottom: 15,
-    backgroundColor: "white",
-    padding: 10,
-    width: 250,
-    height: 55,
+  requestContainer: {
     flexDirection: "row",
-    gap: 15,
-    justifyContent: "flex-start",
     alignItems: "center",
-    borderRadius: 20,
+    justifyContent: "space-evenly",
+    backgroundColor: "#ffffff",
+    padding: 10,
+    width: 300,
+    borderWidth: 1,
+    borderRadius: 15,
+    marginTop: 15,
+    borderColor: "#ffffff",
   },
   imgs: {
     width: 50,
@@ -127,4 +162,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FriendsComponent;
+export default RequestComponent;

@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -8,8 +8,10 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import { users } from "../utils/users";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
+import { getDatabase, ref, onValue } from "firebase/database";
+import { firebaseApp } from "../../database/firebaseConfig";
+
 
 const SearchComponent = () => {
   const navigation = useNavigation();
@@ -18,15 +20,31 @@ const SearchComponent = () => {
     navigation.navigate(screenName, params);
   };
 
+  const database = getDatabase(firebaseApp);
+  const [usersData, setUsersData] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const filteredusers = users.filter(
-    (users) =>
-      users.name.toLowerCase().includes(searchText.toLowerCase()) ||
-      users.username.toLowerCase().includes(searchText.toLowerCase())
+
+  useEffect(() => {
+    const usersRef = ref(database, 'users');
+    onValue(usersRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const usersArray = Object.values(data);
+        setUsersData(usersArray);
+      } else {
+        setUsersData([]);
+      }
+    });
+  }, [database]);
+
+  const filteredUsers = usersData.filter(
+    (user) =>
+      (user.name?.toLowerCase()?.includes(searchText.toLowerCase()) || "") ||
+      (user.username?.toLowerCase()?.includes(searchText.toLowerCase()) || "")
   );
 
   return (
-    <View style={styles.Searchresult}>
+    <View style={styles.container}>
       <TextInput
         style={styles.searchBar}
         placeholder="🔍Search..."
@@ -34,25 +52,29 @@ const SearchComponent = () => {
         onChangeText={(text) => setSearchText(text)}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
-        {filteredusers.map((item) => (
-          <TouchableOpacity
-            style={styles.result}
+        {filteredUsers.map((item) => (
+          <UserItem
             key={item.id}
+            item={item}
             onPress={() => navigateToScreen("PublicProfile", { item: item })}
-          >
-            <Image
-              style={styles.img}
-              source={{
-                uri: item.img,
-              }}
-            />
-            <Text>{item.name}</Text>
-          </TouchableOpacity>
+          />
         ))}
       </ScrollView>
     </View>
   );
 };
+
+const UserItem = ({ item, onPress }) => (
+  <TouchableOpacity style={styles.result} onPress={onPress}>
+    <Image
+      style={styles.img}
+      source={{
+        uri: "https://cdn-icons-png.flaticon.com/128/1144/1144709.png",
+      }}
+    />
+    <Text>{item.name}</Text>
+  </TouchableOpacity>
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -64,6 +86,7 @@ const styles = StyleSheet.create({
     height: 45,
     width: 45,
     borderRadius: 50,
+    marginRight: 15,
   },
   searchBar: {
     height: 40,
@@ -75,14 +98,8 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     backgroundColor: "white",
   },
-  Searchresult: {
-    flexDirection: "column",
-    alignItems: "center",
-    gap: 15,
-  },
   result: {
     padding: 10,
-    gap: 15,
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",

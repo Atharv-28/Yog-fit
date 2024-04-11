@@ -30,7 +30,7 @@ const PersonalProfile = () => {
         const userRef = ref(database, `users/${authUser.uid}`);
         onValue(userRef, (snapshot) => {
           const userData = snapshot.val();
-          console.log(userData);
+          // console.log(userData);
           setUser(userData);
         });
       } else {

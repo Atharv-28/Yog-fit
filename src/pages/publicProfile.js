@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   SafeAreaView,
@@ -9,18 +9,66 @@ import {
   Image,
   TouchableOpacity,
   Platform,
+  Alert
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getDatabase, ref, onValue, update } from "firebase/database";
+import { firebaseApp } from "../../database/firebaseConfig";
 
 const PublicProfile = ({ route }) => {
   const { item } = route.params;
-
   const user1 = item;
   const navigation = useNavigation();
 
   const navigateToScreen = (screenName) => {
     navigation.navigate(screenName);
   };
+
+  const auth = getAuth(firebaseApp);
+  const database = getDatabase();
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (authUser) => {
+      if (authUser) {
+        const userRef = ref(database, `users/${authUser.uid}`);
+        onValue(userRef, (snapshot) => {
+          const userData = snapshot.val();
+          if (userData) {
+            setUser(userData);
+          } else {
+            console.error("User data is null");
+          }
+        });
+      } else {
+        // Handle the case when the user is not authenticated
+        // setUser(null);
+        Alert.alert("Not Logged in")
+      }
+    });
+
+    return () => unsubscribe();
+  }, [auth, database]);
+
+  const addAsFriend = () => {
+    try {
+      if (!user1) {
+        throw new Error("User is null");
+      }
+      // console.log(user1.uid);
+      const userRef = ref(database, `users/${user1.uid}`);
+      const friendRequests = user1.friendRequests || []; // Initialize as empty array if undefined
+      const updatedFriendRequests = [...friendRequests, auth.currentUser.uid];
+      update(userRef, { friendRequests: updatedFriendRequests });
+      Alert.alert("Friend request sent successfully!");
+    } catch (error) {
+      Alert.alert("Error sending friend request:", error.message);
+    }
+  };
+  
+
   return (
     <ScrollView style={styles.sv}>
       <SafeAreaView style={styles.safeArea}>
@@ -33,12 +81,14 @@ const PublicProfile = ({ route }) => {
               style={styles.imgs}
             />
           </TouchableOpacity>
-          <Image
-            source={{
-              uri: "https://cdn-icons-png.flaticon.com/128/10423/10423381.png",
-            }}
-            style={styles.imgs}
-          />
+          <TouchableOpacity onPress={addAsFriend}>
+            <Image
+              source={{
+                uri: "https://cdn-icons-png.flaticon.com/128/10423/10423381.png",
+              }}
+              style={styles.imgs}
+            />
+          </TouchableOpacity>
         </View>
 
         <View style={styles.udtls}>
@@ -48,16 +98,23 @@ const PublicProfile = ({ route }) => {
             <Text style={styles.txt}>{user1.name}</Text>
           </View>
           <View style={styles.container}>
-            <Text style={styles.txt}>Username :</Text>
-            <Text style={styles.txt}>{user1.username}</Text>
+            <Text style={styles.txt}>Height :</Text>
+            <Text style={styles.txt}>{user1.height}</Text>
+          </View>
+          <View style={styles.container}>
+            <Text style={styles.txt}>Weight :</Text>
+            <Text style={styles.txt}>{user1.weight}</Text>
           </View>
           <View style={styles.container}>
             <Text style={styles.txt}>Yog-fit Score :</Text>
-            <Text style={styles.txt}>{user1.score}</Text>
+            <Text style={styles.txt}>
+              {user1.score > 0 ? user1.score : "0"}
+            </Text>
           </View>
+
           <View style={styles.container}>
             <Text style={styles.txt}>Birthdate :</Text>
-            <Text style={styles.txt}>{user1.birthDate}</Text>
+            <Text style={styles.txt}>{user1.dob}</Text>
           </View>
           <View style={styles.container}>
             <Text style={styles.txt}>Gender :</Text>
@@ -71,7 +128,7 @@ const PublicProfile = ({ route }) => {
 
 const styles = StyleSheet.create({
   safeArea: {
-    flex:1,
+    flex: 1,
     marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 40,
     paddingLeft: 10,
     paddingRight: 10,
@@ -80,8 +137,8 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   container: {
-    flexDirection:"row",
-    alignItems:"center",
+    flexDirection: "row",
+    alignItems: "center",
     gap: 5,
   },
   container1: {
@@ -96,7 +153,7 @@ const styles = StyleSheet.create({
   topnv: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop:15,
+    marginTop: 15,
   },
   imgs: {
     height: 40,
@@ -104,19 +161,19 @@ const styles = StyleSheet.create({
   },
   udtls: {
     alignItems: "center",
-    height: 500,
+    height: 550,
     gap: 20,
     marginTop: 20,
-    padding:20,
-    borderRadius:30,
+    padding: 20,
+    borderRadius: 30,
     // borderColor: "black",
     // borderWidth: 2,
-    backgroundColor:"#a7d8e3",
+    backgroundColor: "#a7d8e3",
   },
   pf: {
     height: 150,
     width: 150,
-    borderRadius:50,
+    borderRadius: 50,
     marginTop: 10,
     marginBottom: 35,
   },

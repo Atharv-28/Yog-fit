@@ -5,7 +5,6 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -27,7 +26,7 @@ const Acc = () => {
         const userRef = ref(database, `users/${authUser.uid}`);
         onValue(userRef, (snapshot) => {
           const userData = snapshot.val();
-          console.log(userData);
+          // console.log(userData);
           setUser(userData);
         });
       } else {
@@ -51,7 +50,7 @@ const Acc = () => {
       >
         <Image
           source={{
-            uri: "https://th.bing.com/th/id/OIP.ag77IUhQeW_A-FQGcASMLAHaFj?w=220&h=180&c=7&r=0&o=5&pid=1.7",
+            uri: "https://cdn-icons-png.flaticon.com/128/1144/1144709.png",
           }}
           style={[styles.image, styles.marg]}
         />

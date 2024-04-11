@@ -3,15 +3,18 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import FriendsComponent from "./FriendsComponent";
 import SearchComponent from "./SearchComponent";
+import RequestComponent from './RequestsComponent';
 
 const TabsComponent = () => {
-  const [activeTab, setActiveTab] = useState("search"); // 'search' or 'friends'
+  const [activeTab, setActiveTab] = useState("search"); // 'search', 'friends', or 'third'
 
   const renderComponent = () => {
     if (activeTab === "search") {
       return <SearchComponent />;
     } else if (activeTab === "friends") {
       return <FriendsComponent />;
+    } else if (activeTab === "request") {
+      return <RequestComponent />;
     }
     return null;
   };
@@ -39,7 +42,16 @@ const TabsComponent = () => {
             Friends
           </Text>
         </TouchableOpacity>
-        {/* Add more TouchableOpacity buttons for additional tabs */}
+        <TouchableOpacity style={styles.tabsEach} onPress={() => setActiveTab("request")}>
+          <Text
+            style={[
+              styles.tabButton,
+              activeTab === "request" && styles.activeTab,
+            ]}
+          >
+            Requests
+          </Text>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.tabContent}>{renderComponent()}</View>
@@ -58,7 +70,7 @@ const styles = StyleSheet.create({
     borderRadius:30,
   },
   tabButtons: {
-    width: 200,
+    width: 300, // Adjusted width for accommodating three tabs
     height: 50,
     borderRadius: 40,
     flexDirection: "row",

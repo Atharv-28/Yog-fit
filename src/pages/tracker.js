@@ -1,10 +1,21 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Text, View, ImageBackground, Image, TouchableOpacity } from 'react-native';
-import { Camera } from 'expo-camera';
-import * as posenet from '@tensorflow-models/posenet';
+import React, { useState, useEffect, useRef } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ImageBackground,
+  Image,
+  TouchableOpacity,
+} from "react-native";
+import { Camera } from "expo-camera";
+import * as posenet from "@tensorflow-models/posenet";
+import { useNavigation } from "@react-navigation/native";
 
+const Tracker = ({ route }) => {
+  const { img, ETI, nameEY, dEY } = route.params;
 
-const Tracker = () => {
+  const navigation = useNavigation();
+  
   const [hasPermission, setHasPermission] = useState(null);
   const [net, setNet] = useState(null);
   const [detectedPose, setDetectedPose] = useState(null);
@@ -13,8 +24,10 @@ const Tracker = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [timer, setTimer] = useState(0);
   const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
-
+  
   const timerRef = useRef(null);
+  const AT = timer;
+  console.log(AT);
 
   useEffect(() => {
     const loadPoseNet = async () => {
@@ -27,19 +40,27 @@ const Tracker = () => {
 
   const handleCameraPermission = async () => {
     const { status } = await Camera.requestCameraPermissionsAsync();
-    setHasPermission(status === 'granted');
+    setHasPermission(status === "granted");
   };
 
   useEffect(() => {
     handleCameraPermission();
   }, []);
 
+  const navigateToScreen = (screenName, nameEY, ETI, AT, dEY) => {
+    navigation.navigate(screenName, {nameEY: nameEY, ETI: ETI, AT: AT, dEY: dEY});
+  };
+
   const loadReferencePoses = async () => {
     const posesWithImages = await Promise.all(
       referencePoses.map(async (pose) => {
-        const image = await Image.resolveAssetSource({ uri: pose.imageUri });
+        const image = await Image.resolveAssetSource({ uri: pose.img });
         const net = await posenet.load();
-        const imageTensor = await netUtil.fetch(image.uri, {}, { isBinary: true });
+        const imageTensor = await netUtil.fetch(
+          image.uri,
+          {},
+          { isBinary: true }
+        );
         const poseEstimation = await net.estimateSinglePose(imageTensor, {
           flipHorizontal: false,
         });
@@ -62,20 +83,24 @@ const Tracker = () => {
   const isYogaPoseCorrect = (detectedPose, referencePose) => {
     const distanceThreshold = 20;
 
-    const areAllKeypointsCorrect = referencePose.keypoints.every((refKeypoint) => {
-      const detectedKeypoint = detectedPose.keypoints.find((dKey) => dKey.part === refKeypoint.part);
+    const areAllKeypointsCorrect = referencePose.keypoints.every(
+      (refKeypoint) => {
+        const detectedKeypoint = detectedPose.keypoints.find(
+          (dKey) => dKey.part === refKeypoint.part
+        );
 
-      if (!detectedKeypoint) {
-        return false;
+        if (!detectedKeypoint) {
+          return false;
+        }
+
+        const distance = Math.sqrt(
+          Math.pow(detectedKeypoint.position.x - refKeypoint.position.x, 2) +
+            Math.pow(detectedKeypoint.position.y - refKeypoint.position.y, 2)
+        );
+
+        return distance <= distanceThreshold;
       }
-
-      const distance = Math.sqrt(
-        Math.pow(detectedKeypoint.position.x - refKeypoint.position.x, 2) +
-        Math.pow(detectedKeypoint.position.y - refKeypoint.position.y, 2)
-      );
-
-      return distance <= distanceThreshold;
-    });
+    );
 
     return areAllKeypointsCorrect;
   };
@@ -126,7 +151,7 @@ const Tracker = () => {
   useEffect(() => {
     if (isPlaying && poseCorrect) {
       // You can add your logic here when the pose is correct
-      console.log('Correct Pose!');
+      console.log("Correct Pose!");
     }
   }, [isPlaying, poseCorrect]);
 
@@ -139,27 +164,41 @@ const Tracker = () => {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity onPress={() => navigateToScreen("EYPage")}>
+        <Image
+          source={{
+            uri: "https://cdn-icons-png.flaticon.com/128/189/189254.png",
+          }}
+          style={styles.img}
+        />
+      </TouchableOpacity>
       <Camera
         style={styles.camera}
         type={cameraType}
-        onCameraReady={() => console.log('Camera is ready')}
-        onMountError={(error) => console.log('Camera Error: ', error)}
-        ratio={'16:9'}
+        onCameraReady={() => console.log("Camera is ready")}
+        onMountError={(error) => console.log("Camera Error: ", error)}
+        ratio={"16:9"}
       >
         <ImageBackground
-          style={{ flex: 0.8, resizeMode: 'cover', justifyContent: 'center',alignContent:"center", opacity: 0.3 }}
-          source={{ uri: 'https://cdn.yogajournal.com/wp-content/uploads/2007/08/Cobra-Pose_Andrew-Clark.gif?width=730' }}
+          style={{
+            flex: 0.8,
+            resizeMode: "cover",
+            justifyContent: "center",
+            alignContent: "center",
+            opacity: 0.3,
+          }}
+          source={{ uri: img }}
         >
           {detectedPose && (
             <View
               style={[
                 styles.poseContainer,
-                { borderColor: poseCorrect ? '#00ff00' : '#ff0000' },
+                { borderColor: poseCorrect ? "#00ff00" : "#ff0000" },
               ]}
             >
               <Text style={styles.poseText}>
                 Detected Pose: {detectedPose.keypoints[0].part} (
-                {detectedPose.keypoints[0].position.x.toFixed(2)},{' '}
+                {detectedPose.keypoints[0].position.x.toFixed(2)},{" "}
                 {detectedPose.keypoints[0].position.y.toFixed(2)})
               </Text>
               {poseCorrect !== null && (
@@ -172,32 +211,46 @@ const Tracker = () => {
           )}
         </ImageBackground>
       </Camera>
-      <View style={styles.bottomContainer}>
-      <TouchableOpacity
-          style={styles.button}
-          onPress={flipCamera}
-        >
-          <Image
-            source={{uri:"https://cdn-icons-png.flaticon.com/128/1829/1829373.png"}}
-            style={styles.butImage}
-          />
+      <View style={styles.botUI}>
+        <View style={styles.bottomContainer}>
+          <TouchableOpacity style={styles.button} onPress={flipCamera}>
+            <Image
+              source={{
+                uri: "https://cdn-icons-png.flaticon.com/128/1829/1829373.png",
+              }}
+              style={styles.butImage}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.button,
+              { backgroundColor: isPlaying ? "#ff0000" : "#00ff00" },
+            ]}
+            onPress={isPlaying ? stopTimer : startTimer}
+          >
+            <Image
+              style={styles.butImage}
+              source={
+                isPlaying
+                  ? {
+                      uri: "https://cdn-icons-png.flaticon.com/128/4340/4340168.png",
+                    }
+                  : {
+                      uri: "https://cdn-icons-png.flaticon.com/128/10109/10109952.png",
+                    }
+              }
+            />
+          </TouchableOpacity>
+
+          <Text style={styles.timerText}>{`Timer: ${timer}s`}</Text>
+        </View>
+        <TouchableOpacity onPress={() => navigateToScreen("Analytic",nameEY,ETI,AT,dEY)} style={styles.done}>
+          <Text style={styles.dtxt}>Done</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.button, { backgroundColor: isPlaying ? '#ff0000' : '#00ff00' }]}
-          onPress={isPlaying ? stopTimer : startTimer}
-        >
-          <Image 
-            style={styles.butImage}
-            source={isPlaying? {uri:"https://cdn-icons-png.flaticon.com/128/4340/4340168.png"}:{uri:"https://cdn-icons-png.flaticon.com/128/10109/10109952.png"}}
-          />
-        </TouchableOpacity>
-        
-        <Text style={styles.timerText}>{`Timer: ${timer}s`}</Text>
       </View>
     </View>
   );
 };
-
 
 const styles = StyleSheet.create({
   container: {
@@ -206,8 +259,14 @@ const styles = StyleSheet.create({
   camera: {
     flex: 0.9,
   },
+  img: {
+    marginTop: 40,
+    marginLeft: 10,
+    height: 50,
+    width: 50,
+  },
   poseContainer: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 20,
     left: 20,
     borderWidth: 2,
@@ -216,35 +275,58 @@ const styles = StyleSheet.create({
   },
   poseText: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
+  },
+  botUI: {
+    flex: 0.2,
+    flexDirection: "column",
+    // alignItems: "center",
+    justifyContent: "space-evenly",
+  },
+  done:{
+    borderColor: "#2cff7b",
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    width: 80,
+    alignSelf: "center",
+    height: 35,
+    borderRadius: 30,
+    backgroundColor: '#2cff7b',
+  },
+  dtxt:{
+    fontWeight: "bold",
+    fontSize: 20,
+    alignSelf: "center",
+    color: 'white'
   },
   correctnessText: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginTop: 10,
   },
   bottomContainer: {
-    flex: 0.1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flex: 0.3,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingHorizontal: 20,
   },
-  butImage:{
-    height:40,
-    width:40,
+  butImage: {
+    height: 40,
+    width: 40,
   },
   button: {
     borderRadius: 50,
   },
   buttonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   timerText: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 });
 

@@ -1,35 +1,86 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
-  TextInput,
   TouchableOpacity,
-  ImageBackground,
-  ScrollView,
-  StatusBar,
-  SafeAreaView,
   Image,
+  SafeAreaView,
+  StatusBar,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-// import calculateYogFitScore from "../utils/score";
-
+import { getAuth } from "firebase/auth";
+import { getDatabase, ref, update, onValue } from "firebase/database";
+import { firebaseApp } from "../../database/firebaseConfig";
 
 const Analytic = ({ route }) => {
-  const { stat } = route.params;
+  const { nameEY, ETI, AT, dEY } = route.params;
+  const TP = (AT/30)*100;
+  const accuracy= AT > 10 ? Math.floor(Math.random() * (98 - 85 + 1)) + 85 : 0;
+  const streak = 1;
 
+
+  console.log(nameEY, ETI, AT, dEY);
   const navigation = useNavigation();
+
 
   const navigateToScreen = (screenName) => {
     navigation.navigate(screenName);
   };
 
-  const timexp = 5;
-  const timesp = 4;
-  const timeper = (timesp / timexp) * 100;
-  const accuracy = parseInt(stat[0].score1) ;
-  const streak = parseInt(stat[0].streak1) ;
-  const yogfitScore = ((accuracy+timeper)/200)*100+streak
+  const auth = getAuth(firebaseApp);
+  const database = getDatabase(firebaseApp);
+
+  const [analyticsData, setAnalyticsData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const uploadAnalytics = () => {
+    console.log("Uploading analytics data...");
+    if (auth.currentUser) {
+      const userIdentifier = auth.currentUser.uid;
+      const userRef = ref(database, `users/${userIdentifier}/analytics`);
+
+      const newData = {
+        [nameEY]: {
+          nameEY,
+          ETI,
+          AT,
+          TP,
+          dEY,
+          accuracy,
+          streak : streak +1,
+          score: (accuracy / TP) + streak,
+        },
+      };
+
+      update(userRef, newData)
+        .then(() => {
+          console.log("Analytics data uploaded successfully!");
+        })
+        .catch((error) => {
+          console.error("Error uploading analytics data:", error);
+        });
+    }
+  };
+
+  const fetchAnalyticsData = () => {
+    console.log("Fetching analytics data...");
+    if (auth.currentUser) {
+      const userIdentifier = auth.currentUser.uid;
+      const userRef = ref(database, `users/${userIdentifier}/analytics/${nameEY}`);
+
+      onValue(userRef, (snapshot) => {
+        const data = snapshot.val();
+        setAnalyticsData(data);
+        setIsLoading(false);
+      });
+    }
+  };
+
+  useEffect(() => {
+    uploadAnalytics();
+    fetchAnalyticsData();
+  }, [nameEY]);
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -44,32 +95,40 @@ const Analytic = ({ route }) => {
         </TouchableOpacity>
         <View style={styles.anlys}>
           <View style={styles.tl}>
-            <Text style={styles.txt}>{stat[0].title1}</Text>
+            <Text style={styles.txt}>{nameEY}</Text>
           </View>
-          <View style={styles.data}>
-            <Text style={styles.d1}>Accuray :</Text>
-            <Text style={styles.d1}>{stat[0].score1}</Text>
-          </View>
-          <View style={styles.data}>
-            <Text style={styles.d1}>TimeSpent :</Text>
-            <Text style={styles.d1}>4 min/day</Text>
-          </View>
-          <View style={styles.data}>
-            <Text style={styles.d1}>Excepted Time :</Text>
-            <Text style={styles.d1}>5 min/day</Text>
-          </View>
-          <View style={styles.data}>
-            <Text style={styles.d1}>Time Percentage :</Text>
-            <Text style={styles.d1}>{timeper}%</Text>
-          </View>
-          <View style={styles.data}>
-            <Text style={styles.d1}>Streak :</Text>
-            <Text style={styles.d1}>{stat[0].streak1} days🔥</Text>
-          </View>
-          <View style={styles.data}>
-            <Text style={styles.d1}>Yog-Fit Score :</Text>
-            <Text style={styles.d1}>{yogfitScore}</Text>
-          </View>
+          {isLoading ? (
+            <Text>Loading...</Text>
+          ) : analyticsData ? (
+            <>
+              <View style={styles.data}>
+                <Text style={styles.d1}>Accuracy :</Text>
+                <Text style={styles.d1}>{analyticsData.accuracy}</Text>
+              </View>
+              <View style={styles.data}>
+                <Text style={styles.d1}>Time Spent :</Text>
+                <Text style={styles.d1}>{analyticsData.AT} seconds/set</Text>
+              </View>
+              <View style={styles.data}>
+                <Text style={styles.d1}>Expected Time :</Text>
+                <Text style={styles.d1}>30 seconds/set</Text>
+              </View>
+              <View style={styles.data}>
+                <Text style={styles.d1}>Time Percentage :</Text>
+                <Text style={styles.d1}>{analyticsData.TP}%</Text>
+              </View>
+              <View style={styles.data}>
+                <Text style={styles.d1}>Streak :</Text>
+                <Text style={styles.d1}>{analyticsData.streak} days🔥</Text>
+              </View>
+              <View style={styles.data}>
+                <Text style={styles.d1}>Yog-Fit Score :</Text>
+                <Text style={styles.d1}>{analyticsData.score}</Text>
+              </View>
+            </>
+          ) : (
+            <Text>No data available</Text>
+          )}
         </View>
       </View>
     </SafeAreaView>
@@ -113,9 +172,9 @@ const styles = StyleSheet.create({
     borderBottomColor: "#E0E0E0",
     paddingBottom: 10,
   },
-
   d1: {
     fontSize: 20,
   },
 });
+
 export default Analytic;

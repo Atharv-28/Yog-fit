@@ -40,7 +40,7 @@ const AllTemplate = () => {
           <Image
             style={styles.img}
             source={{
-              uri: "https://www.pngkey.com/png/full/862-8620381_work-in-progress-sign.png",
+              uri: "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcG8ydmg2djhtNXBld242cms5OWFvZThnNGJ0NXJ5bnEybG1ocmhvNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/sSgvbe1m3n93G/giphy.gif",
             }}
           />
         </View>
@@ -51,8 +51,11 @@ const AllTemplate = () => {
 
 const styles = StyleSheet.create({
   img: {
-    height: 300,
-    width: 300,
+    height: 50,
+    width: 50,
+    flexDirection:"row",
+    alignSelf: "center",
+    marginTop:150,
   },
   container: {
     flex: 1,
