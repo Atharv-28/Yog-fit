@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   SafeAreaView,
@@ -9,18 +9,68 @@ import {
   Image,
   TouchableOpacity,
   Platform,
+  Alert
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getDatabase, ref, onValue, update } from "firebase/database";
+import { firebaseApp } from "../../database/firebaseConfig";
 
 const PublicProfile = ({ route }) => {
   const { item } = route.params;
-
   const user1 = item;
   const navigation = useNavigation();
 
   const navigateToScreen = (screenName) => {
     navigation.navigate(screenName);
   };
+
+  const auth = getAuth(firebaseApp);
+  const database = getDatabase();
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (authUser) => {
+      if (authUser) {
+        const userRef = ref(database, `users/${authUser.uid}`);
+        onValue(userRef, (snapshot) => {
+          const userData = snapshot.val();
+          if (userData) {
+            setUser(userData);
+            //console.log(userData);
+          } else {
+            console.error("User data is null");
+          }
+        });
+      } else {
+        // Handle the case when the user is not authenticated
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [auth, database]);
+
+
+  const addAsFriend = () => {
+    try {
+      if (!user) {
+        throw new Error("User is null");
+      }
+      const userRef = ref(database, `users/${auth.currentUser.uid}`);
+      console.log(user);
+      console.log(user1);
+      const friendRequests = user.friendRequests || []; // Initialize as empty array if undefined
+      const updatedFriendRequests = [...friendRequests, user1];
+      update(userRef, { friendRequests: updatedFriendRequests });
+      Alert.alert("Friend request sent successfully!");
+    } catch (error) {
+      console.error("Error sending friend request:", error.message);
+    }
+  };
+
+
   return (
     <ScrollView style={styles.sv}>
       <SafeAreaView style={styles.safeArea}>
@@ -33,12 +83,14 @@ const PublicProfile = ({ route }) => {
               style={styles.imgs}
             />
           </TouchableOpacity>
-          <Image
-            source={{
-              uri: "https://cdn-icons-png.flaticon.com/128/10423/10423381.png",
-            }}
-            style={styles.imgs}
-          />
+          <TouchableOpacity onPress={addAsFriend}>
+            <Image
+              source={{
+                uri: "https://cdn-icons-png.flaticon.com/128/10423/10423381.png",
+              }}
+              style={styles.imgs}
+            />
+          </TouchableOpacity>
         </View>
 
         <View style={styles.udtls}>
