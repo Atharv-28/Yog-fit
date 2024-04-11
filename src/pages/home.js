@@ -1,9 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
-  Text,
-  Image,
   ScrollView,
   Platform,
   StatusBar,
@@ -13,9 +11,38 @@ import BottomNav from "../components/bottomNav";
 import Card from "../components/card";
 import Welcome from "../components/welcome";
 import generateUniqueColors from "../utils/generateUniqueColors";
+import { getAuth } from "firebase/auth";
+import { getDatabase, ref, get } from "firebase/database";
+import { firebaseApp } from "../../database/firebaseConfig";
 
 const Home = () => {
+  const [analyticsData, setAnalyticsData] = useState([]);
+
   const getNextColor = generateUniqueColors();
+
+
+  useEffect(() => {
+    const auth = getAuth(firebaseApp);
+    const database = getDatabase(firebaseApp);
+    if (auth.currentUser) {
+      const userIdentifier = auth.currentUser.uid;
+      const userRef = ref(database, `users/${userIdentifier}/analytics`);
+
+      get(userRef)
+        .then((snapshot) => {
+          if (snapshot.exists()) {
+            const data = snapshot.val();
+            setAnalyticsData(Object.values(data));
+          } else {
+            console.log("No data available");
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching analytics data:", error);
+        });
+    }
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.div}>
@@ -28,20 +55,23 @@ const Home = () => {
           paddingBottom: 20,
         }}
       >
-        <Card style={styles.card} title={"Push-up"} score={92} streak={9} diff={"Beginners"} color={getNextColor()} />
-        <Card title={"Box Jumps"} score={81} streak={7} diff={"Beginners"} color={getNextColor()} />
-        <Card title={"Bhujangasana"} score={88} streak={7} diff={"Beginners"} color={getNextColor()} />
-        <Card title={"Marjaryasana"} score={65} streak={5} diff={"Intermediate"} color={getNextColor()} />
-        <Card title={"Pistol Squats"} score={94} streak={7} diff={"Expert"} color={getNextColor()} />
+        {analyticsData.map((analytics, index) => (
+          <Card
+            key={index}
+            title={analytics.nameEY}
+            score={analytics.score}
+            streak={analytics.streak}
+            diff={analytics.dEY}
+            color={getNextColor()}
+          />
+        ))}
       </ScrollView>
       <BottomNav />
     </SafeAreaView>
   );
 };
+
 const styles = StyleSheet.create({
-  card:{
-    boxShadow: "0px 7px 29px 0px grey",
-  },
   container: {
     flex: 1,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
@@ -51,11 +81,6 @@ const styles = StyleSheet.create({
     height: 80,
     width: 300,
     flex: 0.1,
-  },
-  image: {
-    height: 50,
-    width: 50,
-    borderRadius: 50,
   },
 });
 

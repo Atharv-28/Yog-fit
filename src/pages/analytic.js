@@ -42,9 +42,11 @@ const Analytic = ({ route }) => {
 
       const newData = {
         [nameEY]: {
+          nameEY,
           ETI,
           AT,
           TP,
+          dEY,
           accuracy,
           streak : streak +1,
           score: (accuracy / TP) + streak,
