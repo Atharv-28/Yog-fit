@@ -1,21 +1,98 @@
-// TabsComponent.js
-import React, { useState } from "react";
-import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
-import { friends } from "../utils/friends";
+import React, { useState, useEffect } from "react";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+  ActivityIndicator,
+  Image,
+} from "react-native";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getDatabase, ref, get, update } from "firebase/database";
+import { firebaseApp } from "../../database/firebaseConfig";
 
 const FriendsComponent = () => {
+  const [friendRequests, setFriendRequests] = useState([]);
+  const [userData, setUserData] = useState({});
+  const auth = getAuth(firebaseApp);
+  const database = getDatabase();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (authUser) => {
+      if (authUser) {
+        const userRef = ref(database, `users/${authUser.uid}`);
+        get(userRef)
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              setUserData(snapshot.val());
+              setFriendRequests(snapshot.val().Friends || []);
+            } else {
+              console.error("User data does not exist");
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching user data:", error);
+          });
+      } else {
+        // Handle the case when the user is not authenticated
+        // setUser(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [auth, database]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userRequests = await Promise.all(
+          friendRequests.map(async (userId) => {
+            const userRef = ref(database, `users/${userId}`);
+            const snapshot = await get(userRef);
+            if (snapshot.exists()) {
+              return { id: userId, data: snapshot.val() };
+            }
+          })
+        );
+
+        const userDataMap = {};
+        userRequests.forEach((request) => {
+          if (request) {
+            userDataMap[request.id] = request.data;
+          }
+        });
+        setUserData(userDataMap);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchData();
+  }, [database, friendRequests]);
+
   return (
-    <ScrollView style={styles.container}>
-      {friends.map((friend) => (
-        <View key={friend.id} style={styles.friendContainer}>
-          <Image style={styles.img} source={{ uri: friend.img }} />
-          <View>
-            <Text>{friend.name}</Text>
-            <Text>{friend.username}</Text>
+    <View style={styles.container}>
+      {friendRequests.map((item, index) => {
+        const user = userData[item];
+        if (!user) {
+          return (
+            <ActivityIndicator key={index} style={styles.loader} />
+          );
+        }
+        return (
+          <View key={index} style={styles.friendContainer}>
+            <Image
+              source={{
+                uri: " ",
+              }}
+              style={styles.imgs}
+            />
+            <Text style={styles.txt}>{user.name}</Text>
           </View>
-        </View>
-      ))}
-    </ScrollView>
+        );
+      })}
+    </View>
   );
 };
 
@@ -24,10 +101,10 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
   },
-  img: {
-    height: 45,
-    width: 45,
-    borderRadius: 50,
+  txt:{
+    fontWeight: "bold",
+    marginRight: 10,
+    fontSize: 18,
   },
   friendContainer: {
     marginBottom: 15,
@@ -40,6 +117,13 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     borderRadius: 20,
+  },
+  imgs: {
+    width: 50,
+    height: 50,
+  },
+  loader: {
+    alignSelf: "center",
   },
 });
 
