@@ -30,9 +30,14 @@ const EYPage = ({ route }) => {
     const { exercise } = route.params;
     const navigation = useNavigation();
 
-    const navigateToScreen = (screenName) => {
-      navigation.navigate(screenName);
+    const navigateToScreen = (screenName, imgAd, eti, nEY, diffEY) => {
+      navigation.navigate(screenName, {img: imgAd, ETI: eti, nameEY: nEY, dEY: diffEY});
     };
+    const imgAd = exercise.img;
+    const eti = exercise.time;
+    const nEY = exercise.name;
+    const diffEY = exercise.id;
+    // console.log(diffEY);
     return (
         <SafeAreaView style={styles.page}>
             <TouchableOpacity onPress={() => navigateToScreen("TemplatesPage")}>
@@ -44,7 +49,7 @@ const EYPage = ({ route }) => {
             <ScrollView>
                 <ExerciseCard exercise={exercise} />
                 <View style={styles.startButtonContainer}>
-                    <Button title="Start" onPress={() => navigateToScreen("Tracker")} />
+                    <Button title="Start" onPress={() => navigateToScreen("Tracker",imgAd, eti, nEY, diffEY)} />
                 </View>
             </ScrollView>
         </SafeAreaView>

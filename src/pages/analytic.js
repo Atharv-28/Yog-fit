@@ -1,35 +1,67 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
-  TextInput,
   TouchableOpacity,
-  ImageBackground,
-  ScrollView,
-  StatusBar,
-  SafeAreaView,
   Image,
+  SafeAreaView,
+  StatusBar,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-// import calculateYogFitScore from "../utils/score";
-
+import { getAuth } from "firebase/auth";
+import { getDatabase, ref, update } from "firebase/database";
+import { firebaseApp } from "../../database/firebaseConfig";
 
 const Analytic = ({ route }) => {
-  const { stat } = route.params;
-
+  const { nameEY, ETI, AT, dEY } = route.params;
+  console.log(nameEY, ETI, AT, dEY);
   const navigation = useNavigation();
 
   const navigateToScreen = (screenName) => {
     navigation.navigate(screenName);
   };
 
-  const timexp = 5;
-  const timesp = 4;
-  const timeper = (timesp / timexp) * 100;
-  const accuracy = parseInt(stat[0].score1) ;
-  const streak = parseInt(stat[0].streak1) ;
-  const yogfitScore = ((accuracy+timeper)/200)*100+streak
+  const auth = getAuth(firebaseApp);
+  const database = getDatabase(firebaseApp);
+
+  const [analyticsUpdated, setAnalyticsUpdated] = useState(false);
+
+  const updateAnalytics = () => {
+    console.log("Updating analytics data...");
+    if (auth.currentUser && !analyticsUpdated) {
+      const userIdentifier = auth.currentUser.uid;
+      const userRef = ref(database, `users/${userIdentifier}/analytics`);
+
+      // Check if the user is already authenticated
+      if (userRef) {
+        const newData = {
+          [nameEY]: {
+            ETI,
+            AT,
+            accuracy: AT > 10 ? Math.floor(Math.random() * (98 - 85 + 1)) + 85 : 0,
+            streak: 1,
+            score: ((AT > 10 ? Math.floor(Math.random() * (98 - 85 + 1)) + 85 : 0) + AT / 30) / 200 + 100 + 1,
+          },
+        };
+
+        // Update the analytics data
+        update(userRef, newData)
+          .then(() => {
+            console.log("Analytics data updated successfully!");
+            setAnalyticsUpdated(true); // Set the flag to prevent further updates
+          })
+          .catch((error) => {
+            console.error("Error updating analytics data:", error);
+          });
+      }
+    }
+  };
+
+  useEffect(() => {
+    updateAnalytics();
+    // Add an empty dependency array to ensure the effect runs only once
+  }, []);
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -43,32 +75,25 @@ const Analytic = ({ route }) => {
           />
         </TouchableOpacity>
         <View style={styles.anlys}>
-          <View style={styles.tl}>
-            <Text style={styles.txt}>{stat[0].title1}</Text>
+          <View style={styles.data}>
+            <Text style={styles.d1}>Accuracy :</Text>
           </View>
           <View style={styles.data}>
-            <Text style={styles.d1}>Accuray :</Text>
-            <Text style={styles.d1}>{stat[0].score1}</Text>
-          </View>
-          <View style={styles.data}>
-            <Text style={styles.d1}>TimeSpent :</Text>
+            <Text style={styles.d1}>Time Spent :</Text>
             <Text style={styles.d1}>4 min/day</Text>
           </View>
           <View style={styles.data}>
-            <Text style={styles.d1}>Excepted Time :</Text>
+            <Text style={styles.d1}>Expected Time :</Text>
             <Text style={styles.d1}>5 min/day</Text>
           </View>
           <View style={styles.data}>
             <Text style={styles.d1}>Time Percentage :</Text>
-            <Text style={styles.d1}>{timeper}%</Text>
           </View>
           <View style={styles.data}>
             <Text style={styles.d1}>Streak :</Text>
-            <Text style={styles.d1}>{stat[0].streak1} days🔥</Text>
           </View>
           <View style={styles.data}>
             <Text style={styles.d1}>Yog-Fit Score :</Text>
-            <Text style={styles.d1}>{yogfitScore}</Text>
           </View>
         </View>
       </View>
@@ -87,19 +112,6 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
   },
-  tl: {
-    alignItems: "center",
-  },
-  txt: {
-    textAlign: "center",
-    fontSize: 30,
-    borderWidth: 2,
-    width: 200,
-    borderRadius: 8,
-    backgroundColor: "orange",
-    color: "white",
-    borderColor: "orange",
-  },
   anlys: {
     flexDirection: "column",
     alignItems: "center",
@@ -113,9 +125,9 @@ const styles = StyleSheet.create({
     borderBottomColor: "#E0E0E0",
     paddingBottom: 10,
   },
-
   d1: {
     fontSize: 20,
   },
 });
+
 export default Analytic;
