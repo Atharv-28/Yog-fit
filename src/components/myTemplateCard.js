@@ -1,6 +1,6 @@
 // ExerciseCard.js
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Alert, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDatabase, ref, onValue, update } from "firebase/database";
@@ -76,7 +76,12 @@ const ExerciseCard = ({ item, color }) => {
         style={styles.removeButton}
         onPress={removeFromMyTemplates}
       >
-        <Text style={styles.removeButtonText}>Remove</Text>
+        <Image
+              source={{
+                uri: "https://cdn-icons-png.flaticon.com/128/9790/9790368.png",
+              }}
+              style={styles.icon}
+            />
       </TouchableOpacity>
     </TouchableOpacity>
   );
@@ -102,10 +107,11 @@ const styles = StyleSheet.create({
     backgroundColor: "red",
     padding: 10,
     borderRadius: 5,
+    justifyContent: "center",
   },
-  removeButtonText: {
-    color: "white",
-    fontWeight: "bold",
+  icon: {
+    height: 30,
+    width: 40,
   },
 });
 
