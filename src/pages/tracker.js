@@ -187,7 +187,7 @@ const Tracker = ({ route }) => {
             alignContent: "center",
             opacity: 0.3,
           }}
-          source={{ uri: img }}
+          source={{ uri: '' }}
         >
           {detectedPose && (
             <View

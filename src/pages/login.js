@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   ImageBackground,
+  Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { firebaseApp } from "../../database/firebaseConfig";
@@ -38,13 +39,13 @@ const LoginScreen = () => {
           if (user) {
             handleAuthStateChange(user);
           } else {
-            console.error("Login failed. User not found.");
+            Alert.alert("Login failed. User not found.");
           }
         }
       );
     } catch (error) {
       // Handle authentication errors
-      console.error("Login failed. User not found.");
+      Alert.alert("Login failed. User not found.");
     }
   };
 
