@@ -8,7 +8,6 @@ import {
   Image,
   ImageBackground,
 } from "react-native";
-import bg from "../../assets/backgoundImages/rankbg.jpg";
 
 const Podium = ({ rankingData }) => {
   const sortedData = rankingData.slice().sort((a, b) => b.score - a.score);
